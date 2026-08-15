@@ -133,10 +133,36 @@ export default function App() {
     }));
   };
 
+  const handleDeleteTransactions = (ids: string[]) => {
+    const idSet = new Set(ids);
+    setAppState((prev) => ({
+      ...prev,
+      transactions: prev.transactions.filter((t) => !idSet.has(t.id))
+    }));
+  };
+
   const handleUpdateTransaction = (updatedTx: Transaction) => {
     setAppState((prev) => ({
       ...prev,
       transactions: prev.transactions.map((t) => (t.id === updatedTx.id ? updatedTx : t))
+    }));
+  };
+
+  const handleBatchUpdateCategory = (ids: string[], newCategoryId: string, syncType: boolean = true) => {
+    const idSet = new Set(ids);
+    const targetCategory = appState.categories.find(c => c.id === newCategoryId);
+    setAppState((prev) => ({
+      ...prev,
+      transactions: prev.transactions.map((t) => {
+        if (idSet.has(t.id)) {
+          return {
+            ...t,
+            category: newCategoryId,
+            type: syncType && targetCategory ? targetCategory.type : t.type
+          };
+        }
+        return t;
+      })
     }));
   };
 
@@ -492,6 +518,8 @@ export default function App() {
               isDashboardSnapshot={true}
               onViewAllLedger={() => setActiveTab('ledger')}
               onDeleteTransaction={handleDeleteTransaction}
+              onDeleteTransactions={handleDeleteTransactions}
+              onBatchUpdateCategory={handleBatchUpdateCategory}
               onUpdateTransaction={handleUpdateTransaction}
               onOpenQuickAdd={() => setIsQuickAddOpen(true)}
               onExportCSV={handleExportCSV}
@@ -510,6 +538,8 @@ export default function App() {
               lang={lang}
               settings={appState.settings}
               onDeleteTransaction={handleDeleteTransaction}
+              onDeleteTransactions={handleDeleteTransactions}
+              onBatchUpdateCategory={handleBatchUpdateCategory}
               onUpdateTransaction={handleUpdateTransaction}
               onOpenQuickAdd={() => setIsQuickAddOpen(true)}
               onExportCSV={handleExportCSV}

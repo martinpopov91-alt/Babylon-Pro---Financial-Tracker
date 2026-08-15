@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { 
   Search, 
   Filter, 
@@ -10,8 +10,14 @@ import {
   Plus, 
   Upload,
   Calendar,
-  ArrowUpDown,
-  Tag
+  Tag,
+  CheckSquare,
+  AlertTriangle,
+  ArrowRight,
+  ArrowDownRight,
+  ArrowUpRight,
+  Scale,
+  X
 } from 'lucide-react';
 import { Category, CategoryType, Language, Transaction, AppSettings } from '../types';
 import { getTranslation } from '../constants/translations';
@@ -28,6 +34,8 @@ interface TransactionLedgerProps {
   isDashboardSnapshot?: boolean;
   onViewAllLedger?: () => void;
   onDeleteTransaction: (id: string) => void;
+  onDeleteTransactions?: (ids: string[]) => void;
+  onBatchUpdateCategory?: (ids: string[], newCategoryId: string, syncType?: boolean) => void;
   onUpdateTransaction?: (updatedTransaction: Transaction) => void;
   onOpenQuickAdd: () => void;
   onExportCSV: () => void;
@@ -44,6 +52,8 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
   isDashboardSnapshot = false,
   onViewAllLedger,
   onDeleteTransaction,
+  onDeleteTransactions,
+  onBatchUpdateCategory,
   onUpdateTransaction,
   onOpenQuickAdd,
   onExportCSV,
@@ -59,6 +69,14 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
   const [selectedPeriodScope, setSelectedPeriodScope] = useState<'all' | 'period'>('all');
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
+
+  // Multi-select state
+  const [selectedTxIds, setSelectedTxIds] = useState<string[]>([]);
+  const [isBulkDeleteModalOpen, setIsBulkDeleteModalOpen] = useState(false);
+  const [isBatchCategoryModalOpen, setIsBatchCategoryModalOpen] = useState(false);
+  const [batchTargetCategory, setBatchTargetCategory] = useState<string>('');
+  const [syncTransactionType, setSyncTransactionType] = useState<boolean>(true);
+  const selectAllRef = useRef<HTMLInputElement | null>(null);
 
   // Active period info
   const activePeriodInfo = useMemo(() => {
@@ -118,9 +136,110 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
     }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }, [transactions, selectedPeriodScope, activePeriodInfo, selectedTypeFilter, selectedCategoryFilter, searchQuery, categories, lang]);
 
-  // Total filtered sum
+  // Filtered transaction IDs & selection logic
+  const filteredTxIds = useMemo(() => filteredTransactions.map(t => t.id), [filteredTransactions]);
+  const isAllSelected = filteredTxIds.length > 0 && filteredTxIds.every(id => selectedTxIds.includes(id));
+  const isSomeSelected = filteredTxIds.some(id => selectedTxIds.includes(id)) && !isAllSelected;
+
+  useEffect(() => {
+    if (selectAllRef.current) {
+      selectAllRef.current.indeterminate = isSomeSelected;
+    }
+  }, [isSomeSelected]);
+
+  const handleToggleSelectAll = () => {
+    if (isAllSelected) {
+      const filteredSet = new Set(filteredTxIds);
+      setSelectedTxIds(prev => prev.filter(id => !filteredSet.has(id)));
+    } else {
+      setSelectedTxIds(prev => Array.from(new Set([...prev, ...filteredTxIds])));
+    }
+  };
+
+  const handleToggleSelectRow = (id: string, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    setSelectedTxIds(prev => 
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    );
+  };
+
+  const handleClearSelection = () => {
+    setSelectedTxIds([]);
+  };
+
+  const selectedTransactions = useMemo(() => {
+    const idSet = new Set(selectedTxIds);
+    return transactions.filter(t => idSet.has(t.id));
+  }, [transactions, selectedTxIds]);
+
+  const selectedTotalSum = useMemo(() => {
+    return selectedTransactions.reduce((sum, item) => sum + item.amount, 0);
+  }, [selectedTransactions]);
+
+  const handleExecuteBulkDelete = () => {
+    if (selectedTxIds.length === 0) return;
+    if (onDeleteTransactions) {
+      onDeleteTransactions(selectedTxIds);
+    } else {
+      selectedTxIds.forEach(id => onDeleteTransaction(id));
+    }
+    setSelectedTxIds([]);
+    setIsBulkDeleteModalOpen(false);
+  };
+
+  const handleOpenBatchCategoryModal = () => {
+    if (categories.length > 0 && !batchTargetCategory) {
+      setBatchTargetCategory(categories[0].id);
+    }
+    setIsBatchCategoryModalOpen(true);
+  };
+
+  const handleExecuteBatchCategoryUpdate = () => {
+    if (selectedTxIds.length === 0 || !batchTargetCategory) return;
+    if (onBatchUpdateCategory) {
+      onBatchUpdateCategory(selectedTxIds, batchTargetCategory, syncTransactionType);
+    } else if (onUpdateTransaction) {
+      const targetCat = categories.find(c => c.id === batchTargetCategory);
+      selectedTransactions.forEach(tx => {
+        onUpdateTransaction({
+          ...tx,
+          category: batchTargetCategory,
+          type: syncTransactionType && targetCat ? targetCat.type : tx.type
+        });
+      });
+    }
+    setSelectedTxIds([]);
+    setIsBatchCategoryModalOpen(false);
+  };
+
+  // Total filtered sum & Income/Expense breakdown
   const totalFilteredSum = useMemo(() => {
     return filteredTransactions.reduce((sum, item) => sum + item.amount, 0);
+  }, [filteredTransactions]);
+
+  const { filteredIncomeSum, filteredExpenseSum, filteredNet, incomeCount, expenseCount } = useMemo(() => {
+    let inSum = 0;
+    let exSum = 0;
+    let inCount = 0;
+    let exCount = 0;
+
+    filteredTransactions.forEach((item) => {
+      if (item.type === 'income') {
+        inSum += item.amount;
+        inCount += 1;
+      } else {
+        exSum += item.amount;
+        exCount += 1;
+      }
+    });
+
+    return {
+      filteredIncomeSum: inSum,
+      filteredExpenseSum: exSum,
+      filteredNet: inSum - exSum,
+      incomeCount: inCount,
+      expenseCount: exCount,
+    };
   }, [filteredTransactions]);
 
   // Category Summary aggregation
@@ -177,9 +296,26 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               </button>
             )}
           </div>
-          <p className="text-xs text-zinc-400">
-            {t('total')}: <span className="font-bold text-zinc-200">{formatCurrency(totalFilteredSum, currency)}</span>
-          </p>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-zinc-400">
+            <span>
+              {t('total')}: <strong className="text-zinc-200">{formatCurrency(totalFilteredSum, currency)}</strong>
+            </span>
+            <span className="text-zinc-700">•</span>
+            <span className="text-emerald-400 font-semibold flex items-center gap-1">
+              <ArrowDownRight className="w-3 h-3" />
+              <span>{t('income')}: +{formatCurrency(filteredIncomeSum, currency)}</span>
+            </span>
+            <span className="text-zinc-700">•</span>
+            <span className="text-rose-400 font-semibold flex items-center gap-1">
+              <ArrowUpRight className="w-3 h-3" />
+              <span>{t('totalExpenses')}: -{formatCurrency(filteredExpenseSum, currency)}</span>
+            </span>
+            <span className="text-zinc-700">•</span>
+            <span className={`font-semibold flex items-center gap-1 ${filteredNet >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+              <Scale className="w-3 h-3" />
+              <span>{t('netCashFlow')}: {filteredNet >= 0 ? '+' : ''}{formatCurrency(filteredNet, currency)}</span>
+            </span>
+          </div>
         </div>
 
         {/* View Mode Toggle & Action Buttons */}
@@ -358,6 +494,51 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
         </div>
       </div>
 
+      {/* Bulk Selection Action Toolbar */}
+      {selectedTxIds.length > 0 && viewMode === 'list' && (
+        <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 sm:p-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl animate-fadeIn shadow-lg">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-amber-500 text-zinc-950 rounded-xl text-xs font-bold shadow-sm">
+              <CheckSquare className="w-4 h-4" />
+              <span>{selectedTxIds.length} {t('selected')}</span>
+            </div>
+            <div className="text-xs text-zinc-300">
+              <span className="text-zinc-400">{t('selectedTotal')}: </span>
+              <span className="font-bold text-amber-400 font-display">
+                {formatCurrency(selectedTotalSum, currency)}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              onClick={handleOpenBatchCategoryModal}
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 text-xs font-bold transition-all cursor-pointer shadow-sm"
+              title={t('changeCategory')}
+            >
+              <Tag className="w-3.5 h-3.5" />
+              <span>{t('changeCategory')}</span>
+            </button>
+
+            <button
+              onClick={handleClearSelection}
+              className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-semibold transition-colors cursor-pointer border border-zinc-700/60"
+            >
+              <X className="w-3.5 h-3.5" />
+              <span>{t('deselectAll')}</span>
+            </button>
+
+            <button
+              onClick={() => setIsBulkDeleteModalOpen(true)}
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold transition-all cursor-pointer shadow-md shadow-rose-500/20"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              <span>{t('deleteSelected')} ({selectedTxIds.length})</span>
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Content Section: LIST VIEW vs SUMMARY VIEW */}
       {viewMode === 'list' ? (
         /* List View Table / Cards */
@@ -379,6 +560,16 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               <table className="w-full text-left text-xs text-zinc-300">
                 <thead className="bg-zinc-800/60 text-zinc-400 font-semibold uppercase tracking-wider border-b border-zinc-800">
                   <tr>
+                    <th className="py-3.5 px-4 w-10 text-center">
+                      <input
+                        type="checkbox"
+                        ref={selectAllRef}
+                        checked={isAllSelected}
+                        onChange={handleToggleSelectAll}
+                        aria-label={t('selectAll')}
+                        className="w-4 h-4 rounded bg-zinc-800 border-zinc-700 text-amber-500 focus:ring-amber-500 cursor-pointer accent-amber-500"
+                      />
+                    </th>
                     <th className="py-3.5 px-4">{t('date')}</th>
                     <th className="py-3.5 px-4">{t('type')}</th>
                     <th className="py-3.5 px-4">{t('category')}</th>
@@ -390,12 +581,31 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                 <tbody className="divide-y divide-zinc-800">
                   {filteredTransactions.map((item) => {
                     const isIncome = item.type === 'income';
+                    const isSelected = selectedTxIds.includes(item.id);
+
                     return (
                       <tr 
                         key={item.id} 
-                        className="hover:bg-zinc-800/60 transition-colors group cursor-pointer"
+                        className={`transition-colors group cursor-pointer ${
+                          isSelected 
+                            ? 'bg-amber-500/10 hover:bg-amber-500/15' 
+                            : 'hover:bg-zinc-800/60'
+                        }`}
                         onClick={() => setEditingTransaction(item)}
                       >
+                        <td 
+                          className="py-3 px-4 text-center w-10"
+                          onClick={(e) => handleToggleSelectRow(item.id, e)}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            onChange={() => handleToggleSelectRow(item.id)}
+                            onClick={(e) => e.stopPropagation()}
+                            aria-label={`Select transaction ${item.id}`}
+                            className="w-4 h-4 rounded bg-zinc-800 border-zinc-700 text-amber-500 focus:ring-amber-500 cursor-pointer accent-amber-500"
+                          />
+                        </td>
                         <td className="py-3 px-4 font-mono text-zinc-400">
                           {item.date}
                         </td>
@@ -447,6 +657,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                               onClick={(e) => {
                                 e.stopPropagation();
                                 onDeleteTransaction(item.id);
+                                setSelectedTxIds(prev => prev.filter(id => id !== item.id));
                               }}
                               className="p-1.5 rounded-lg text-zinc-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
                               title={t('delete')}
@@ -459,83 +670,236 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                     );
                   })}
                 </tbody>
+                <tfoot className="bg-zinc-950/90 border-t-2 border-zinc-800 text-xs font-semibold">
+                  <tr>
+                    <td colSpan={2} className="py-4 px-4 text-zinc-300">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold uppercase tracking-wider font-display text-zinc-200 text-[11px]">
+                          {t('total')}
+                        </span>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-400 border border-zinc-700">
+                          {filteredTransactions.length} {lang === 'bg' ? 'транзакции' : 'txs'}
+                        </span>
+                      </div>
+                    </td>
+                    <td colSpan={3} className="py-4 px-4">
+                      <div className="flex flex-wrap items-center gap-2.5">
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                          <ArrowDownRight className="w-3.5 h-3.5" />
+                          <span className="text-[10px] uppercase font-bold text-emerald-500/80">{t('incomeTotal')}:</span>
+                          <span className="font-mono font-bold text-xs">+{formatCurrency(filteredIncomeSum, currency)}</span>
+                          <span className="text-[10px] text-emerald-500/60 font-normal">({incomeCount})</span>
+                        </div>
+
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400">
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                          <span className="text-[10px] uppercase font-bold text-rose-500/80">{t('expenseTotal')}:</span>
+                          <span className="font-mono font-bold text-xs">-{formatCurrency(filteredExpenseSum, currency)}</span>
+                          <span className="text-[10px] text-rose-500/60 font-normal">({expenseCount})</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-4 px-4 text-right">
+                      <div className="space-y-0.5">
+                        <div className="text-[10px] uppercase font-bold text-zinc-500 tracking-wider">
+                          {t('netCashFlow')}
+                        </div>
+                        <div className={`font-mono font-bold text-sm ${filteredNet >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                          {filteredNet >= 0 ? '+' : ''}{formatCurrency(filteredNet, currency)}
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-4 px-4"></td>
+                  </tr>
+                </tfoot>
               </table>
             </div>
 
-            {isDashboardSnapshot && onViewAllLedger && (
-              <div className="p-4 bg-zinc-900/60 border-t border-zinc-800/80 flex items-center justify-between">
-                <span className="text-xs text-zinc-400">
-                  {lang === 'bg' ? 'Показване на най-скорошните транзакции' : 'Showing most recent transactions'}
-                </span>
+            {/* Bottom Summary Bar for Filtered Totals */}
+            <div className="p-4 bg-zinc-950/80 border-t border-zinc-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-6">
+                <div className="flex items-center gap-2.5">
+                  <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <ArrowDownRight className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider flex items-center gap-1">
+                      <span>{t('incomeTotal')}</span>
+                      <span className="text-[9px] text-zinc-500 font-normal">({incomeCount})</span>
+                    </div>
+                    <div className="text-sm font-bold font-mono text-emerald-400 font-display">
+                      +{formatCurrency(filteredIncomeSum, currency)}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="h-8 w-px bg-zinc-800 hidden sm:block"></div>
+
+                <div className="flex items-center gap-2.5">
+                  <div className="p-2 rounded-xl bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                    <ArrowUpRight className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider flex items-center gap-1">
+                      <span>{t('expenseTotal')}</span>
+                      <span className="text-[9px] text-zinc-500 font-normal">({expenseCount})</span>
+                    </div>
+                    <div className="text-sm font-bold font-mono text-rose-400 font-display">
+                      -{formatCurrency(filteredExpenseSum, currency)}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="h-8 w-px bg-zinc-800 hidden sm:block"></div>
+
+                <div className="flex items-center gap-2.5">
+                  <div className={`p-2 rounded-xl border ${filteredNet >= 0 ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border-rose-500/20'}`}>
+                    <Scale className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">{t('netCashFlow')}</div>
+                    <div className={`text-sm font-bold font-mono font-display ${filteredNet >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                      {filteredNet >= 0 ? '+' : ''}{formatCurrency(filteredNet, currency)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {isDashboardSnapshot && onViewAllLedger ? (
                 <button
                   onClick={onViewAllLedger}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/20 text-xs font-bold transition-all cursor-pointer"
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/20 text-xs font-bold transition-all cursor-pointer self-start md:self-auto"
                 >
                   <span>{lang === 'bg' ? 'Виж Всички в Дневник →' : 'View All in Ledger →'}</span>
                 </button>
-              </div>
-            )}
+              ) : (
+                <div className="text-xs text-zinc-500 flex items-center gap-1.5 self-start md:self-auto">
+                  <span>{t('displayedTransactions')}:</span>
+                  <span className="font-bold text-zinc-300 font-mono">{filteredTransactions.length}</span>
+                </div>
+              )}
+            </div>
           </div>
         )
       ) : (
         /* Category Summary Stats View */
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {categoryStats.map((stat) => {
-            const catName = getCategoryName(stat.categoryId, categories, lang);
-            const percentage = totalFilteredSum > 0 ? (stat.totalAmount / totalFilteredSum) * 100 : 0;
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {categoryStats.map((stat) => {
+              const catName = getCategoryName(stat.categoryId, categories, lang);
+              const percentage = totalFilteredSum > 0 ? (stat.totalAmount / totalFilteredSum) * 100 : 0;
 
-            return (
-              <div key={stat.categoryId} className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 space-y-3 shadow-lg">
-                <div className="flex items-center justify-between">
-                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border ${getTypeBadgeColor(stat.type)}`}>
-                    {stat.type}
-                  </span>
-                  <span className="text-xs font-semibold text-zinc-400">
-                    {stat.count} {lang === 'bg' ? 'записа' : 'items'}
-                  </span>
+              return (
+                <div key={stat.categoryId} className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 space-y-3 shadow-lg">
+                  <div className="flex items-center justify-between">
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border ${getTypeBadgeColor(stat.type)}`}>
+                      {stat.type}
+                    </span>
+                    <span className="text-xs font-semibold text-zinc-400">
+                      {stat.count} {lang === 'bg' ? 'записа' : 'items'}
+                    </span>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center gap-1.5 mb-1">
+                      {(() => {
+                        const catObj = categories.find(c => c.id === stat.categoryId);
+                        const catColor = catObj?.color || '#a1a1aa';
+                        return (
+                          <span 
+                            className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-xs font-bold border" 
+                            style={{ 
+                              backgroundColor: `${catColor}15`, 
+                              color: catColor, 
+                              borderColor: `${catColor}30` 
+                            }}
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: catColor }}></span>
+                            <span className="truncate">{catName}</span>
+                          </span>
+                        )
+                      })()}
+                    </div>
+                    <p className="text-2xl font-black text-amber-400 font-display mt-1">
+                      {formatCurrency(stat.totalAmount, currency)}
+                    </p>
+                  </div>
+
+                  {/* Progress bar relative to total filtered expenses */}
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-[11px] text-zinc-400 font-medium">
+                      <span>{lang === 'bg' ? 'Дял от общите' : 'Share of total'}</span>
+                      <span>{percentage.toFixed(1)}%</span>
+                    </div>
+                    <div className="w-full h-2 rounded-full bg-zinc-800 overflow-hidden">
+                      <div
+                        className="h-full rounded-full bg-amber-500"
+                        style={{ width: `${Math.min(100, percentage)}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Bottom Summary Bar for Summary View */}
+          {filteredTransactions.length > 0 && (
+            <div className="p-4 bg-zinc-900 border border-zinc-800 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-6">
+                <div className="flex items-center gap-2.5">
+                  <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <ArrowDownRight className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider flex items-center gap-1">
+                      <span>{t('incomeTotal')}</span>
+                      <span className="text-[9px] text-zinc-500 font-normal">({incomeCount})</span>
+                    </div>
+                    <div className="text-sm font-bold font-mono text-emerald-400 font-display">
+                      +{formatCurrency(filteredIncomeSum, currency)}
+                    </div>
+                  </div>
                 </div>
 
-                <div>
-                  <div className="flex items-center gap-1.5 mb-1">
-                    {(() => {
-                      const catObj = categories.find(c => c.id === stat.categoryId);
-                      const catColor = catObj?.color || '#a1a1aa';
-                      return (
-                        <span 
-                          className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-xs font-bold border" 
-                          style={{ 
-                            backgroundColor: `${catColor}15`, 
-                            color: catColor, 
-                            borderColor: `${catColor}30` 
-                          }}
-                        >
-                          <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: catColor }}></span>
-                          <span className="truncate">{catName}</span>
-                        </span>
-                      )
-                    })()}
+                <div className="h-8 w-px bg-zinc-800 hidden sm:block"></div>
+
+                <div className="flex items-center gap-2.5">
+                  <div className="p-2 rounded-xl bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                    <ArrowUpRight className="w-4 h-4" />
                   </div>
-                  <p className="text-2xl font-black text-amber-400 font-display mt-1">
-                    {formatCurrency(stat.totalAmount, currency)}
-                  </p>
+                  <div>
+                    <div className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider flex items-center gap-1">
+                      <span>{t('expenseTotal')}</span>
+                      <span className="text-[9px] text-zinc-500 font-normal">({expenseCount})</span>
+                    </div>
+                    <div className="text-sm font-bold font-mono text-rose-400 font-display">
+                      -{formatCurrency(filteredExpenseSum, currency)}
+                    </div>
+                  </div>
                 </div>
 
-                {/* Progress bar relative to total filtered expenses */}
-                <div className="space-y-1">
-                  <div className="flex justify-between text-[11px] text-zinc-400 font-medium">
-                    <span>{lang === 'bg' ? 'Дял от общите' : 'Share of total'}</span>
-                    <span>{percentage.toFixed(1)}%</span>
+                <div className="h-8 w-px bg-zinc-800 hidden sm:block"></div>
+
+                <div className="flex items-center gap-2.5">
+                  <div className={`p-2 rounded-xl border ${filteredNet >= 0 ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border-rose-500/20'}`}>
+                    <Scale className="w-4 h-4" />
                   </div>
-                  <div className="w-full h-2 rounded-full bg-zinc-800 overflow-hidden">
-                    <div
-                      className="h-full rounded-full bg-amber-500"
-                      style={{ width: `${Math.min(100, percentage)}%` }}
-                    />
+                  <div>
+                    <div className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">{t('netCashFlow')}</div>
+                    <div className={`text-sm font-bold font-mono font-display ${filteredNet >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                      {filteredNet >= 0 ? '+' : ''}{formatCurrency(filteredNet, currency)}
+                    </div>
                   </div>
                 </div>
               </div>
-            );
-          })}
+
+              <div className="text-xs text-zinc-500 flex items-center gap-1.5 self-start md:self-auto">
+                <span>{t('displayedTransactions')}:</span>
+                <span className="font-bold text-zinc-300 font-mono">{filteredTransactions.length}</span>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -563,8 +927,217 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               onUpdateTransaction(updated);
             }
           }}
-          onDelete={onDeleteTransaction}
+          onDelete={(id) => {
+            onDeleteTransaction(id);
+            setSelectedTxIds(prev => prev.filter(item => item !== id));
+          }}
         />
+      )}
+
+      {/* Bulk Delete Confirmation Modal */}
+      {isBulkDeleteModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
+          <div className="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-2xl space-y-5 text-zinc-100">
+            <div className="flex items-center gap-3">
+              <span className="p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400">
+                <AlertTriangle className="w-6 h-6" />
+              </span>
+              <div>
+                <h3 className="font-bold text-base text-zinc-100 font-display">
+                  {lang === 'bg' ? 'Изтриване на множество транзакции' : 'Delete Multiple Transactions'}
+                </h3>
+                <p className="text-xs text-zinc-400 mt-0.5">
+                  {t('confirmDeleteMultiple').replace('{count}', selectedTxIds.length.toString())}
+                </p>
+              </div>
+            </div>
+
+            <div className="max-h-48 overflow-y-auto space-y-1.5 p-3 bg-zinc-950/60 rounded-xl border border-zinc-800/80 text-xs divide-y divide-zinc-800/40">
+              {selectedTransactions.map((tx) => (
+                <div key={tx.id} className="flex items-center justify-between text-zinc-300 py-1.5 first:pt-0 last:pb-0">
+                  <div className="flex items-center gap-2 truncate pr-2">
+                    <span className="font-mono text-zinc-500 text-[10px]">{tx.date}</span>
+                    <span className="truncate text-zinc-200">{tx.note || getCategoryName(tx.category, categories, lang)}</span>
+                  </div>
+                  <span className="font-bold font-mono text-amber-400 flex-shrink-0">
+                    {formatCurrency(tx.amount, currency)}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex items-center justify-between text-xs pt-1 border-t border-zinc-800 text-zinc-400">
+              <span>{t('total')}:</span>
+              <span className="font-bold font-display text-amber-400 text-sm">{formatCurrency(selectedTotalSum, currency)}</span>
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                onClick={() => setIsBulkDeleteModalOpen(false)}
+                className="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-semibold transition-colors cursor-pointer"
+              >
+                {t('cancel')}
+              </button>
+              <button
+                onClick={handleExecuteBulkDelete}
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold transition-all cursor-pointer shadow-md shadow-rose-500/20"
+              >
+                <Trash2 className="w-4 h-4" />
+                <span>{t('delete')} ({selectedTxIds.length})</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Batch Update Category Modal */}
+      {isBatchCategoryModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
+          <div className="w-full max-w-lg bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col my-8 animate-in fade-in zoom-in-95 duration-200">
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-zinc-800 p-5 bg-zinc-950/50">
+              <div className="flex items-center gap-3">
+                <span className="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                  <Tag className="w-5 h-5" />
+                </span>
+                <div>
+                  <h3 className="font-bold text-base text-zinc-100 font-display">
+                    {t('batchCategoryModalTitle')}
+                  </h3>
+                  <p className="text-xs text-zinc-400 mt-0.5">
+                    {t('batchCategoryModalSub').replace('{count}', selectedTxIds.length.toString())}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsBatchCategoryModalOpen(false)}
+                className="text-zinc-400 hover:text-zinc-100 p-2 rounded-xl hover:bg-zinc-800 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6 space-y-5">
+              {/* Category Selector */}
+              <div>
+                <label className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <Tag className="w-3.5 h-3.5 text-amber-400" />
+                  <span>{t('selectTargetCategory')}</span>
+                </label>
+
+                <select
+                  value={batchTargetCategory}
+                  onChange={(e) => setBatchTargetCategory(e.target.value)}
+                  className="w-full bg-zinc-950 border border-zinc-700 rounded-xl px-4 py-3 text-sm font-semibold text-zinc-100 focus:outline-none focus:border-amber-500 transition-colors cursor-pointer shadow-inner"
+                >
+                  {(() => {
+                    const mainCategories = categories.filter(c => !c.parentId);
+                    const renderedIds = new Set<string>();
+
+                    const groups = mainCategories.map(mainCat => {
+                      renderedIds.add(mainCat.id);
+                      const mainName = lang === 'bg' ? mainCat.nameBg : mainCat.nameEn;
+                      const subCats = categories.filter(c => c.parentId === mainCat.id);
+                      subCats.forEach(s => renderedIds.add(s.id));
+
+                      return (
+                        <optgroup key={mainCat.id} label={`${mainName} (${t(mainCat.type as any) || mainCat.type})`}>
+                          <option value={mainCat.id}>
+                            {mainName}
+                          </option>
+                          {subCats.map(sub => (
+                            <option key={sub.id} value={sub.id}>
+                              └ {lang === 'bg' ? sub.nameBg : sub.nameEn}
+                            </option>
+                          ))}
+                        </optgroup>
+                      );
+                    });
+
+                    const standalone = categories.filter(c => !renderedIds.has(c.id));
+                    if (standalone.length > 0) {
+                      groups.push(
+                        <optgroup key="other_group" label={lang === 'bg' ? 'Други' : 'Other'}>
+                          {standalone.map(cat => (
+                            <option key={cat.id} value={cat.id}>
+                              {lang === 'bg' ? cat.nameBg : cat.nameEn}
+                            </option>
+                          ))}
+                        </optgroup>
+                      );
+                    }
+
+                    return groups;
+                  })()}
+                </select>
+              </div>
+
+              {/* Auto sync type checkbox */}
+              <div className="p-3 bg-zinc-950/60 rounded-xl border border-zinc-800/80">
+                <label className="flex items-center gap-2.5 text-xs text-zinc-300 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={syncTransactionType}
+                    onChange={(e) => setSyncTransactionType(e.target.checked)}
+                    className="w-4 h-4 rounded bg-zinc-900 border-zinc-700 text-amber-500 focus:ring-amber-500 cursor-pointer accent-amber-500"
+                  />
+                  <span>{t('updateTypeToMatch')}</span>
+                </label>
+              </div>
+
+              {/* Preview of items */}
+              <div>
+                <div className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2 flex items-center justify-between">
+                  <span>{lang === 'bg' ? 'Преглед на избраните транзакции' : 'Preview Selected Transactions'}</span>
+                  <span className="text-amber-400 font-mono font-bold">
+                    {formatCurrency(selectedTotalSum, currency)}
+                  </span>
+                </div>
+                <div className="max-h-48 overflow-y-auto space-y-1 p-3 bg-zinc-950/80 rounded-xl border border-zinc-800/80 text-xs divide-y divide-zinc-800/40">
+                  {selectedTransactions.map((tx) => {
+                    const currentCatName = getCategoryName(tx.category, categories, lang);
+                    const targetCatName = getCategoryName(batchTargetCategory, categories, lang);
+
+                    return (
+                      <div key={tx.id} className="flex items-center justify-between text-zinc-300 py-2 first:pt-0 last:pb-0 gap-2">
+                        <div className="flex items-center gap-2 truncate min-w-0">
+                          <span className="font-mono text-zinc-500 text-[10px] flex-shrink-0">{tx.date}</span>
+                          <span className="truncate text-zinc-200 text-xs">{tx.note || currentCatName}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 flex-shrink-0 text-xs">
+                          <span className="text-zinc-500 max-w-[80px] truncate text-[11px]">{currentCatName}</span>
+                          <ArrowRight className="w-3 h-3 text-amber-500/70" />
+                          <span className="text-amber-400 font-semibold max-w-[90px] truncate text-[11px]">{targetCatName}</span>
+                          <span className="font-bold font-mono text-zinc-300 ml-1 text-[11px]">
+                            {formatCurrency(tx.amount, currency)}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="flex items-center justify-end gap-3 p-5 border-t border-zinc-800 bg-zinc-950/40">
+              <button
+                onClick={() => setIsBatchCategoryModalOpen(false)}
+                className="px-4 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-semibold transition-colors cursor-pointer"
+              >
+                {t('cancel')}
+              </button>
+              <button
+                onClick={handleExecuteBatchCategoryUpdate}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 text-xs font-bold transition-all cursor-pointer shadow-lg shadow-amber-500/20"
+              >
+                <CheckSquare className="w-4 h-4" />
+                <span>{t('applyCategory')} ({selectedTxIds.length})</span>
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
