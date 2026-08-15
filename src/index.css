@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-zinc-950: #f8fafc;
+    --color-zinc-900: #ffffff;
+    --color-zinc-800: #f1f5f9;
+    --color-zinc-700: #e2e8f0;
+    --color-zinc-600: #cbd5e1;
+    --color-zinc-500: #64748b;
+    --color-zinc-400: #475569;
+    --color-zinc-300: #334155;
+    --color-zinc-200: #1e293b;
+    --color-zinc-100: #0f172a;
+    --color-zinc-50: #020617;
+    color-scheme: light;
+  }
+
+  .dark {
+    --color-zinc-950: #09090b;
+    --color-zinc-900: #18181b;
+    --color-zinc-800: #27272a;
+    --color-zinc-700: #3f3f46;
+    --color-zinc-600: #52525b;
+    --color-zinc-500: #71717a;
+    --color-zinc-400: #a1a1aa;
+    --color-zinc-300: #d4d4d8;
+    --color-zinc-200: #e4e4e7;
+    --color-zinc-100: #f4f4f5;
+    --color-zinc-50: #fafafa;
+    color-scheme: dark;
+  }
+
+  html {
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  body {
+    background-color: var(--color-zinc-950);
+    color: var(--color-zinc-100);
+  }
+}
+
+/* Light mode enhanced card shadows and borders for depth */
+:root:not(.dark) .shadow-xl,
+:root:not(.dark) .shadow-2xl {
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+}
+
+:root:not(.dark) .shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.06), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+}
+
+/* Modal and popover styling in light mode */
+:root:not(.dark) #settings-modal > div,
+:root:not(.dark) #quick-add-modal > div,
+:root:not(.dark) #edit-transaction-modal > div,
+:root:not(.dark) #import-csv-modal > div,
+:root:not(.dark) #instructions-modal > div,
+:root:not(.dark) #onboarding-modal > div,
+:root:not(.dark) #pay-period-popover {
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.2);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-zinc-700);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-zinc-600);
+}
