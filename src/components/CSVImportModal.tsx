@@ -479,7 +479,7 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
                                   step="0.01"
                                   value={editForm?.amount || 0}
                                   onChange={e => setEditForm(prev => prev ? { ...prev, amount: parseFloat(e.target.value) || 0 } : null)}
-                                  className="w-full bg-zinc-900 border border-zinc-700 rounded px-2 py-1 text-xs text-right font-bold text-amber-400"
+                                  className="w-full bg-zinc-900 border border-zinc-700 rounded px-2 py-1 text-xs text-right font-bold text-emerald-400"
                                 />
                               ) : (
                                 <span className={`font-bold font-display ${tx.type === 'income' ? 'text-emerald-400' : 'text-zinc-100'}`}>
@@ -500,7 +500,7 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
                                 <div className="flex items-center justify-center gap-1">
                                   <button
                                     onClick={() => handleEditClick(idx)}
-                                    className="p-1.5 text-zinc-400 hover:text-amber-400 hover:bg-zinc-800 rounded-lg transition-colors cursor-pointer"
+                                    className="p-1.5 text-zinc-400 hover:text-emerald-400 hover:bg-zinc-800 rounded-lg transition-colors cursor-pointer"
                                     title={t('editBill')}
                                   >
                                     <Edit3 className="w-4 h-4" />

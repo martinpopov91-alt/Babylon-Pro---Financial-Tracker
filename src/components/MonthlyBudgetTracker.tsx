@@ -82,8 +82,8 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
     <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
       <div className="p-4 sm:p-6 border-b border-zinc-800 flex items-center justify-between">
         <div>
-          <h3 className="text-lg font-bold text-zinc-100 flex items-center gap-2">
-            <Target className="w-5 h-5 text-amber-500" />
+          <h3 className="text-base sm:text-lg font-bold text-zinc-100 flex items-center gap-2">
+            <Target className="w-5 h-5 text-emerald-400" />
             <span>{lang === 'bg' ? 'Бюджетни Лимити' : 'Budget Limits'}</span>
           </h3>
           <p className="text-xs text-zinc-400 mt-1">
@@ -92,9 +92,9 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
         </div>
         <button
           onClick={() => setIsEditing(!isEditing)}
-          className={`p-2 rounded-lg transition-colors ${
+          className={`p-2 rounded-lg transition-colors cursor-pointer ${
             isEditing 
-              ? 'bg-amber-500/10 text-amber-500' 
+              ? 'bg-emerald-500/15 text-emerald-400' 
               : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700'
           }`}
         >
@@ -139,11 +139,11 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
                           type="number"
                           value={limit}
                           onChange={(e) => handleUpdateLimit(catId, e.target.value)}
-                          className="w-24 px-2 py-1 bg-zinc-950 border border-zinc-800 rounded-md text-xs text-right text-zinc-200 focus:outline-none focus:border-amber-500"
+                          className="w-24 px-2 py-1 bg-zinc-950 border border-zinc-800 rounded-md text-xs text-right text-zinc-200 focus:outline-none focus:border-emerald-500"
                         />
                         <button
                           onClick={() => handleRemoveLimit(catId)}
-                          className="p-1 text-zinc-500 hover:text-rose-500 transition-colors"
+                          className="p-1 text-zinc-500 hover:text-rose-500 transition-colors cursor-pointer"
                         >
                           <X className="w-4 h-4" />
                         </button>
@@ -190,7 +190,7 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
               <select
                 value={newCategoryId}
                 onChange={(e) => setNewCategoryId(e.target.value)}
-                className="flex-1 px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-lg text-sm text-zinc-200 focus:outline-none focus:border-amber-500"
+                className="flex-1 px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-lg text-sm text-zinc-200 focus:outline-none focus:border-emerald-500"
               >
                 <option value="">{lang === 'bg' ? 'Избери категория' : 'Select category'}</option>
                 {availableCategories.map(c => (
@@ -204,12 +204,12 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
                 placeholder="0.00"
                 value={newLimit}
                 onChange={(e) => setNewLimit(e.target.value)}
-                className="w-24 px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-lg text-sm text-zinc-200 focus:outline-none focus:border-amber-500"
+                className="w-24 px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-lg text-sm text-zinc-200 focus:outline-none focus:border-emerald-500"
               />
               <button
                 onClick={handleSaveNewLimit}
                 disabled={!newCategoryId || !newLimit}
-                className="p-2 bg-amber-500 text-zinc-950 rounded-lg font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-amber-400 transition-colors"
+                className="p-2 bg-emerald-600 text-white rounded-lg font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-emerald-500 transition-colors cursor-pointer"
               >
                 <Plus className="w-5 h-5" />
               </button>

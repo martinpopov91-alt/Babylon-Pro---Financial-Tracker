@@ -238,10 +238,10 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center gap-2 px-2.5 py-1 rounded-lg hover:bg-zinc-700/60 transition-colors text-left cursor-pointer group"
         >
-          <Calendar className="w-4 h-4 text-amber-400 flex-shrink-0" />
+          <Calendar className="w-4 h-4 text-emerald-400 flex-shrink-0" />
           
           <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
-            <span className="font-bold text-zinc-200 group-hover:text-amber-400 transition-colors text-xs whitespace-nowrap">
+            <span className="font-bold text-zinc-200 group-hover:text-emerald-400 transition-colors text-xs whitespace-nowrap">
               {activePeriodInfo.label}
             </span>
 
@@ -256,7 +256,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                 <span>{t('pastPeriod')}</span>
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.2 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 whitespace-nowrap">
+              <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.2 rounded-full bg-teal-500/10 text-teal-400 border border-teal-500/20 whitespace-nowrap">
                 <span>{t('futurePeriod')}</span>
               </span>
             )}
@@ -281,7 +281,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
             id="jump-to-current-btn"
             onClick={handleResetToCurrent}
             title={t('jumpToCurrent')}
-            className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[11px] font-bold transition-all cursor-pointer ml-0.5"
+            className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold transition-all cursor-pointer ml-0.5"
           >
             <RotateCcw className="w-3 h-3" />
             <span>{t('today')}</span>
@@ -298,7 +298,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
           {/* Header */}
           <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
             <div className="flex items-center gap-2">
-              <span className="p-1.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20">
+              <span className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                 <CalendarRange className="w-4 h-4" />
               </span>
               <h3 className="text-sm font-bold font-display text-zinc-100">
@@ -319,7 +319,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
               onClick={() => setActiveTab('payday')}
               className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-bold transition-all ${
                 activeTab === 'payday'
-                  ? 'bg-amber-500 text-zinc-950 shadow-sm'
+                  ? 'bg-emerald-600 text-white shadow-sm'
                   : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
@@ -330,7 +330,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
               onClick={() => setActiveTab('calendar')}
               className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-bold transition-all ${
                 activeTab === 'calendar'
-                  ? 'bg-amber-500 text-zinc-950 shadow-sm'
+                  ? 'bg-emerald-600 text-white shadow-sm'
                   : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
@@ -341,7 +341,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
               onClick={() => setActiveTab('custom')}
               className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-bold transition-all ${
                 activeTab === 'custom'
-                  ? 'bg-amber-500 text-zinc-950 shadow-sm'
+                  ? 'bg-emerald-600 text-white shadow-sm'
                   : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
@@ -359,7 +359,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                 <div className="p-3 bg-zinc-800/60 rounded-xl border border-zinc-700/50 flex items-center justify-between gap-3">
                   <div className="text-xs">
                     <span className="font-semibold text-zinc-300">{t('paydayDay')}: </span>
-                    <span className="font-bold text-amber-400">
+                    <span className="font-bold text-emerald-400">
                       {tempStartDay === 1 ? (lang === 'bg' ? '1-во число (Месечен)' : '1st of month') : `${tempStartDay}-то число`}
                     </span>
                   </div>
@@ -370,7 +370,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                       max="31"
                       value={tempStartDay}
                       onChange={(e) => setTempStartDay(Math.min(31, Math.max(1, parseInt(e.target.value) || 1)))}
-                      className="w-14 px-2 py-1 bg-zinc-950 border border-zinc-700 rounded-lg text-xs text-center font-bold text-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                      className="w-14 px-2 py-1 bg-zinc-950 border border-zinc-700 rounded-lg text-xs text-center font-bold text-emerald-400 focus:outline-none focus:ring-1 focus:ring-emerald-500"
                     />
                   </div>
                 </div>
@@ -390,7 +390,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                         onClick={() => handleSelectPaydayPeriod(opt.offset)}
                         className={`w-full flex items-center justify-between p-2.5 rounded-xl border text-xs text-left transition-all cursor-pointer ${
                           isSelected
-                            ? 'bg-amber-500/15 border-amber-500 text-amber-300 font-bold'
+                            ? 'bg-emerald-500/15 border-emerald-500 text-emerald-400 font-bold'
                             : 'bg-zinc-950/60 border-zinc-800/80 text-zinc-300 hover:bg-zinc-800/70 hover:border-zinc-700'
                         }`}
                       >
@@ -408,7 +408,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                           </p>
                         </div>
 
-                        {isSelected && <Check className="w-4 h-4 text-amber-400" />}
+                        {isSelected && <Check className="w-4 h-4 text-emerald-400" />}
                       </button>
                     );
                   })}
@@ -433,7 +433,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                       onClick={() => handleSelectCalendarMonth(opt.offset)}
                       className={`w-full flex items-center justify-between p-2.5 rounded-xl border text-xs text-left transition-all cursor-pointer ${
                         isSelected
-                          ? 'bg-amber-500/15 border-amber-500 text-amber-300 font-bold'
+                          ? 'bg-emerald-500/15 border-emerald-500 text-emerald-400 font-bold'
                           : 'bg-zinc-950/60 border-zinc-800/80 text-zinc-300 hover:bg-zinc-800/70 hover:border-zinc-700'
                       }`}
                     >
@@ -451,7 +451,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                         </p>
                       </div>
 
-                      {isSelected && <Check className="w-4 h-4 text-amber-400" />}
+                      {isSelected && <Check className="w-4 h-4 text-emerald-400" />}
                     </button>
                   );
                 })}
@@ -472,7 +472,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                       required
                       value={customStart}
                       onChange={(e) => setCustomStart(e.target.value)}
-                      className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-xs text-zinc-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                      className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-xs text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
                   </div>
 
@@ -485,7 +485,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                       required
                       value={customEnd}
                       onChange={(e) => setCustomEnd(e.target.value)}
-                      className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-xs text-zinc-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                      className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-xs text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
                   </div>
                 </div>
@@ -544,7 +544,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                 <div className="pt-2 flex justify-end">
                   <button
                     type="submit"
-                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-xs shadow-md transition-all cursor-pointer"
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-sm transition-all cursor-pointer"
                   >
                     <span>{t('applyDates')}</span>
                     <ArrowRight className="w-3.5 h-3.5" />

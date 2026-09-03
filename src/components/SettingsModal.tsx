@@ -102,7 +102,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
           <div className="flex items-center gap-2.5">
-            <span className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <span className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
               <Settings className="w-5 h-5" />
             </span>
             <h2 className="text-xl font-bold font-display text-zinc-100">{t('settingsTitle')}</h2>
@@ -121,7 +121,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             onClick={() => setActiveTab('general')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'general'
-                ? 'bg-amber-500 text-zinc-950 shadow-md'
+                ? 'bg-emerald-600 text-white shadow-sm'
                 : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
             }`}
           >
@@ -131,7 +131,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             onClick={() => setActiveTab('appearance')}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'appearance'
-                ? 'bg-amber-500 text-zinc-950 shadow-md'
+                ? 'bg-emerald-600 text-white shadow-sm'
                 : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
             }`}
           >
@@ -142,7 +142,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             onClick={() => setActiveTab('categories')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'categories'
-                ? 'bg-amber-500 text-zinc-950 shadow-md'
+                ? 'bg-emerald-600 text-white shadow-sm'
                 : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
             }`}
           >
@@ -152,7 +152,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             onClick={() => setActiveTab('backup')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'backup'
-                ? 'bg-amber-500 text-zinc-950 shadow-md'
+                ? 'bg-emerald-600 text-white shadow-sm'
                 : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
             }`}
           >
@@ -168,7 +168,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               {/* Quick Theme Selector Banner in General Tab for high discoverability */}
               <div className="p-4 bg-zinc-800/60 rounded-2xl border border-zinc-700/60 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
                     <Palette className="w-3.5 h-3.5" />
                     {t('theme')}
                   </span>
@@ -182,15 +182,15 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     onClick={() => handleThemeChange('dark')}
                     className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all cursor-pointer ${
                       settings.theme === 'dark'
-                        ? 'bg-amber-500/10 border-amber-500 text-amber-400 ring-1 ring-amber-500/50'
+                        ? 'bg-emerald-500/10 border-emerald-500 text-emerald-400 ring-1 ring-emerald-500/50'
                         : 'bg-zinc-800 border-zinc-700 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'
                     }`}
                   >
                     <div className="flex items-center gap-2">
-                      <Moon className="w-4 h-4 text-amber-400" />
+                      <Moon className="w-4 h-4 text-emerald-400" />
                       <span className="text-xs font-bold">{t('darkMode')}</span>
                     </div>
-                    {settings.theme === 'dark' && <CheckCircle2 className="w-4 h-4 text-amber-400" />}
+                    {settings.theme === 'dark' && <CheckCircle2 className="w-4 h-4 text-emerald-400" />}
                   </button>
 
                   <button
@@ -198,15 +198,15 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     onClick={() => handleThemeChange('light')}
                     className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all cursor-pointer ${
                       settings.theme === 'light'
-                        ? 'bg-amber-500/10 border-amber-500 text-amber-500 ring-1 ring-amber-500/50'
+                        ? 'bg-emerald-500/10 border-emerald-500 text-emerald-500 ring-1 ring-emerald-500/50'
                         : 'bg-zinc-800 border-zinc-700 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'
                     }`}
                   >
                     <div className="flex items-center gap-2">
-                      <Sun className="w-4 h-4 text-amber-500" />
+                      <Sun className="w-4 h-4 text-emerald-500" />
                       <span className="text-xs font-bold">{t('lightMode')}</span>
                     </div>
-                    {settings.theme === 'light' && <CheckCircle2 className="w-4 h-4 text-amber-500" />}
+                    {settings.theme === 'light' && <CheckCircle2 className="w-4 h-4 text-emerald-500" />}
                   </button>
                 </div>
               </div>
@@ -220,7 +220,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     required
                     value={salary}
                     onChange={(e) => setSalary(parseFloat(e.target.value) || 0)}
-                    className="w-full px-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-xl text-sm font-bold text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="w-full px-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-xl text-sm font-bold text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
 
@@ -229,7 +229,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   <select
                     value={currency}
                     onChange={(e) => setCurrency(e.target.value as Currency)}
-                    className="w-full px-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-xl text-sm font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer"
+                    className="w-full px-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-xl text-sm font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
                   >
                     <option value="BGN">BGN (лв.)</option>
                     <option value="EUR">EUR (€)</option>
@@ -248,7 +248,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     max="31"
                     value={startDay}
                     onChange={(e) => setStartDay(parseInt(e.target.value) || 1)}
-                    className="w-full px-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-xl text-sm font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="w-full px-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-xl text-sm font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
 
@@ -258,7 +258,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     id="rollover-toggle"
                     checked={rollover}
                     onChange={(e) => setRollover(e.target.checked)}
-                    className="w-4 h-4 rounded bg-zinc-800 border-zinc-700 text-amber-500 focus:ring-amber-500 cursor-pointer"
+                    className="w-4 h-4 rounded bg-zinc-800 border-zinc-700 text-emerald-500 focus:ring-emerald-500 cursor-pointer accent-emerald-500"
                   />
                   <label htmlFor="rollover-toggle" className="text-xs font-semibold text-zinc-300 cursor-pointer">
                     {t('rolloverEnabled')}
@@ -268,7 +268,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
               {/* Babylon Rule Sliders */}
               <div className="p-4 bg-zinc-800/60 rounded-2xl border border-zinc-700/60 space-y-4">
-                <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider">{t('babylonHeadline')}</h4>
+                <h4 className="text-xs font-bold text-emerald-400 uppercase tracking-wider">{t('babylonHeadline')}</h4>
 
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs font-semibold">
@@ -292,9 +292,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs font-semibold">
-                    <span className="text-amber-400">{t('wealthShort')}</span>
+                    <span className="text-emerald-400">{t('wealthShort')}</span>
                     <div className="text-right">
-                      <span className="text-amber-400 font-bold">{wealthPercent}%</span>
+                      <span className="text-emerald-400 font-bold">{wealthPercent}%</span>
                       <span className="text-zinc-500 ml-2">
                         ({formatCurrency((salary * wealthPercent) / 100, currency)})
                       </span>
@@ -306,7 +306,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     max="50"
                     value={wealthPercent}
                     onChange={(e) => setWealthPercent(parseInt(e.target.value))}
-                    className="w-full accent-amber-500 cursor-pointer"
+                    className="w-full accent-emerald-500 cursor-pointer"
                   />
                 </div>
               </div>
@@ -314,7 +314,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               <div className="flex justify-end pt-3">
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-sm shadow-md cursor-pointer transition-colors"
+                  className="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-sm cursor-pointer transition-colors"
                 >
                   {t('save')}
                 </button>
@@ -328,7 +328,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               {/* Theme Selection */}
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
-                  <Palette className="w-4 h-4 text-amber-400" />
+                  <Palette className="w-4 h-4 text-emerald-400" />
                   <h3 className="text-sm font-bold text-zinc-100">{t('appearance')}</h3>
                 </div>
                 <p className="text-xs text-zinc-400">
@@ -343,16 +343,16 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     onClick={() => handleThemeChange('dark')}
                     className={`p-4 rounded-2xl border-2 transition-all cursor-pointer relative overflow-hidden flex flex-col justify-between gap-3 ${
                       settings.theme === 'dark'
-                        ? 'bg-zinc-950 border-amber-500 shadow-lg shadow-amber-500/10'
+                        ? 'bg-zinc-950 border-emerald-500 shadow-lg shadow-emerald-500/10'
                         : 'bg-zinc-800/80 border-zinc-700/80 hover:border-zinc-600'
                     }`}
                   >
                     <div className="flex items-start justify-between">
-                      <div className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400">
+                      <div className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-emerald-400">
                         <Moon className="w-5 h-5" />
                       </div>
                       {settings.theme === 'dark' && (
-                        <span className="flex items-center gap-1 text-[11px] font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/30">
+                        <span className="flex items-center gap-1 text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30">
                           <Check className="w-3 h-3 stroke-[3]" />
                           {t('status')}
                         </span>
@@ -366,7 +366,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
                     {/* Miniature Theme Preview Bars */}
                     <div className="h-4 rounded-lg bg-zinc-900 border border-zinc-800 p-1 flex items-center gap-1.5">
-                      <div className="w-2 h-2 rounded-full bg-amber-400" />
+                      <div className="w-2 h-2 rounded-full bg-emerald-400" />
                       <div className="w-8 h-1.5 rounded-full bg-zinc-700" />
                       <div className="w-4 h-1.5 rounded-full bg-emerald-500" />
                     </div>
@@ -377,16 +377,16 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     onClick={() => handleThemeChange('light')}
                     className={`p-4 rounded-2xl border-2 transition-all cursor-pointer relative overflow-hidden flex flex-col justify-between gap-3 ${
                       settings.theme === 'light'
-                        ? 'bg-zinc-100 border-amber-500 shadow-lg shadow-amber-500/10'
+                        ? 'bg-zinc-100 border-emerald-500 shadow-lg shadow-emerald-500/10'
                         : 'bg-zinc-800/80 border-zinc-700/80 hover:border-zinc-600'
                     }`}
                   >
                     <div className="flex items-start justify-between">
-                      <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-500">
+                      <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600">
                         <Sun className="w-5 h-5" />
                       </div>
                       {settings.theme === 'light' && (
-                        <span className="flex items-center gap-1 text-[11px] font-bold text-amber-600 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/30">
+                        <span className="flex items-center gap-1 text-[11px] font-bold text-emerald-600 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30">
                           <Check className="w-3 h-3 stroke-[3]" />
                           {t('status')}
                         </span>
@@ -404,7 +404,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
                     {/* Miniature Theme Preview Bars */}
                     <div className="h-4 rounded-lg bg-white border border-zinc-300 p-1 flex items-center gap-1.5">
-                      <div className="w-2 h-2 rounded-full bg-amber-500" />
+                      <div className="w-2 h-2 rounded-full bg-emerald-600" />
                       <div className="w-8 h-1.5 rounded-full bg-zinc-300" />
                       <div className="w-4 h-1.5 rounded-full bg-emerald-600" />
                     </div>
@@ -415,7 +415,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               {/* Language Selection */}
               <div className="p-4 bg-zinc-800/60 rounded-2xl border border-zinc-700/60 space-y-3">
                 <div className="flex items-center gap-2">
-                  <Globe className="w-4 h-4 text-amber-400" />
+                  <Globe className="w-4 h-4 text-emerald-400" />
                   <h4 className="text-xs font-bold text-zinc-200 uppercase">{t('language')}</h4>
                 </div>
 
@@ -425,7 +425,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     onClick={() => handleLanguageChange('en')}
                     className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all cursor-pointer ${
                       lang === 'en'
-                        ? 'bg-amber-500/10 border-amber-500 text-amber-400'
+                        ? 'bg-emerald-500/10 border-emerald-500 text-emerald-400'
                         : 'bg-zinc-800 border-zinc-700 text-zinc-400 hover:text-zinc-200'
                     }`}
                   >
@@ -433,7 +433,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                       <div className="font-bold text-xs">English (EN)</div>
                       <div className="text-[10px] text-zinc-500">United States / Global</div>
                     </div>
-                    {lang === 'en' && <Check className="w-4 h-4 text-amber-400" />}
+                    {lang === 'en' && <Check className="w-4 h-4 text-emerald-400" />}
                   </button>
 
                   <button
@@ -441,7 +441,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     onClick={() => handleLanguageChange('bg')}
                     className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all cursor-pointer ${
                       lang === 'bg'
-                        ? 'bg-amber-500/10 border-amber-500 text-amber-400'
+                        ? 'bg-emerald-500/10 border-emerald-500 text-emerald-400'
                         : 'bg-zinc-800 border-zinc-700 text-zinc-400 hover:text-zinc-200'
                     }`}
                   >
@@ -449,13 +449,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                       <div className="font-bold text-xs">Български (BG)</div>
                       <div className="text-[10px] text-zinc-500">България (лв.)</div>
                     </div>
-                    {lang === 'bg' && <Check className="w-4 h-4 text-amber-400" />}
+                    {lang === 'bg' && <Check className="w-4 h-4 text-emerald-400" />}
                   </button>
                 </div>
               </div>
 
               {/* Live Info Banner */}
-              <div className="flex items-center gap-2.5 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs">
+              <div className="flex items-center gap-2.5 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs">
                 <Sparkles className="w-4 h-4 flex-shrink-0" />
                 <span>{t('themeChanged')}</span>
               </div>
@@ -483,7 +483,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 <div className="flex flex-wrap items-center gap-3">
                   <button
                     onClick={onExportCSV}
-                    className="flex items-center gap-2 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-xs font-bold text-amber-400 rounded-xl cursor-pointer transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-xs font-bold text-emerald-400 rounded-xl cursor-pointer transition-colors"
                   >
                     <Download className="w-4 h-4" />
                     <span>{t('exportCSV')}</span>

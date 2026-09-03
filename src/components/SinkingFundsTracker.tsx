@@ -163,7 +163,7 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
         </div>
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <p className="text-xs font-semibold text-zinc-400">{t('monthlyTarget')}</p>
-          <p className="text-2xl font-black text-amber-400 font-display mt-1">
+          <p className="text-2xl font-black text-emerald-400 font-display mt-1">
             {formatCurrency(totalMonthlySum, currency)}
           </p>
         </div>
@@ -209,7 +209,7 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
                         {goal.name}
                       </h3>
                       <p className="text-xs text-zinc-400 font-medium mt-0.5">
-                        {t('monthlyTarget')}: <span className="text-amber-400 font-bold">{goal.monthlyTarget > 0 ? formatCurrency(goal.monthlyTarget, currency) : (lang === 'bg' ? 'Няма' : 'None')}</span>
+                        {t('monthlyTarget')}: <span className="text-emerald-400 font-bold">{goal.monthlyTarget > 0 ? formatCurrency(goal.monthlyTarget, currency) : (lang === 'bg' ? 'Няма' : 'None')}</span>
                       </p>
                     </div>
                   </div>

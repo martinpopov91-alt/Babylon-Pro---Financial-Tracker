@@ -56,7 +56,7 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
   return (
     <div className="space-y-4">
       <h3 className="text-sm font-bold text-zinc-100 flex items-center gap-2">
-        <Tag className="w-4 h-4 text-amber-400" />
+        <Tag className="w-4 h-4 text-emerald-400" />
         <span>{t('categoryManagement')}</span>
       </h3>
 
@@ -105,7 +105,7 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
         </select>
         <button
           type="submit"
-          className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-xs rounded-lg transition-colors cursor-pointer"
+          className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs rounded-lg transition-colors cursor-pointer"
         >
           + {t('add')}
         </button>
@@ -121,7 +121,7 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
 
           return (
             <div key={type} className="space-y-2">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400">
                 {label} ({catGroup.length})
               </span>
               <div className="space-y-2">

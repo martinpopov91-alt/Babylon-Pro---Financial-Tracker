@@ -38,6 +38,9 @@ import { InstructionsModal } from './components/InstructionsModal';
 
 import { MonthlyBudgetTracker } from './components/MonthlyBudgetTracker';
 import { SpendingAnalytics } from './components/SpendingAnalytics';
+import { KeyboardShortcutsModal } from './components/KeyboardShortcutsModal';
+import { ConfirmModal } from './components/ConfirmModal';
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 
 export default function App() {
   const [appState, setAppState] = useState<AppState>(() => loadAppState());
@@ -48,6 +51,16 @@ export default function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
+  const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState<{
+    isOpen: boolean;
+    type: 'transaction' | 'goal' | null;
+    id: string | null;
+  }>({
+    isOpen: false,
+    type: null,
+    id: null
+  });
 
   // Sync state to localStorage on any change
   useEffect(() => {
@@ -88,6 +101,42 @@ export default function App() {
   // Financial calculations memo
   const summary = useMemo(() => calculateFinancials(appState), [appState]);
 
+  const [isMac, setIsMac] = useState(false);
+  useEffect(() => {
+    if (typeof window !== 'undefined' && navigator.platform) {
+      setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
+    }
+  }, []);
+
+  const modKey = isMac ? '⌘' : 'Ctrl';
+
+  const isAnyModalOpen =
+    isQuickAddOpen || isSettingsOpen || isOnboardingOpen || isInstructionsOpen || isShortcutsOpen || deleteConfirmation.isOpen;
+
+  const handleCloseAllModals = () => {
+    setIsQuickAddOpen(false);
+    setIsSettingsOpen(false);
+    setIsOnboardingOpen(false);
+    setIsInstructionsOpen(false);
+    setIsShortcutsOpen(false);
+    setDeleteConfirmation({ isOpen: false, type: null, id: null });
+  };
+
+  // Register power-user keyboard shortcuts
+  useKeyboardShortcuts({
+    activeTab,
+    setActiveTab,
+    onOpenQuickAdd: () => setIsQuickAddOpen(true),
+    onOpenSettings: () => setIsSettingsOpen(true),
+    onOpenShortcuts: () => setIsShortcutsOpen(true),
+    onToggleTheme: () =>
+      handleUpdateSettings({ theme: appState.settings.theme === 'dark' ? 'light' : 'dark' }),
+    onToggleLanguage: () =>
+      handleUpdateSettings({ language: lang === 'en' ? 'bg' : 'en' }),
+    onCloseModal: handleCloseAllModals,
+    isAnyModalOpen,
+  });
+
   // State Handlers
   const handleUpdateSettings = (newSettings: Partial<AppState['settings']>) => {
     setAppState((prev) => ({
@@ -127,6 +176,10 @@ export default function App() {
   };
 
   const handleDeleteTransaction = (id: string) => {
+    setDeleteConfirmation({ isOpen: true, type: 'transaction', id });
+  };
+
+  const executeDeleteTransaction = (id: string) => {
     setAppState((prev) => ({
       ...prev,
       transactions: prev.transactions.filter((t) => t.id !== id)
@@ -198,10 +251,23 @@ export default function App() {
   };
 
   const handleDeleteGoal = (id: string) => {
+    setDeleteConfirmation({ isOpen: true, type: 'goal', id });
+  };
+
+  const executeDeleteGoal = (id: string) => {
     setAppState((prev) => ({
       ...prev,
       goals: prev.goals.filter((g) => g.id !== id)
     }));
+  };
+
+  const confirmDelete = () => {
+    if (deleteConfirmation.type === 'transaction' && deleteConfirmation.id) {
+      executeDeleteTransaction(deleteConfirmation.id);
+    } else if (deleteConfirmation.type === 'goal' && deleteConfirmation.id) {
+      executeDeleteGoal(deleteConfirmation.id);
+    }
+    setDeleteConfirmation({ isOpen: false, type: null, id: null });
   };
 
   const handleDepositToGoal = (goalId: string, amount: number, recordAsTransaction: boolean) => {
@@ -380,7 +446,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-amber-500 selection:text-zinc-950 transition-colors duration-200 flex flex-col">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-emerald-500 selection:text-zinc-950 transition-colors duration-200 flex flex-col">
       {/* Top Navigation Header */}
       <Header
         state={appState}
@@ -388,79 +454,114 @@ export default function App() {
         onOpenSettings={() => setIsSettingsOpen(true)}
         onOpenOnboarding={() => setIsOnboardingOpen(true)}
         onOpenInstructions={() => setIsInstructionsOpen(true)}
+        onOpenShortcuts={() => setIsShortcutsOpen(true)}
       />
 
       {/* Primary Tab Bar */}
       <nav id="app-primary-nav" className="bg-zinc-900/60 border-b border-zinc-800 sticky top-16 z-30 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between overflow-x-auto no-scrollbar py-2">
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="flex items-center gap-1 sm:gap-1.5">
             <button
               onClick={() => setActiveTab('dashboard')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
+              title={`Dashboard (${modKey}+1)`}
+              className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer whitespace-nowrap group ${
                 activeTab === 'dashboard'
-                  ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/10'
+                  ? 'bg-emerald-600 text-white shadow-sm'
                   : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
               }`}
             >
               <LayoutDashboard className="w-4 h-4" />
               <span>{t('dashboard')}</span>
+              <kbd className={`hidden lg:inline-block px-1.5 py-0.2 rounded text-[10px] font-mono transition-opacity ${
+                activeTab === 'dashboard' ? 'bg-emerald-700/50 text-white font-bold' : 'bg-zinc-800/80 text-zinc-500 group-hover:text-zinc-300'
+              }`}>
+                1
+              </kbd>
             </button>
 
             <button
               onClick={() => setActiveTab('ledger')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
+              title={`Ledger (${modKey}+2)`}
+              className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer whitespace-nowrap group ${
                 activeTab === 'ledger'
-                  ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/10'
+                  ? 'bg-emerald-600 text-white shadow-sm'
                   : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
               }`}
             >
               <ListOrdered className="w-4 h-4" />
               <span>{t('ledger')}</span>
+              <kbd className={`hidden lg:inline-block px-1.5 py-0.2 rounded text-[10px] font-mono transition-opacity ${
+                activeTab === 'ledger' ? 'bg-emerald-700/50 text-white font-bold' : 'bg-zinc-800/80 text-zinc-500 group-hover:text-zinc-300'
+              }`}>
+                2
+              </kbd>
             </button>
 
             <button
               onClick={() => setActiveTab('analytics')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
+              title={`Analytics (${modKey}+3)`}
+              className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer whitespace-nowrap group ${
                 activeTab === 'analytics'
-                  ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/10'
+                  ? 'bg-emerald-600 text-white shadow-sm'
                   : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
               }`}
             >
               <PieChart className="w-4 h-4" />
               <span>{t('analytics')}</span>
+              <kbd className={`hidden lg:inline-block px-1.5 py-0.2 rounded text-[10px] font-mono transition-opacity ${
+                activeTab === 'analytics' ? 'bg-emerald-700/50 text-white font-bold' : 'bg-zinc-800/80 text-zinc-500 group-hover:text-zinc-300'
+              }`}>
+                3
+              </kbd>
             </button>
 
             <button
               onClick={() => setActiveTab('vaults')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
+              title={`Vaults (${modKey}+4)`}
+              className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer whitespace-nowrap group ${
                 activeTab === 'vaults'
-                  ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/10'
+                  ? 'bg-emerald-600 text-white shadow-sm'
                   : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
               }`}
             >
               <PiggyBank className="w-4 h-4" />
               <span>{t('vaults')}</span>
+              <kbd className={`hidden lg:inline-block px-1.5 py-0.2 rounded text-[10px] font-mono transition-opacity ${
+                activeTab === 'vaults' ? 'bg-emerald-700/50 text-white font-bold' : 'bg-zinc-800/80 text-zinc-500 group-hover:text-zinc-300'
+              }`}>
+                4
+              </kbd>
             </button>
 
             <button
               onClick={() => setActiveTab('bills')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
+              title={`Bills & Debt (${modKey}+5)`}
+              className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer whitespace-nowrap group ${
                 activeTab === 'bills'
-                  ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/10'
+                  ? 'bg-emerald-600 text-white shadow-sm'
                   : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
               }`}
             >
               <Receipt className="w-4 h-4" />
               <span>{t('billsAndDebt')}</span>
+              <kbd className={`hidden lg:inline-block px-1.5 py-0.2 rounded text-[10px] font-mono transition-opacity ${
+                activeTab === 'bills' ? 'bg-emerald-700/50 text-white font-bold' : 'bg-zinc-800/80 text-zinc-500 group-hover:text-zinc-300'
+              }`}>
+                5
+              </kbd>
             </button>
           </div>
 
           <button
             onClick={() => setIsQuickAddOpen(true)}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700/80 border border-zinc-700 text-xs font-semibold text-amber-400 transition-colors cursor-pointer"
+            title={`Add Transaction (${modKey}+N)`}
+            className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-sm transition-all cursor-pointer"
           >
             <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
             <span>{t('addTransaction')}</span>
+            <kbd className="px-1.5 py-0.5 rounded bg-emerald-700/60 font-mono text-[10px] text-emerald-100 font-bold">
+              {modKey}N
+            </kbd>
           </button>
         </div>
       </nav>
@@ -598,15 +699,15 @@ export default function App() {
             {t('appTitle')} &copy; {new Date().getFullYear()} — {t('tagline')}
           </p>
           <div className="flex items-center gap-4 text-zinc-400 font-semibold">
-            <button onClick={() => setIsInstructionsOpen(true)} className="hover:text-amber-400 transition-colors cursor-pointer text-amber-400/90 font-bold">
+            <button onClick={() => setIsInstructionsOpen(true)} className="hover:text-emerald-400 transition-colors cursor-pointer text-emerald-400/90 font-bold">
               {t('instructions')}
             </button>
             <span>&bull;</span>
-            <button onClick={() => setIsOnboardingOpen(true)} className="hover:text-amber-400 transition-colors cursor-pointer">
+            <button onClick={() => setIsOnboardingOpen(true)} className="hover:text-emerald-400 transition-colors cursor-pointer">
               {t('onboarding')}
             </button>
             <span>&bull;</span>
-            <button onClick={() => setIsSettingsOpen(true)} className="hover:text-amber-400 transition-colors cursor-pointer">
+            <button onClick={() => setIsSettingsOpen(true)} className="hover:text-emerald-400 transition-colors cursor-pointer">
               {t('settings')}
             </button>
           </div>
@@ -665,6 +766,23 @@ export default function App() {
           onCompleteWizard={handleCompleteWizard}
         />
       )}
+
+      {/* Keyboard Shortcuts Cheatsheet Modal */}
+      <KeyboardShortcutsModal
+        isOpen={isShortcutsOpen}
+        lang={lang}
+        onClose={() => setIsShortcutsOpen(false)}
+      />
+
+      {/* Generic Confirmation Modal for Deletions */}
+      <ConfirmModal
+        isOpen={deleteConfirmation.isOpen}
+        title={deleteConfirmation.type === 'transaction' ? t('confirmDeleteTxTitle') : t('confirmDeleteGoalTitle')}
+        message={deleteConfirmation.type === 'transaction' ? t('confirmDeleteTxDesc') : t('confirmDeleteGoalDesc')}
+        onConfirm={confirmDelete}
+        onCancel={() => setDeleteConfirmation({ isOpen: false, type: null, id: null })}
+        lang={lang}
+      />
     </div>
   );
 }

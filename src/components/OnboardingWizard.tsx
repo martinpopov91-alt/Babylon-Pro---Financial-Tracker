@@ -121,12 +121,12 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
     <div id="onboarding-wizard-modal" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn">
       <div className="w-full max-w-2xl bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-2xl text-zinc-100 space-y-6 relative overflow-hidden">
         {/* Background Accent */}
-        <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
         {/* Wizard Header */}
         <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center font-bold">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-bold">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
@@ -139,7 +139,7 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
               <button
                 type="button"
                 onClick={onOpenInstructions}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-amber-400 border border-zinc-700 text-xs font-semibold transition-colors cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-emerald-400 border border-zinc-700 text-xs font-semibold transition-colors cursor-pointer"
               >
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>{t('instructions')}</span>
@@ -161,9 +161,9 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
               key={step}
               className={`h-2 rounded-full transition-all ${
                 step === currentStep
-                  ? 'bg-amber-500'
+                  ? 'bg-emerald-500'
                   : step < currentStep
-                  ? 'bg-amber-500/40'
+                  ? 'bg-emerald-500/40'
                   : 'bg-zinc-800'
               }`}
             />
@@ -174,7 +174,7 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
         {currentStep === 1 && (
           <div className="space-y-4 animate-fadeIn">
             <div>
-              <h3 className="text-base font-bold text-amber-400 flex items-center gap-2">
+              <h3 className="text-base font-bold text-emerald-400 flex items-center gap-2">
                 <Banknote className="w-5 h-5" />
                 <span>{t('step1Title')}</span>
               </h3>
@@ -189,7 +189,7 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
                   step="50"
                   value={salary}
                   onChange={(e) => setSalary(parseFloat(e.target.value) || 0)}
-                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-xl font-bold text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-xl font-bold text-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
@@ -198,7 +198,7 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
                 <select
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value as Currency)}
-                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-base font-bold text-zinc-100 focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer"
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-base font-bold text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
                 >
                   <option value="BGN">BGN (лв.)</option>
                   <option value="EUR">EUR (€)</option>
@@ -216,7 +216,7 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
                 max="31"
                 value={startDay}
                 onChange={(e) => setStartDay(parseInt(e.target.value) || 1)}
-                className="w-full px-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500"
+                className="w-full px-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
           </div>
@@ -225,7 +225,7 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
         {currentStep === 2 && (
           <div className="space-y-4 animate-fadeIn">
             <div>
-              <h3 className="text-base font-bold text-amber-400 flex items-center gap-2">
+              <h3 className="text-base font-bold text-emerald-400 flex items-center gap-2">
                 <Heart className="w-5 h-5 text-pink-400" />
                 <span>{t('step2Title')}</span>
               </h3>
@@ -253,8 +253,8 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
 
               <div className="p-4 bg-zinc-800/80 border border-zinc-700 rounded-2xl space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-sm text-amber-400">{t('wealthShort')}</span>
-                  <span className="font-black text-lg text-amber-400">{wealthPercent}%</span>
+                  <span className="font-bold text-sm text-emerald-400">{t('wealthShort')}</span>
+                  <span className="font-black text-lg text-emerald-400">{wealthPercent}%</span>
                 </div>
                 <input
                   type="range"
@@ -262,7 +262,7 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
                   max="50"
                   value={wealthPercent}
                   onChange={(e) => setWealthPercent(parseInt(e.target.value))}
-                  className="w-full accent-amber-500 cursor-pointer"
+                  className="w-full accent-emerald-500 cursor-pointer"
                 />
                 <p className="text-[11px] text-zinc-400">
                   {lang === 'bg' ? 'Инвестиционен заделен фонд за бъдещето' : 'Compounding wealth investments'}
@@ -275,7 +275,7 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
         {currentStep === 3 && (
           <div className="space-y-4 animate-fadeIn">
             <div>
-              <h3 className="text-base font-bold text-amber-400 flex items-center gap-2">
+              <h3 className="text-base font-bold text-emerald-400 flex items-center gap-2">
                 <Receipt className="w-5 h-5 text-blue-400" />
                 <span>{t('step3Title')}</span>
               </h3>
@@ -296,12 +296,12 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
                 placeholder="Amount"
                 value={newBillAmount}
                 onChange={(e) => setNewBillAmount(e.target.value)}
-                className="w-28 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-xl text-xs font-bold text-amber-400"
+                className="w-28 px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-xl text-xs font-bold text-emerald-400"
               />
               <button
                 type="button"
                 onClick={handleAddQuickBill}
-                className="px-4 py-2 bg-amber-500 text-zinc-950 font-bold text-xs rounded-xl"
+                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs rounded-xl transition-colors cursor-pointer"
               >
                 + {t('add')}
               </button>
@@ -409,7 +409,7 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
             <button
               type="button"
               onClick={() => setCurrentStep((prev) => Math.min(4, prev + 1))}
-              className="flex items-center gap-1.5 px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-xs shadow-md transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-sm transition-colors cursor-pointer"
             >
               <span>{t('next')}</span>
               <ArrowRight className="w-4 h-4" />
@@ -418,7 +418,7 @@ export const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
             <button
               type="button"
               onClick={handleFinish}
-              className="flex items-center gap-1.5 px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs shadow-md transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-sm transition-colors cursor-pointer"
             >
               <Check className="w-4 h-4 stroke-[3]" />
               <span>{t('finish')}</span>

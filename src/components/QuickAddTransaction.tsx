@@ -62,6 +62,13 @@ export const QuickAddTransaction: React.FC<QuickAddTransactionProps> = ({
     onClose();
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+      e.preventDefault();
+      handleSubmit(e as unknown as React.FormEvent);
+    }
+  };
+
   const typesList: { type: CategoryType; label: string }[] = [
     { type: 'needs', label: t('needs') },
     { type: 'wants', label: t('wants') },
@@ -79,7 +86,7 @@ export const QuickAddTransaction: React.FC<QuickAddTransactionProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
           <div className="flex items-center gap-2">
-            <span className="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <span className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
               <Plus className="w-5 h-5" />
             </span>
             <h3 className="text-lg font-bold font-display">{t('quickAdd')}</h3>
@@ -93,7 +100,7 @@ export const QuickAddTransaction: React.FC<QuickAddTransactionProps> = ({
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} onKeyDown={handleKeyDown} className="space-y-4">
           {/* Amount Input */}
           <div>
             <label className="block text-xs font-semibold text-zinc-400 mb-1">
@@ -107,10 +114,11 @@ export const QuickAddTransaction: React.FC<QuickAddTransactionProps> = ({
                 type="number"
                 step="0.01"
                 required
+                autoFocus
                 placeholder="0.00"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                className="w-full pl-14 pr-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-xl font-bold text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                className="w-full pl-14 pr-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-xl font-bold text-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
           </div>
@@ -132,7 +140,7 @@ export const QuickAddTransaction: React.FC<QuickAddTransactionProps> = ({
                   }}
                   className={`py-1.5 px-2 rounded-lg font-medium capitalize text-center truncate transition-all cursor-pointer ${
                     selectedType === item.type
-                      ? 'bg-amber-500 text-zinc-950 font-bold shadow-md'
+                      ? 'bg-emerald-600 text-white font-semibold shadow-sm'
                       : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'
                   }`}
                 >
@@ -152,7 +160,7 @@ export const QuickAddTransaction: React.FC<QuickAddTransactionProps> = ({
               <select
                 value={categoryId}
                 onChange={(e) => handleCategoryChange(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-xl text-sm font-medium text-zinc-100 focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer"
+                className="w-full pl-10 pr-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-xl text-sm font-medium text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
               >
                 {(() => {
                   const typeCats = categories.filter(c => {
@@ -240,7 +248,7 @@ export const QuickAddTransaction: React.FC<QuickAddTransactionProps> = ({
                 placeholder={lang === 'bg' ? 'напр. Супермаркет, Зареждане гориво...' : 'e.g. Supermarket, Gas station...'}
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-xl text-sm font-medium text-zinc-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                className="w-full pl-10 pr-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-xl text-sm font-medium text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
           </div>
@@ -257,26 +265,35 @@ export const QuickAddTransaction: React.FC<QuickAddTransactionProps> = ({
                 required
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-xl text-sm font-medium text-zinc-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                className="w-full pl-10 pr-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-xl text-sm font-medium text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
           </div>
 
           {/* Submit & Cancel Buttons */}
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-zinc-800">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 rounded-xl text-xs font-semibold text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 transition-colors cursor-pointer"
-            >
-              {t('cancel')}
-            </button>
-            <button
-              type="submit"
-              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-zinc-950 font-bold text-sm shadow-md transition-all cursor-pointer"
-            >
-              {t('save')}
-            </button>
+          <div className="flex items-center justify-between pt-3 border-t border-zinc-800">
+            <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-zinc-500">
+              <span>{lang === 'bg' ? 'Натиснете' : 'Press'}</span>
+              <kbd className="px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 font-mono text-[10px] text-zinc-300">⌘+Enter</kbd>
+              <span>{lang === 'bg' ? 'за запис' : 'to save'}</span>
+            </div>
+            <div className="flex items-center gap-3 ml-auto">
+              <button
+                type="button"
+                onClick={onClose}
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 transition-colors cursor-pointer"
+              >
+                <span>{t('cancel')}</span>
+                <kbd className="hidden sm:inline-block px-1.5 py-0.5 rounded bg-zinc-800/80 border border-zinc-700/60 font-mono text-[9px] text-zinc-500">Esc</kbd>
+              </button>
+              <button
+                type="submit"
+                className="flex items-center gap-1.5 px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-sm transition-all cursor-pointer"
+              >
+                <span>{t('save')}</span>
+                <kbd className="hidden sm:inline-block px-1.5 py-0.5 rounded bg-emerald-700/50 border border-emerald-500/30 font-mono text-[10px] text-emerald-100">↵</kbd>
+              </button>
+            </div>
           </div>
         </form>
       </div>

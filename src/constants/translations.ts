@@ -146,6 +146,10 @@ export const translations = {
     selectAll: 'Select all',
     deselectAll: 'Deselect all',
     confirmDeleteMultiple: 'Are you sure you want to delete {count} selected transactions? This action cannot be undone.',
+    confirmDeleteTxTitle: 'Delete Transaction',
+    confirmDeleteTxDesc: 'Are you sure you want to delete this transaction? This action cannot be undone.',
+    confirmDeleteGoalTitle: 'Delete Vault / Goal',
+    confirmDeleteGoalDesc: 'Are you sure you want to delete this goal? This will also remove any allocated funds.',
     selectedTotal: 'Selected Sum',
     changeCategory: 'Change Category',
     batchCategoryModalTitle: 'Batch Update Category',
@@ -230,6 +234,12 @@ export const translations = {
     resetWarning: 'Are you sure you want to reset all data? This action cannot be undone.',
     resetSuccess: 'Application reset to initial default state.',
     
+    // Keyboard shortcuts
+    keyboardShortcuts: 'Keyboard Shortcuts',
+    keyboardShortcutsDesc: 'Quickly navigate and manage your finances with high-speed keyboard shortcuts',
+    shortcutAddTransaction: 'Add Transaction (Cmd/Ctrl + N)',
+    shortcutSwitchTab: 'Switch Tab (Cmd/Ctrl + 1-5)',
+
     // CSV headers
     csvDate: 'Date',
     csvNote: 'Note',
@@ -382,6 +392,10 @@ export const translations = {
     selectAll: 'Избери всички',
     deselectAll: 'Отмени избора',
     confirmDeleteMultiple: 'Сигурни ли сте, че искате да изтриете {count} избрани транзакции? Това действие е необратимо.',
+    confirmDeleteTxTitle: 'Изтриване на транзакция',
+    confirmDeleteTxDesc: 'Сигурни ли сте, че искате да изтриете тази транзакция? Това действие е необратимо.',
+    confirmDeleteGoalTitle: 'Изтриване на цел / трезор',
+    confirmDeleteGoalDesc: 'Сигурни ли сте, че искате да изтриете тази цел? Това също ще премахне разпределените средства.',
     selectedTotal: 'Сума на избраните',
     changeCategory: 'Смени Категория',
     batchCategoryModalTitle: 'Масова Промяна на Категория',
@@ -466,6 +480,12 @@ export const translations = {
     resetWarning: 'Сигурни ли сте, че искате да нулирате всички данни? Това действие не може да бъде отменено.',
     resetSuccess: 'Приложението е нулирано до началното си състояние.',
     
+    // Keyboard shortcuts
+    keyboardShortcuts: 'Клавишни Комбинации',
+    keyboardShortcutsDesc: 'Бърза навигация и светкавично управление с клавишни комбинации',
+    shortcutAddTransaction: 'Нова Транзакция (Cmd/Ctrl + N)',
+    shortcutSwitchTab: 'Превключване на Раздел (Cmd/Ctrl + 1-5)',
+
     // CSV headers
     csvDate: 'Дата',
     csvNote: 'Бележка',

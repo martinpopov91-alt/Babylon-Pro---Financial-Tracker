@@ -304,7 +304,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
             <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: data.color }} />
             <span>{data.name}</span>
           </div>
-          <div className="text-amber-400 font-extrabold text-sm">
+          <div className="text-emerald-400 font-extrabold text-sm">
             {formatCurrency(data.value, currency)}
           </div>
           <div className="text-zinc-400">
@@ -323,7 +323,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800 pb-4">
           <div>
             <h2 className="text-xl font-bold text-zinc-100 flex items-center gap-2.5">
-              <PieIcon className="w-6 h-6 text-amber-500" />
+              <PieIcon className="w-6 h-6 text-emerald-400" />
               <span>{lang === 'bg' ? 'Анализ на Разходите' : 'Spending Analytics'}</span>
             </h2>
             <p className="text-xs text-zinc-400 mt-1">
@@ -339,7 +339,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
               onClick={() => setChartType('pie')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 chartType === 'pie'
-                  ? 'bg-amber-500 text-zinc-950 shadow-sm'
+                  ? 'bg-emerald-600 text-white shadow-sm'
                   : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
@@ -350,7 +350,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
               onClick={() => setChartType('bar')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 chartType === 'bar'
-                  ? 'bg-amber-500 text-zinc-950 shadow-sm'
+                  ? 'bg-emerald-600 text-white shadow-sm'
                   : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
@@ -365,13 +365,13 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
           {/* Time Period Filter */}
           <div className="space-y-1">
             <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1">
-              <Calendar className="w-3 h-3 text-amber-400" />
+              <Calendar className="w-3 h-3 text-emerald-400" />
               <span>{lang === 'bg' ? 'Период' : 'Time Period'}</span>
             </label>
             <select
               value={period}
               onChange={(e) => setPeriod(e.target.value as PeriodFilter)}
-              className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer"
+              className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
             >
               <option value="period">
                 {lang === 'bg' ? `Бюджетен период (${activePeriodInfo.label})` : `Selected Period (${activePeriodInfo.label})`}
@@ -385,13 +385,13 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
           {/* View Level Filter */}
           <div className="space-y-1">
             <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1">
-              <Layers className="w-3 h-3 text-amber-400" />
+              <Layers className="w-3 h-3 text-emerald-400" />
               <span>{lang === 'bg' ? 'Ниво на детайлност' : 'Category Level'}</span>
             </label>
             <select
               value={viewLevel}
               onChange={(e) => setViewLevel(e.target.value as ViewLevel)}
-              className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer"
+              className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
             >
               <option value="main">{lang === 'bg' ? 'Основни Категории' : 'Main Categories'}</option>
               <option value="detailed">{lang === 'bg' ? 'Подробни Подкатегории' : 'Detailed Subcategories'}</option>
@@ -401,13 +401,13 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
           {/* Expense Type Filter */}
           <div className="space-y-1 sm:col-span-2 lg:col-span-1">
             <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1">
-              <Filter className="w-3 h-3 text-amber-400" />
+              <Filter className="w-3 h-3 text-emerald-400" />
               <span>{lang === 'bg' ? 'Тип разход' : 'Expense Type'}</span>
             </label>
             <select
               value={expenseType}
               onChange={(e) => setExpenseType(e.target.value as ExpenseTypeFilter)}
-              className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer"
+              className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
             >
               <option value="all">{lang === 'bg' ? 'Всички разходи' : 'All Expense Types'}</option>
               <option value="needs">{lang === 'bg' ? 'Нужди (Задължителни)' : 'Needs (Essential)'}</option>
@@ -425,7 +425,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
           <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">
             {lang === 'bg' ? 'Общо Разходи' : 'Total Expenses'}
           </span>
-          <div className="text-xl sm:text-2xl font-extrabold text-amber-400">
+          <div className="text-xl sm:text-2xl font-extrabold text-emerald-400">
             {formatCurrency(totalSpent, currency)}
           </div>
           <p className="text-[10px] text-zinc-500">
@@ -441,7 +441,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
           <div className="text-base sm:text-lg font-bold text-zinc-100 truncate">
             {topCategory ? topCategory.name : '—'}
           </div>
-          <p className="text-[10px] text-amber-400/90 font-medium">
+          <p className="text-[10px] text-emerald-400/90 font-medium">
             {topCategory ? `${formatCurrency(topCategory.value, currency)} (${topCategory.percent.toFixed(1)}%)` : '—'}
           </p>
         </div>
@@ -479,13 +479,13 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
         <div className="lg:col-span-7 bg-zinc-900 border border-zinc-800 rounded-2xl p-4 sm:p-6 flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold text-zinc-100 flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-amber-400" />
+              <TrendingUp className="w-4 h-4 text-emerald-400" />
               <span>{lang === 'bg' ? 'Разпределение на разходите' : 'Expense Distribution'}</span>
             </h3>
             {selectedCatId && (
               <button
                 onClick={() => setSelectedCatId(null)}
-                className="text-xs text-amber-400 hover:underline"
+                className="text-xs text-emerald-400 hover:underline"
               >
                 {lang === 'bg' ? 'Изчисти избора' : 'Reset selection'}
               </button>
@@ -588,7 +588,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                   key={item.id}
                   className={`p-3 rounded-xl border transition-all ${
                     isSelected
-                      ? 'bg-amber-500/10 border-amber-500/50'
+                      ? 'bg-emerald-500/10 border-emerald-500/50'
                       : 'bg-zinc-950/60 border-zinc-800/80 hover:border-zinc-700'
                   }`}
                 >

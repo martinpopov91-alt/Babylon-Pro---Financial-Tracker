@@ -46,21 +46,21 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
       <div className="w-full max-w-4xl max-h-[90vh] bg-zinc-900 border border-zinc-800 rounded-3xl shadow-2xl text-zinc-100 flex flex-col relative overflow-hidden">
         
         {/* Background glow effects */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
 
         {/* Modal Header */}
         <div className="relative z-10 flex items-center justify-between px-6 py-5 border-b border-zinc-800/80 bg-zinc-900/90">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center font-bold shadow-lg shadow-amber-500/10">
-              <BookOpen className="w-6 h-6 text-amber-400" />
+            <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-bold shadow-sm">
+              <BookOpen className="w-6 h-6 text-emerald-400" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-xl font-extrabold text-zinc-100 font-display">
                   {isBg ? 'Ръководство за употреба' : 'Instructions of Use'}
                 </h2>
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                   {isBg ? 'Първа употреба' : 'First Start'}
                 </span>
               </div>
@@ -85,9 +85,9 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
         <div className="relative z-10 flex items-center gap-1 sm:gap-2 px-6 py-3 bg-zinc-950/60 border-b border-zinc-800/80 overflow-x-auto scrollbar-none">
           <button
             onClick={() => setActiveGuideTab('quick')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
               activeGuideTab === 'quick'
-                ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20'
+                ? 'bg-emerald-600 text-white shadow-sm'
                 : 'bg-zinc-800/60 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
             }`}
           >
@@ -97,9 +97,9 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
 
           <button
             onClick={() => setActiveGuideTab('philosophy')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
               activeGuideTab === 'philosophy'
-                ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20'
+                ? 'bg-emerald-600 text-white shadow-sm'
                 : 'bg-zinc-800/60 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
             }`}
           >
@@ -109,9 +109,9 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
 
           <button
             onClick={() => setActiveGuideTab('workflow')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
               activeGuideTab === 'workflow'
-                ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20'
+                ? 'bg-emerald-600 text-white shadow-sm'
                 : 'bg-zinc-800/60 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
             }`}
           >
@@ -121,9 +121,9 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
 
           <button
             onClick={() => setActiveGuideTab('categories')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
               activeGuideTab === 'categories'
-                ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20'
+                ? 'bg-emerald-600 text-white shadow-sm'
                 : 'bg-zinc-800/60 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
             }`}
           >
@@ -133,9 +133,9 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
 
           <button
             onClick={() => setActiveGuideTab('faq')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
               activeGuideTab === 'faq'
-                ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20'
+                ? 'bg-emerald-600 text-white shadow-sm'
                 : 'bg-zinc-800/60 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
             }`}
           >
@@ -150,10 +150,10 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
           {/* TAB 1: QUICK START */}
           {activeGuideTab === 'quick' && (
             <div className="space-y-6 animate-fadeIn">
-              <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl flex items-start gap-3">
-                <Sparkles className="w-6 h-6 text-amber-400 shrink-0 mt-0.5" />
+              <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl flex items-start gap-3">
+                <Sparkles className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="text-sm font-bold text-amber-400 uppercase tracking-wider">
+                  <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">
                     {isBg ? 'Добре дошли в Babylon Pro!' : 'Welcome to Babylon Pro!'}
                   </h3>
                   <p className="text-xs text-zinc-300 mt-1 leading-relaxed">
@@ -169,7 +169,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
                 {/* Step 1 */}
                 <div className="p-5 bg-zinc-800/70 border border-zinc-700/80 rounded-2xl space-y-3 relative overflow-hidden">
                   <div className="flex items-center justify-between">
-                    <span className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 font-black flex items-center justify-center text-sm border border-amber-500/30">
+                    <span className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 font-black flex items-center justify-center text-sm border border-emerald-500/30">
                       1
                     </span>
                     <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wide">
@@ -177,7 +177,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
                     </span>
                   </div>
                   <h4 className="text-base font-bold text-zinc-100 flex items-center gap-2">
-                    <Coins className="w-4 h-4 text-amber-400" />
+                    <Coins className="w-4 h-4 text-emerald-400" />
                     <span>{isBg ? 'Заплата, Валута и Дата' : 'Set Salary & Payday'}</span>
                   </h4>
                   <p className="text-xs text-zinc-300 leading-relaxed">
@@ -268,7 +268,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
                       onClose();
                       onOpenWizard();
                     }}
-                    className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-xs shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2 transition-all cursor-pointer"
+                    className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-sm flex items-center justify-center gap-2 transition-all cursor-pointer"
                   >
                     <Sparkles className="w-4 h-4" />
                     <span>{isBg ? 'Стартирай Бърз Старт' : 'Launch Setup Wizard'}</span>
@@ -283,11 +283,11 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
             <div className="space-y-6 animate-fadeIn">
               <div className="p-5 bg-zinc-800/80 border border-zinc-700 rounded-2xl space-y-3">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                  <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                     <Coins className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-amber-400">
+                    <h3 className="text-base font-bold text-emerald-400">
                       {isBg ? 'Древната мъдрост за Вавилонското богатство' : 'The Ancient Babylon Wealth Formula'}
                     </h3>
                     <p className="text-xs text-zinc-400">
@@ -295,7 +295,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
                     </p>
                   </div>
                 </div>
-                <p className="text-xs text-zinc-300 leading-relaxed italic border-l-2 border-amber-500/50 pl-3 py-1">
+                <p className="text-xs text-zinc-300 leading-relaxed italic border-l-2 border-emerald-500/50 pl-3 py-1">
                   "{isBg 
                     ? 'Част от всичко, което печелиш, е твое да запазиш. Не трябва да бъде по-малко от една десета, колкото и малка да е заплатата ти.' 
                     : 'A portion of all you earn is yours to keep. It should be not less than a tenth no matter how little you earn.'}"
@@ -318,13 +318,13 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
                   </p>
                 </div>
 
-                <div className="p-5 bg-amber-500/5 border border-amber-500/20 rounded-2xl space-y-2">
+                <div className="p-5 bg-emerald-500/5 border border-emerald-500/20 rounded-2xl space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-sm text-amber-400 flex items-center gap-2">
+                    <span className="font-bold text-sm text-emerald-400 flex items-center gap-2">
                       <TrendingUp className="w-4 h-4" />
                       {isBg ? '2. Фонд Богатство (10%+)' : '2. Wealth Fund (10%+)'}
                     </span>
-                    <span className="text-xs font-black text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">10%</span>
+                    <span className="text-xs font-black text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">10%</span>
                   </div>
                   <p className="text-xs text-zinc-300 leading-relaxed">
                     {isBg 
@@ -357,7 +357,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 
                 <div className="p-5 bg-zinc-800/70 border border-zinc-700 rounded-2xl space-y-3">
-                  <h4 className="text-sm font-bold text-amber-400 flex items-center gap-2">
+                  <h4 className="text-sm font-bold text-emerald-400 flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
                     <span>{isBg ? 'Бюджетен Период и Дневен Бюджет' : 'Pay Period & Daily Budget'}</span>
                   </h4>
@@ -406,7 +406,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
             <div className="space-y-6 animate-fadeIn">
               
               <div className="p-5 bg-zinc-800/70 border border-zinc-700 rounded-2xl space-y-4">
-                <h3 className="text-sm font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
                   <Sliders className="w-4 h-4" />
                   <span>{isBg ? 'Новата Организация на Категориите' : 'New Category Hierarchy'}</span>
                 </h3>
@@ -471,7 +471,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
             <div className="space-y-4 animate-fadeIn">
               
               <div className="p-4 bg-zinc-800/70 border border-zinc-700 rounded-2xl space-y-1.5">
-                <h4 className="text-xs font-bold text-amber-400 flex items-center gap-2">
+                <h4 className="text-xs font-bold text-emerald-400 flex items-center gap-2">
                   <HelpCircle className="w-4 h-4" />
                   <span>{isBg ? 'Как да направя резервно копие на данните си?' : 'How do I backup my data?'}</span>
                 </h4>
@@ -483,7 +483,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
               </div>
 
               <div className="p-4 bg-zinc-800/70 border border-zinc-700 rounded-2xl space-y-1.5">
-                <h4 className="text-xs font-bold text-amber-400 flex items-center gap-2">
+                <h4 className="text-xs font-bold text-emerald-400 flex items-center gap-2">
                   <HelpCircle className="w-4 h-4" />
                   <span>{isBg ? 'Как да променя валутата или езика?' : 'How do I change currency or language?'}</span>
                 </h4>
@@ -495,7 +495,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
               </div>
 
               <div className="p-4 bg-zinc-800/70 border border-zinc-700 rounded-2xl space-y-1.5">
-                <h4 className="text-xs font-bold text-amber-400 flex items-center gap-2">
+                <h4 className="text-xs font-bold text-emerald-400 flex items-center gap-2">
                   <HelpCircle className="w-4 h-4" />
                   <span>{isBg ? 'Какво става, ако прехвърля неизхарчените пари за следващия месец?' : 'What is Rollover Balance?'}</span>
                 </h4>
@@ -507,7 +507,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
               </div>
 
               <div className="p-4 bg-zinc-800/70 border border-zinc-700 rounded-2xl space-y-1.5">
-                <h4 className="text-xs font-bold text-amber-400 flex items-center gap-2">
+                <h4 className="text-xs font-bold text-emerald-400 flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-emerald-400" />
                   <span>{isBg ? 'Къде се съхраняват данните ми?' : 'Is my financial data private?'}</span>
                 </h4>
@@ -532,7 +532,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
 
           <button
             onClick={onClose}
-            className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-xs shadow-md transition-colors cursor-pointer"
+            className="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-sm transition-colors cursor-pointer"
           >
             {isBg ? 'Разбрах / Към таблото' : 'Got it / Proceed to Dashboard'}
           </button>

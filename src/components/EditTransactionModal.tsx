@@ -61,7 +61,7 @@ export const EditTransactionModal: React.FC<EditTransactionModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between border-b border-zinc-800 p-5 bg-zinc-950/50">
           <h3 className="font-bold text-base text-zinc-100 flex items-center gap-2">
-            <span className="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <span className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
               <Save className="w-4 h-4" />
             </span>
             <span>{lang === 'bg' ? 'Редактиране на транзакция' : 'Edit Transaction'}</span>
@@ -92,7 +92,7 @@ export const EditTransactionModal: React.FC<EditTransactionModalProps> = ({
                 required
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-12 pr-4 py-3 text-lg font-bold font-display text-amber-400 focus:outline-none focus:border-amber-500 transition-colors"
+                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-12 pr-4 py-3 text-lg font-bold font-display text-emerald-400 focus:outline-none focus:border-emerald-500 transition-colors"
               />
             </div>
           </div>
@@ -111,7 +111,7 @@ export const EditTransactionModal: React.FC<EditTransactionModalProps> = ({
                   onClick={() => handleTypeChange(tType)}
                   className={`py-2 px-1 text-center rounded-xl text-xs font-bold border transition-all cursor-pointer ${
                     type === tType
-                      ? 'bg-amber-500/15 border-amber-500 text-amber-400 shadow-sm'
+                      ? 'bg-emerald-500/15 border-emerald-500 text-emerald-400 shadow-sm'
                       : 'bg-zinc-950 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
                   }`}
                 >
@@ -130,7 +130,7 @@ export const EditTransactionModal: React.FC<EditTransactionModalProps> = ({
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm font-semibold text-zinc-200 focus:outline-none focus:border-amber-500 transition-colors cursor-pointer"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm font-semibold text-zinc-200 focus:outline-none focus:border-emerald-500 transition-colors cursor-pointer"
             >
               {(() => {
                 const mainCategories = categories.filter(c => !c.parentId);
@@ -181,7 +181,7 @@ export const EditTransactionModal: React.FC<EditTransactionModalProps> = ({
               required
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm font-mono text-zinc-200 focus:outline-none focus:border-amber-500 transition-colors"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm font-mono text-zinc-200 focus:outline-none focus:border-emerald-500 transition-colors"
             />
           </div>
 
@@ -196,7 +196,7 @@ export const EditTransactionModal: React.FC<EditTransactionModalProps> = ({
               value={note}
               onChange={(e) => setNote(e.target.value)}
               placeholder={lang === 'bg' ? 'Допълнителна бележка...' : 'Add a note...'}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-zinc-200 focus:outline-none focus:border-amber-500 transition-colors resize-none"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-zinc-200 focus:outline-none focus:border-emerald-500 transition-colors resize-none"
             />
           </div>
 
@@ -226,7 +226,7 @@ export const EditTransactionModal: React.FC<EditTransactionModalProps> = ({
               </button>
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition-all flex items-center gap-2 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-sm transition-all flex items-center gap-2 cursor-pointer"
               >
                 <Save className="w-4 h-4" />
                 <span>{lang === 'bg' ? 'Запази промените' : 'Save Changes'}</span>

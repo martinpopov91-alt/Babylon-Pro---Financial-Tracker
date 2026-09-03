@@ -278,19 +278,19 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
   return (
     <div id="transaction-ledger" className="space-y-6">
       {/* Top Action Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-zinc-900 border border-zinc-800 rounded-2xl p-4 sm:p-6 shadow-xl">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-zinc-900 border border-zinc-800 rounded-2xl p-4 sm:p-6 shadow-sm">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <h2 className="text-xl font-bold text-zinc-100 font-display flex items-center gap-2">
               <span>{isDashboardSnapshot ? (lang === 'bg' ? 'Последни Транзакции' : 'Recent Transactions') : t('transactionHistory')}</span>
-              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
+              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                 {filteredTransactions.length}
               </span>
             </h2>
             {isDashboardSnapshot && onViewAllLedger && (
               <button
                 onClick={onViewAllLedger}
-                className="hidden sm:flex items-center gap-1 text-xs font-bold text-amber-400 hover:text-amber-300 ml-2 cursor-pointer transition-colors"
+                className="hidden sm:flex items-center gap-1 text-xs font-bold text-emerald-400 hover:text-emerald-300 ml-2 cursor-pointer transition-colors"
               >
                 <span>{lang === 'bg' ? 'Към Пълен Дневник →' : 'View Full Ledger →'}</span>
               </button>
@@ -326,7 +326,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               onClick={() => setViewMode('list')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === 'list'
-                  ? 'bg-amber-500 text-zinc-950 shadow-sm'
+                  ? 'bg-emerald-600 text-white shadow-sm'
                   : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
@@ -337,7 +337,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               onClick={() => setViewMode('summary')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === 'summary'
-                  ? 'bg-amber-500 text-zinc-950 shadow-sm'
+                  ? 'bg-emerald-600 text-white shadow-sm'
                   : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
@@ -364,7 +364,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
             className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700/80 border border-zinc-700 text-xs font-semibold text-zinc-200 transition-colors cursor-pointer"
             title="Export CSV"
           >
-            <Download className="w-3.5 h-3.5 text-amber-400" />
+            <Download className="w-3.5 h-3.5 text-emerald-400" />
             <span className="hidden sm:inline">CSV</span>
           </button>
 
@@ -383,7 +383,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
           {/* Add Transaction Button */}
           <button
             onClick={onOpenQuickAdd}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-xs shadow-md transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-sm transition-colors cursor-pointer"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
             <span>{t('add')}</span>
@@ -401,17 +401,17 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
             placeholder={t('searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full pl-10 pr-4 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
         </div>
 
         {/* Filter by Pay Period Scope */}
         <div className="relative">
-          <Calendar className="w-4 h-4 text-amber-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Calendar className="w-4 h-4 text-emerald-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <select
             value={selectedPeriodScope}
             onChange={(e) => setSelectedPeriodScope(e.target.value as 'all' | 'period')}
-            className="w-full pl-10 pr-4 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer"
+            className="w-full pl-10 pr-4 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
           >
             <option value="all">
               {lang === 'bg' ? 'Всички периоди' : 'All Transactions'}
@@ -430,7 +430,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
           <select
             value={selectedTypeFilter}
             onChange={(e) => setSelectedTypeFilter(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer"
+            className="w-full pl-10 pr-4 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
           >
             <option value="all">{t('all')} {t('type')}</option>
             <option value="needs">{t('needs')}</option>
@@ -448,7 +448,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
           <select
             value={selectedCategoryFilter}
             onChange={(e) => setSelectedCategoryFilter(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer"
+            className="w-full pl-10 pr-4 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
           >
             <option value="all">{t('all')} {t('category')}</option>
             {(() => {
@@ -496,15 +496,15 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
 
       {/* Bulk Selection Action Toolbar */}
       {selectedTxIds.length > 0 && viewMode === 'list' && (
-        <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 sm:p-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl animate-fadeIn shadow-lg">
+        <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 sm:p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl animate-fadeIn shadow-sm">
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-amber-500 text-zinc-950 rounded-xl text-xs font-bold shadow-sm">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-600 text-white rounded-xl text-xs font-bold shadow-sm">
               <CheckSquare className="w-4 h-4" />
               <span>{selectedTxIds.length} {t('selected')}</span>
             </div>
             <div className="text-xs text-zinc-300">
               <span className="text-zinc-400">{t('selectedTotal')}: </span>
-              <span className="font-bold text-amber-400 font-display">
+              <span className="font-bold text-emerald-400 font-display">
                 {formatCurrency(selectedTotalSum, currency)}
               </span>
             </div>
@@ -513,7 +513,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={handleOpenBatchCategoryModal}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 text-xs font-bold transition-all cursor-pointer shadow-sm"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-bold transition-all cursor-pointer shadow-sm"
               title={t('changeCategory')}
             >
               <Tag className="w-3.5 h-3.5" />
@@ -530,7 +530,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
 
             <button
               onClick={() => setIsBulkDeleteModalOpen(true)}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold transition-all cursor-pointer shadow-md shadow-rose-500/20"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold transition-all cursor-pointer shadow-sm"
             >
               <Trash2 className="w-3.5 h-3.5" />
               <span>{t('deleteSelected')} ({selectedTxIds.length})</span>
@@ -549,13 +549,13 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
             </p>
             <button
               onClick={onOpenQuickAdd}
-              className="px-4 py-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold hover:bg-amber-500/20 transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold hover:bg-emerald-500/20 transition-colors cursor-pointer"
             >
               + {t('addTransaction')}
             </button>
           </div>
         ) : (
-          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs text-zinc-300">
                 <thead className="bg-zinc-800/60 text-zinc-400 font-semibold uppercase tracking-wider border-b border-zinc-800">
@@ -567,7 +567,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                         checked={isAllSelected}
                         onChange={handleToggleSelectAll}
                         aria-label={t('selectAll')}
-                        className="w-4 h-4 rounded bg-zinc-800 border-zinc-700 text-amber-500 focus:ring-amber-500 cursor-pointer accent-amber-500"
+                        className="w-4 h-4 rounded bg-zinc-800 border-zinc-700 text-emerald-500 focus:ring-emerald-500 cursor-pointer accent-emerald-500"
                       />
                     </th>
                     <th className="py-3.5 px-4">{t('date')}</th>
@@ -588,7 +588,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                         key={item.id} 
                         className={`transition-colors group cursor-pointer ${
                           isSelected 
-                            ? 'bg-amber-500/10 hover:bg-amber-500/15' 
+                            ? 'bg-emerald-500/10 hover:bg-emerald-500/15' 
                             : 'hover:bg-zinc-800/60'
                         }`}
                         onClick={() => setEditingTransaction(item)}
@@ -603,7 +603,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                             onChange={() => handleToggleSelectRow(item.id)}
                             onClick={(e) => e.stopPropagation()}
                             aria-label={`Select transaction ${item.id}`}
-                            className="w-4 h-4 rounded bg-zinc-800 border-zinc-700 text-amber-500 focus:ring-amber-500 cursor-pointer accent-amber-500"
+                            className="w-4 h-4 rounded bg-zinc-800 border-zinc-700 text-emerald-500 focus:ring-emerald-500 cursor-pointer accent-emerald-500"
                           />
                         </td>
                         <td className="py-3 px-4 font-mono text-zinc-400">
@@ -648,7 +648,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                                 e.stopPropagation();
                                 setEditingTransaction(item);
                               }}
-                              className="p-1.5 rounded-lg text-zinc-500 hover:text-amber-400 hover:bg-amber-500/10 transition-colors cursor-pointer"
+                              className="p-1.5 rounded-lg text-zinc-500 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors cursor-pointer"
                               title={t('edit')}
                             >
                               <Edit3 className="w-4 h-4" />
@@ -768,7 +768,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               {isDashboardSnapshot && onViewAllLedger ? (
                 <button
                   onClick={onViewAllLedger}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/20 text-xs font-bold transition-all cursor-pointer self-start md:self-auto"
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 text-xs font-bold transition-all cursor-pointer self-start md:self-auto"
                 >
                   <span>{lang === 'bg' ? 'Виж Всички в Дневник →' : 'View All in Ledger →'}</span>
                 </button>
@@ -790,7 +790,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               const percentage = totalFilteredSum > 0 ? (stat.totalAmount / totalFilteredSum) * 100 : 0;
 
               return (
-                <div key={stat.categoryId} className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 space-y-3 shadow-lg">
+                <div key={stat.categoryId} className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 space-y-3 shadow-sm">
                   <div className="flex items-center justify-between">
                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border ${getTypeBadgeColor(stat.type)}`}>
                       {stat.type}
@@ -820,7 +820,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                         )
                       })()}
                     </div>
-                    <p className="text-2xl font-black text-amber-400 font-display mt-1">
+                    <p className="text-2xl font-black text-zinc-100 font-display mt-1">
                       {formatCurrency(stat.totalAmount, currency)}
                     </p>
                   </div>
@@ -833,7 +833,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                     </div>
                     <div className="w-full h-2 rounded-full bg-zinc-800 overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-amber-500"
+                        className="h-full rounded-full bg-emerald-500"
                         style={{ width: `${Math.min(100, percentage)}%` }}
                       />
                     </div>
@@ -959,7 +959,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                     <span className="font-mono text-zinc-500 text-[10px]">{tx.date}</span>
                     <span className="truncate text-zinc-200">{tx.note || getCategoryName(tx.category, categories, lang)}</span>
                   </div>
-                  <span className="font-bold font-mono text-amber-400 flex-shrink-0">
+                  <span className="font-bold font-mono text-zinc-200 flex-shrink-0">
                     {formatCurrency(tx.amount, currency)}
                   </span>
                 </div>
@@ -968,7 +968,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
 
             <div className="flex items-center justify-between text-xs pt-1 border-t border-zinc-800 text-zinc-400">
               <span>{t('total')}:</span>
-              <span className="font-bold font-display text-amber-400 text-sm">{formatCurrency(selectedTotalSum, currency)}</span>
+              <span className="font-bold font-display text-emerald-400 text-sm">{formatCurrency(selectedTotalSum, currency)}</span>
             </div>
 
             <div className="flex items-center justify-end gap-3 pt-2">
@@ -980,7 +980,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               </button>
               <button
                 onClick={handleExecuteBulkDelete}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold transition-all cursor-pointer shadow-md shadow-rose-500/20"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold transition-all cursor-pointer shadow-sm"
               >
                 <Trash2 className="w-4 h-4" />
                 <span>{t('delete')} ({selectedTxIds.length})</span>
@@ -997,7 +997,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
             {/* Header */}
             <div className="flex items-center justify-between border-b border-zinc-800 p-5 bg-zinc-950/50">
               <div className="flex items-center gap-3">
-                <span className="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                <span className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                   <Tag className="w-5 h-5" />
                 </span>
                 <div>
@@ -1022,14 +1022,14 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               {/* Category Selector */}
               <div>
                 <label className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <Tag className="w-3.5 h-3.5 text-amber-400" />
+                  <Tag className="w-3.5 h-3.5 text-emerald-400" />
                   <span>{t('selectTargetCategory')}</span>
                 </label>
 
                 <select
                   value={batchTargetCategory}
                   onChange={(e) => setBatchTargetCategory(e.target.value)}
-                  className="w-full bg-zinc-950 border border-zinc-700 rounded-xl px-4 py-3 text-sm font-semibold text-zinc-100 focus:outline-none focus:border-amber-500 transition-colors cursor-pointer shadow-inner"
+                  className="w-full bg-zinc-950 border border-zinc-700 rounded-xl px-4 py-3 text-sm font-semibold text-zinc-100 focus:outline-none focus:border-emerald-500 transition-colors cursor-pointer shadow-inner"
                 >
                   {(() => {
                     const mainCategories = categories.filter(c => !c.parentId);
@@ -1080,7 +1080,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                     type="checkbox"
                     checked={syncTransactionType}
                     onChange={(e) => setSyncTransactionType(e.target.checked)}
-                    className="w-4 h-4 rounded bg-zinc-900 border-zinc-700 text-amber-500 focus:ring-amber-500 cursor-pointer accent-amber-500"
+                    className="w-4 h-4 rounded bg-zinc-900 border-zinc-700 text-emerald-500 focus:ring-emerald-500 cursor-pointer accent-emerald-500"
                   />
                   <span>{t('updateTypeToMatch')}</span>
                 </label>
@@ -1090,7 +1090,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               <div>
                 <div className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2 flex items-center justify-between">
                   <span>{lang === 'bg' ? 'Преглед на избраните транзакции' : 'Preview Selected Transactions'}</span>
-                  <span className="text-amber-400 font-mono font-bold">
+                  <span className="text-emerald-400 font-mono font-bold">
                     {formatCurrency(selectedTotalSum, currency)}
                   </span>
                 </div>
@@ -1107,8 +1107,8 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                         </div>
                         <div className="flex items-center gap-1.5 flex-shrink-0 text-xs">
                           <span className="text-zinc-500 max-w-[80px] truncate text-[11px]">{currentCatName}</span>
-                          <ArrowRight className="w-3 h-3 text-amber-500/70" />
-                          <span className="text-amber-400 font-semibold max-w-[90px] truncate text-[11px]">{targetCatName}</span>
+                          <ArrowRight className="w-3 h-3 text-emerald-500/70" />
+                          <span className="text-emerald-400 font-semibold max-w-[90px] truncate text-[11px]">{targetCatName}</span>
                           <span className="font-bold font-mono text-zinc-300 ml-1 text-[11px]">
                             {formatCurrency(tx.amount, currency)}
                           </span>
@@ -1130,7 +1130,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               </button>
               <button
                 onClick={handleExecuteBatchCategoryUpdate}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 text-xs font-bold transition-all cursor-pointer shadow-lg shadow-amber-500/20"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all cursor-pointer shadow-sm"
               >
                 <CheckSquare className="w-4 h-4" />
                 <span>{t('applyCategory')} ({selectedTxIds.length})</span>
