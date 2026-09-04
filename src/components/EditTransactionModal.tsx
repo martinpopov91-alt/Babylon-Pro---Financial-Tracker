@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Save, Trash2, Calendar, Tag, FileText, DollarSign, ArrowUpDown } from 'lucide-react';
 import { Category, CategoryType, Language, Transaction } from '../types';
 import { getTranslation } from '../constants/translations';
+import { getTypeLabel } from '../utils/calculations';
 
 interface EditTransactionModalProps {
   transaction: Transaction;
@@ -115,7 +116,7 @@ export const EditTransactionModal: React.FC<EditTransactionModalProps> = ({
                       : 'bg-zinc-950 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
                   }`}
                 >
-                  {t(tType as any) || tType}
+                  {getTypeLabel(tType, lang)}
                 </button>
               ))}
             </div>
@@ -149,7 +150,7 @@ export const EditTransactionModal: React.FC<EditTransactionModalProps> = ({
                       </option>
                       {subCats.map(sub => (
                         <option key={sub.id} value={sub.id}>
-                          └ {lang === 'bg' ? sub.nameBg : sub.nameEn}
+                          {lang === 'bg' ? sub.nameBg : sub.nameEn}
                         </option>
                       ))}
                     </optgroup>

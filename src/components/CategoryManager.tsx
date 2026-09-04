@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Tag, Trash2 } from 'lucide-react';
 import { Category, CategoryType, Language } from '../types';
 import { getTranslation } from '../constants/translations';
+import { getTypeLabel, getTypeBadgeColor } from '../utils/calculations';
 
 interface CategoryManagerProps {
   categories: Category[];
@@ -41,12 +42,12 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
   };
 
   const typesList: { type: CategoryType; label: string }[] = [
-    { type: 'needs', label: t('needs') },
-    { type: 'wants', label: t('wants') },
-    { type: 'savings', label: t('savings') },
-    { type: 'income', label: t('income') },
-    { type: 'bills', label: t('bills') },
-    { type: 'debt', label: t('debt') },
+    { type: 'needs', label: getTypeLabel('needs', lang) },
+    { type: 'wants', label: getTypeLabel('wants', lang) },
+    { type: 'savings', label: getTypeLabel('savings', lang) },
+    { type: 'income', label: getTypeLabel('income', lang) },
+    { type: 'bills', label: getTypeLabel('bills', lang) },
+    { type: 'debt', label: getTypeLabel('debt', lang) },
   ];
 
   const mainCategoriesForSelectedType = categories.filter(
@@ -131,21 +132,20 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
                     <div key={main.id} className="bg-zinc-800/80 border border-zinc-700/50 rounded-xl p-2.5 space-y-1.5">
                       <div className="flex items-center justify-between text-xs font-bold text-zinc-100">
                         <span 
-                          className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-bold border transition-colors" 
+                          className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold border transition-colors" 
                           style={{ 
                             backgroundColor: `${main.color || '#a1a1aa'}15`, 
                             color: main.color || '#a1a1aa', 
                             borderColor: `${main.color || '#a1a1aa'}30` 
                           }}
                         >
-                          <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: main.color || '#a1a1aa' }}></span>
                           {lang === 'bg' ? main.nameBg : main.nameEn}
                         </span>
                         {main.isCustom && (
                           <button
                             type="button"
                             onClick={() => onDeleteCategory(main.id)}
-                            className="text-zinc-500 hover:text-rose-400 transition-colors p-1"
+                            className="text-zinc-500 hover:text-rose-400 transition-colors p-1 cursor-pointer"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -159,9 +159,8 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
                               className="flex items-center justify-between p-1.5 rounded-md bg-zinc-900/60 text-zinc-300"
                             >
                               <div className="flex items-center gap-1.5">
-                                <span className="text-zinc-600">└</span>
                                 <span 
-                                  className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-bold border transition-colors" 
+                                  className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-medium border transition-colors" 
                                   style={{ 
                                     backgroundColor: `${sub.color || main.color || '#a1a1aa'}10`, 
                                     color: sub.color || main.color || '#a1a1aa', 

@@ -657,8 +657,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                     <div className="mt-3 pt-2 border-t border-zinc-800/80 space-y-2 pl-2">
                       {(item as any).subcategories.map((sub: any) => (
                         <div key={sub.id} className="flex items-center justify-between text-[11px] text-zinc-300">
-                          <span className="truncate flex items-center gap-1.5">
-                            <span className="text-zinc-500">└</span>
+                          <span className="truncate flex items-center pl-2 text-zinc-300">
                             <span>{sub.name}</span>
                           </span>
                           <div className="font-medium text-zinc-200">

@@ -1,4 +1,4 @@
-import { AppState, FinancialSummary, Category, PayPeriodInfo, PeriodMode } from '../types';
+import { AppState, FinancialSummary, Category, CategoryType, PayPeriodInfo, PeriodMode } from '../types';
 
 export const calculatePayPeriodDates = (
   startDay: number = 1,
@@ -275,12 +275,58 @@ export const getCategoryName = (categoryKeyOrId: string, categories: Category[],
       if (parent) {
         const parentName = lang === 'bg' ? parent.nameBg : parent.nameEn;
         const subName = lang === 'bg' ? match.nameBg : match.nameEn;
-        return `${parentName} › ${subName}`;
+        return `${parentName} / ${subName}`;
       }
     }
     return lang === 'bg' ? match.nameBg : match.nameEn;
   }
   return categoryKeyOrId;
+};
+
+export const getCategoryShortName = (categoryKeyOrId: string, categories: Category[], lang: 'en' | 'bg'): string => {
+  const match = categories.find(c => c.id === categoryKeyOrId || c.nameEn === categoryKeyOrId || c.nameBg === categoryKeyOrId);
+  if (match) {
+    return lang === 'bg' ? match.nameBg : match.nameEn;
+  }
+  return categoryKeyOrId;
+};
+
+export const getTypeLabel = (type: CategoryType, lang: 'en' | 'bg'): string => {
+  switch (type) {
+    case 'needs':
+      return lang === 'bg' ? 'Нужди' : 'Needs';
+    case 'wants':
+      return lang === 'bg' ? 'Желания' : 'Wants';
+    case 'bills':
+      return lang === 'bg' ? 'Сметки' : 'Bills';
+    case 'savings':
+      return lang === 'bg' ? 'Спестявания' : 'Savings';
+    case 'income':
+      return lang === 'bg' ? 'Приходи' : 'Income';
+    case 'debt':
+      return lang === 'bg' ? 'Дългове' : 'Debt';
+    default:
+      return type;
+  }
+};
+
+export const getTypeBadgeColor = (type: CategoryType): string => {
+  switch (type) {
+    case 'needs':
+      return 'bg-violet-500/10 text-violet-400 border-violet-500/20';
+    case 'wants':
+      return 'bg-sky-500/10 text-sky-400 border-sky-500/20';
+    case 'bills':
+      return 'bg-blue-500/10 text-blue-400 border-blue-500/20';
+    case 'savings':
+      return 'bg-teal-500/10 text-teal-400 border-teal-500/20';
+    case 'income':
+      return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
+    case 'debt':
+      return 'bg-rose-500/10 text-rose-400 border-rose-500/20';
+    default:
+      return 'bg-zinc-800 text-zinc-400 border-zinc-700';
+  }
 };
 
 export const formatCurrency = (amount: number, currency: string = 'BGN'): string => {

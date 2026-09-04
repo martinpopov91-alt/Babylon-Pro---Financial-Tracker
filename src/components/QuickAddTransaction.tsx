@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, Plus, Calendar, Tag, FileText, DollarSign, PiggyBank } from 'lucide-react';
 import { Category, CategoryType, Goal, Language, Transaction } from '../types';
 import { getTranslation } from '../constants/translations';
-import { getCategoryName } from '../utils/calculations';
+import { getCategoryName, getTypeLabel } from '../utils/calculations';
 
 interface QuickAddTransactionProps {
   categories: Category[];
@@ -70,12 +70,12 @@ export const QuickAddTransaction: React.FC<QuickAddTransactionProps> = ({
   };
 
   const typesList: { type: CategoryType; label: string }[] = [
-    { type: 'needs', label: t('needs') },
-    { type: 'wants', label: t('wants') },
-    { type: 'savings', label: t('savings') },
-    { type: 'income', label: t('income') },
-    { type: 'bills', label: t('bills') },
-    { type: 'debt', label: t('debt') },
+    { type: 'needs', label: getTypeLabel('needs', lang) },
+    { type: 'wants', label: getTypeLabel('wants', lang) },
+    { type: 'savings', label: getTypeLabel('savings', lang) },
+    { type: 'income', label: getTypeLabel('income', lang) },
+    { type: 'bills', label: getTypeLabel('bills', lang) },
+    { type: 'debt', label: getTypeLabel('debt', lang) },
   ];
 
   const filteredCategories = categories.filter(c => c.type === selectedType);
@@ -138,13 +138,13 @@ export const QuickAddTransaction: React.FC<QuickAddTransactionProps> = ({
                     const matchingCat = categories.find(c => c.type === item.type);
                     if (matchingCat) setCategoryId(matchingCat.id);
                   }}
-                  className={`py-1.5 px-2 rounded-lg font-medium capitalize text-center truncate transition-all cursor-pointer ${
+                  className={`py-1.5 px-2 rounded-lg font-medium text-center truncate transition-all cursor-pointer ${
                     selectedType === item.type
                       ? 'bg-emerald-600 text-white font-semibold shadow-sm'
                       : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'
                   }`}
                 >
-                  {item.type}
+                  {item.label}
                 </button>
               ))}
             </div>
@@ -184,11 +184,11 @@ export const QuickAddTransaction: React.FC<QuickAddTransactionProps> = ({
                     return (
                       <optgroup key={mainCat.id} label={mainName}>
                         <option value={mainCat.id}>
-                          {mainName} ({lang === 'bg' ? 'Основна категория' : 'Main Category'})
+                          {mainName}
                         </option>
                         {subCats.map(sub => (
                           <option key={sub.id} value={sub.id}>
-                            └ {lang === 'bg' ? sub.nameBg : sub.nameEn}
+                            {lang === 'bg' ? sub.nameBg : sub.nameEn}
                           </option>
                         ))}
                       </optgroup>

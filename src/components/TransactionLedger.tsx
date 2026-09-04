@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 import { Category, CategoryType, Language, Transaction, AppSettings } from '../types';
 import { getTranslation } from '../constants/translations';
-import { formatCurrency, getCategoryName, calculatePayPeriodDates } from '../utils/calculations';
+import { formatCurrency, getCategoryName, getTypeLabel, getTypeBadgeColor, calculatePayPeriodDates } from '../utils/calculations';
 import { CSVImportModal } from './CSVImportModal';
 import { EditTransactionModal } from './EditTransactionModal';
 
@@ -263,18 +263,6 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
     return Object.values(stats).sort((a, b) => b.totalAmount - a.totalAmount);
   }, [filteredTransactions]);
 
-  const getTypeBadgeColor = (type: CategoryType) => {
-    switch (type) {
-      case 'needs': return 'bg-purple-500/10 text-purple-400 border-purple-500/20';
-      case 'wants': return 'bg-amber-500/10 text-amber-400 border-amber-500/20';
-      case 'savings': return 'bg-teal-500/10 text-teal-400 border-teal-500/20';
-      case 'income': return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
-      case 'bills': return 'bg-blue-500/10 text-blue-400 border-blue-500/20';
-      case 'debt': return 'bg-rose-500/10 text-rose-400 border-rose-500/20';
-      default: return 'bg-zinc-800 text-zinc-400';
-    }
-  };
-
   return (
     <div id="transaction-ledger" className="space-y-6">
       {/* Top Action Bar */}
@@ -468,7 +456,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                     </option>
                     {subCats.map(sub => (
                       <option key={sub.id} value={sub.id}>
-                        └ {lang === 'bg' ? sub.nameBg : sub.nameEn}
+                        {lang === 'bg' ? sub.nameBg : sub.nameEn}
                       </option>
                     ))}
                   </optgroup>
@@ -610,8 +598,8 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                           {item.date}
                         </td>
                         <td className="py-3 px-4">
-                          <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border ${getTypeBadgeColor(item.type)}`}>
-                            {item.type}
+                          <span className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-wide border ${getTypeBadgeColor(item.type)}`}>
+                            {getTypeLabel(item.type, lang)}
                           </span>
                         </td>
                         <td className="py-3 px-4">
@@ -621,15 +609,15 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                               const catColor = catObj?.color || '#a1a1aa'; // default zinc-400
                               return (
                                 <span 
-                                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold border transition-colors hover:opacity-80" 
+                                  className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all hover:opacity-85" 
                                   style={{ 
-                                    backgroundColor: `${catColor}15`, 
+                                    backgroundColor: `${catColor}14`, 
                                     color: catColor, 
-                                    borderColor: `${catColor}30` 
+                                    borderColor: `${catColor}28` 
                                   }}
+                                  title={getCategoryName(item.category, categories, lang)}
                                 >
-                                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: catColor }}></span>
-                                  <span className="truncate max-w-[120px] sm:max-w-[160px]">{getCategoryName(item.category, categories, lang)}</span>
+                                  <span className="truncate max-w-[130px] sm:max-w-[170px]">{getCategoryName(item.category, categories, lang)}</span>
                                 </span>
                               )
                             })()}
@@ -792,8 +780,8 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               return (
                 <div key={stat.categoryId} className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 space-y-3 shadow-sm">
                   <div className="flex items-center justify-between">
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border ${getTypeBadgeColor(stat.type)}`}>
-                      {stat.type}
+                    <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-wide border ${getTypeBadgeColor(stat.type)}`}>
+                      {getTypeLabel(stat.type, lang)}
                     </span>
                     <span className="text-xs font-semibold text-zinc-400">
                       {stat.count} {lang === 'bg' ? 'записа' : 'items'}
@@ -807,14 +795,13 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                         const catColor = catObj?.color || '#a1a1aa';
                         return (
                           <span 
-                            className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-xs font-bold border" 
+                            className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold border" 
                             style={{ 
-                              backgroundColor: `${catColor}15`, 
+                              backgroundColor: `${catColor}14`, 
                               color: catColor, 
-                              borderColor: `${catColor}30` 
+                              borderColor: `${catColor}28` 
                             }}
                           >
-                            <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: catColor }}></span>
                             <span className="truncate">{catName}</span>
                           </span>
                         )
@@ -1042,13 +1029,13 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                       subCats.forEach(s => renderedIds.add(s.id));
 
                       return (
-                        <optgroup key={mainCat.id} label={`${mainName} (${t(mainCat.type as any) || mainCat.type})`}>
+                        <optgroup key={mainCat.id} label={`${mainName} (${getTypeLabel(mainCat.type, lang)})`}>
                           <option value={mainCat.id}>
                             {mainName}
                           </option>
                           {subCats.map(sub => (
                             <option key={sub.id} value={sub.id}>
-                              └ {lang === 'bg' ? sub.nameBg : sub.nameEn}
+                              {lang === 'bg' ? sub.nameBg : sub.nameEn}
                             </option>
                           ))}
                         </optgroup>
