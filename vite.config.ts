@@ -6,9 +6,7 @@ import {defineConfig} from 'vite';
 export default defineConfig(() => {
   return {
     plugins: [react(), tailwindcss()],
-    base: '/Babylon-Pro---Financial-Tracker/', // Add this line
-})
-    },
+    base: '/Babylon-Pro---Financial-Tracker/',
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
