@@ -446,7 +446,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-emerald-500 selection:text-zinc-950 transition-colors duration-200 flex flex-col">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-emerald-500 selection:text-zinc-950 transition-colors duration-200 flex flex-col overflow-x-hidden w-full max-w-[100vw]">
       {/* Top Navigation Header */}
       <Header
         state={appState}
