@@ -293,7 +293,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
       {isOpen && (
         <div
           id="pay-period-popover"
-          className="absolute right-0 sm:right-auto sm:left-0 top-full mt-2 w-[340px] sm:w-[420px] bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl p-4 sm:p-5 z-50 animate-fadeIn text-zinc-100 space-y-4 max-h-[85vh] flex flex-col"
+          className="absolute right-0 sm:right-auto sm:left-0 top-full mt-2 w-[300px] sm:w-[420px] max-w-[95vw] bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl p-4 sm:p-5 z-50 animate-fadeIn text-zinc-100 space-y-4 max-h-[85vh] flex flex-col"
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
@@ -314,7 +314,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
           </div>
 
           {/* Mode Selector Tabs */}
-          <div className="grid grid-cols-3 gap-1.5 p-1 bg-zinc-950 rounded-xl border border-zinc-800">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 p-1 bg-zinc-950 rounded-xl border border-zinc-800">
             <button
               onClick={() => setActiveTab('payday')}
               className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-bold transition-all ${

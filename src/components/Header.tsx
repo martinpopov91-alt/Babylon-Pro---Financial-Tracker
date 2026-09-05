@@ -46,10 +46,10 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-base sm:text-lg tracking-tight text-zinc-100 font-display">
+              <span className="font-bold text-sm sm:text-lg tracking-tight text-zinc-100 font-display hidden sm:inline-block">
                 {t('appTitle')}
               </span>
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span className="hidden sm:inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                 PRO
               </span>
             </div>
