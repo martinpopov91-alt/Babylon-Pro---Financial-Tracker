@@ -314,7 +314,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
           </div>
 
           {/* Mode Selector Tabs */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 p-1 bg-zinc-950 rounded-xl border border-zinc-800">
+          <div className="grid grid-cols-3 gap-1.5 p-1 bg-zinc-950 rounded-xl border border-zinc-800">
             <button
               onClick={() => setActiveTab('payday')}
               className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-bold transition-all ${

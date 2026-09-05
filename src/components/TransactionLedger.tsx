@@ -545,7 +545,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
         ) : (
           <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-sm">
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-zinc-300">
+              <table className="w-full text-left text-xs text-zinc-300 min-w-[750px]">
                 <thead className="bg-zinc-800/60 text-zinc-400 font-semibold uppercase tracking-wider border-b border-zinc-800">
                   <tr>
                     <th className="py-3.5 px-4 w-10 text-center">
