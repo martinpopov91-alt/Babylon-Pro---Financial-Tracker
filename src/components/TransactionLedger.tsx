@@ -17,7 +17,8 @@ import {
   ArrowDownRight,
   ArrowUpRight,
   Scale,
-  X
+  X,
+  ChevronDown
 } from 'lucide-react';
 import { Category, CategoryType, Language, Transaction, AppSettings } from '../types';
 import { getTranslation } from '../constants/translations';
@@ -499,14 +500,74 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <button
-              onClick={handleOpenBatchCategoryModal}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-bold transition-all cursor-pointer shadow-sm"
-              title={t('changeCategory')}
-            >
-              <Tag className="w-3.5 h-3.5" />
-              <span>{t('changeCategory')}</span>
-            </button>
+            <div className="relative flex items-center bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/30 rounded-xl transition-all shadow-sm">
+              <div className="pl-3 pr-1 py-1.5 pointer-events-none flex items-center">
+                <Tag className="w-3.5 h-3.5 text-emerald-400" />
+              </div>
+              <select
+                value=""
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val) {
+                    if (onBatchUpdateCategory) {
+                      onBatchUpdateCategory(selectedTxIds, val, true);
+                    } else if (onUpdateTransaction) {
+                      const targetCat = categories.find(c => c.id === val);
+                      selectedTransactions.forEach(tx => {
+                        onUpdateTransaction({
+                          ...tx,
+                          category: targetCat?.id || val,
+                          type: targetCat?.type || tx.type,
+                        });
+                      });
+                    }
+                    setSelectedTxIds([]);
+                  }
+                }}
+                className="bg-transparent text-emerald-300 text-xs font-bold focus:outline-none cursor-pointer appearance-none py-1.5 pr-8 pl-1 w-full"
+                title={t('changeCategory')}
+              >
+                <option value="" disabled>{t('changeCategory')}</option>
+                {(() => {
+                  const mainCategories = categories.filter(c => !c.parentId);
+                  const renderedIds = new Set<string>();
+                  const groups = mainCategories.map(mainCat => {
+                    renderedIds.add(mainCat.id);
+                    const mainName = lang === 'bg' ? mainCat.nameBg : mainCat.nameEn;
+                    const subCats = categories.filter(c => c.parentId === mainCat.id);
+                    subCats.forEach(s => renderedIds.add(s.id));
+                    return (
+                      <optgroup key={mainCat.id} label={`${mainName} (${getTypeLabel(mainCat.type, lang)})`}>
+                        <option value={mainCat.id}>
+                          {mainName}
+                        </option>
+                        {subCats.map(sub => (
+                          <option key={sub.id} value={sub.id}>
+                            {lang === 'bg' ? sub.nameBg : sub.nameEn}
+                          </option>
+                        ))}
+                      </optgroup>
+                    );
+                  });
+                  const standalone = categories.filter(c => !renderedIds.has(c.id));
+                  if (standalone.length > 0) {
+                    groups.push(
+                      <optgroup key="other_group" label={lang === 'bg' ? 'Други' : 'Other'}>
+                        {standalone.map(cat => (
+                          <option key={cat.id} value={cat.id}>
+                            {lang === 'bg' ? cat.nameBg : cat.nameEn}
+                          </option>
+                        ))}
+                      </optgroup>
+                    );
+                  }
+                  return groups;
+                })()}
+              </select>
+              <div className="absolute right-3 pointer-events-none text-emerald-400">
+                <ChevronDown className="w-3.5 h-3.5" />
+              </div>
+            </div>
 
             <button
               onClick={handleClearSelection}

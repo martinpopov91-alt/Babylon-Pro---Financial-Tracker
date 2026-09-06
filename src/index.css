@@ -18,16 +18,17 @@
   }
 
   .dark {
-    --color-zinc-950: #0b0f19;
-    --color-zinc-900: #111726;
-    --color-zinc-800: #1b2336;
-    --color-zinc-700: #29354d;
-    --color-zinc-600: #475569;
-    --color-zinc-500: #64748b;
-    --color-zinc-400: #94a3b8;
-    --color-zinc-300: #cbd5e1;
-    --color-zinc-200: #e2e8f0;
-    --color-zinc-100: #f8fafc;
+    /* Violet Dusk Theme */
+    --color-zinc-950: #140A17; 
+    --color-zinc-900: #1E1122; 
+    --color-zinc-800: #311B36; 
+    --color-zinc-700: #502D55; 
+    --color-zinc-600: #714065; 
+    --color-zinc-500: #935073; 
+    --color-zinc-400: #B58299; 
+    --color-zinc-300: #D9B8C3; 
+    --color-zinc-200: #F6DBC0; 
+    --color-zinc-100: #F8F4E9; 
     --color-zinc-50: #ffffff;
     color-scheme: dark;
   }

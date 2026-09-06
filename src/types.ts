@@ -37,6 +37,7 @@ export interface Goal {
   icon?: string;
   targetDate?: string;
   category?: string;
+  biblicalPrinciple?: string;
 }
 
 export interface Bill {

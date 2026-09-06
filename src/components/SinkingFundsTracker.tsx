@@ -51,12 +51,25 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
   const [targetAmount, setTargetAmount] = useState('');
   const [currentAmount, setCurrentAmount] = useState('');
   const [monthlyTarget, setMonthlyTarget] = useState('');
+  const [biblicalPrinciple, setBiblicalPrinciple] = useState('');
+
+  const biblicalPrinciples = [
+    { value: '', labelEn: 'None', labelBg: 'Няма' },
+    { value: 'Generosity', labelEn: 'Generosity (Proverbs 11:25)', labelBg: 'Щедрост (Притчи 11:25)' },
+    { value: 'Prudence', labelEn: 'Prudence (Proverbs 21:20)', labelBg: 'Благоразумие (Притчи 21:20)' },
+    { value: 'Debt Freedom', labelEn: 'Debt Freedom (Proverbs 22:7)', labelBg: 'Свобода от дългове (Притчи 22:7)' },
+    { value: 'Contentment', labelEn: 'Contentment (Hebrews 13:5)', labelBg: 'Удовлетворение (Евреи 13:5)' },
+    { value: 'Diligence', labelEn: 'Diligence (Proverbs 21:5)', labelBg: 'Усърдие (Притчи 21:5)' },
+    { value: 'Stewardship', labelEn: 'Stewardship (Luke 16:11)', labelBg: 'Настойничество (Лука 16:11)' },
+    { value: 'Preparation', labelEn: 'Preparation (Proverbs 6:6-8)', labelBg: 'Подготовка (Притчи 6:6-8)' },
+  ];
 
   const resetForm = () => {
     setGoalName('');
     setTargetAmount('');
     setCurrentAmount('');
     setMonthlyTarget('');
+    setBiblicalPrinciple('');
     setEditingGoal(null);
   };
 
@@ -71,6 +84,7 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
     setTargetAmount(goal.targetAmount.toString());
     setCurrentAmount(goal.currentAmount.toString());
     setMonthlyTarget(goal.monthlyTarget.toString());
+    setBiblicalPrinciple(goal.biblicalPrinciple || '');
     setIsAddModalOpen(true);
   };
 
@@ -91,7 +105,8 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
         name: goalName.trim(),
         targetAmount: parsedTarget,
         currentAmount: parsedCurrent,
-        monthlyTarget: parsedMonthly
+        monthlyTarget: parsedMonthly,
+        biblicalPrinciple: biblicalPrinciple || undefined
       });
     } else {
       onAddGoal({
@@ -100,7 +115,8 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
         currentAmount: parsedCurrent,
         startingAmount: parsedCurrent,
         monthlyTarget: parsedMonthly,
-        icon: 'PiggyBank'
+        icon: 'PiggyBank',
+        biblicalPrinciple: biblicalPrinciple || undefined
       });
     }
 
@@ -208,6 +224,13 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
                       <h3 className="font-bold text-zinc-100 text-sm sm:text-base leading-tight truncate" title={goal.name}>
                         {goal.name}
                       </h3>
+                      {goal.biblicalPrinciple && (
+                        <div className="mt-1 mb-0.5">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-medium bg-zinc-800/80 text-zinc-300 border border-zinc-700/60 truncate max-w-full">
+                            {biblicalPrinciples.find(p => p.value === goal.biblicalPrinciple)?.[lang === 'bg' ? 'labelBg' : 'labelEn'] || goal.biblicalPrinciple}
+                          </span>
+                        </div>
+                      )}
                       <p className="text-xs text-zinc-400 font-medium mt-0.5">
                         {t('monthlyTarget')}: <span className="text-emerald-400 font-bold">{goal.monthlyTarget > 0 ? formatCurrency(goal.monthlyTarget, currency) : (lang === 'bg' ? 'Няма' : 'None')}</span>
                       </p>
@@ -432,6 +455,23 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
                   onChange={(e) => setMonthlyTarget(e.target.value)}
                   className="w-full px-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-xl text-sm font-medium focus:ring-2 focus:ring-teal-500 focus:outline-none"
                 />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-zinc-400 mb-1">
+                  {lang === 'bg' ? 'Библейски принцип' : 'Biblical Principle'} <span className="text-zinc-500 font-normal">({lang === 'bg' ? 'Опционално' : 'Optional'})</span>
+                </label>
+                <select
+                  value={biblicalPrinciple}
+                  onChange={(e) => setBiblicalPrinciple(e.target.value)}
+                  className="w-full px-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-xl text-sm font-medium focus:ring-2 focus:ring-teal-500 focus:outline-none text-zinc-200"
+                >
+                  {biblicalPrinciples.map(principle => (
+                    <option key={principle.value} value={principle.value}>
+                      {lang === 'bg' ? principle.labelBg : principle.labelEn}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="flex justify-end gap-3 pt-3 border-t border-zinc-800">
