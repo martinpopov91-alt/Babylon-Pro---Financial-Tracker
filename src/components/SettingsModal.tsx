@@ -365,10 +365,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     </div>
 
                     {/* Miniature Theme Preview Bars */}
-                    <div className="h-4 rounded-lg bg-zinc-900 border border-zinc-800 p-1 flex items-center gap-1.5">
+                    <div className="h-4 rounded-lg bg-[#161D27] border border-[#3B4860] p-1 flex items-center gap-1.5">
                       <div className="w-2 h-2 rounded-full bg-emerald-400" />
-                      <div className="w-8 h-1.5 rounded-full bg-zinc-700" />
-                      <div className="w-4 h-1.5 rounded-full bg-emerald-500" />
+                      <div className="w-8 h-1.5 rounded-full bg-[#3B4860]" />
+                      <div className="w-4 h-1.5 rounded-full bg-emerald-400" />
                     </div>
                   </div>
 
@@ -403,9 +403,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     </div>
 
                     {/* Miniature Theme Preview Bars */}
-                    <div className="h-4 rounded-lg bg-white border border-zinc-300 p-1 flex items-center gap-1.5">
+                    <div className="h-4 rounded-lg bg-[#F1F5F9] border border-[#CBD5E1] p-1 flex items-center gap-1.5">
                       <div className="w-2 h-2 rounded-full bg-emerald-600" />
-                      <div className="w-8 h-1.5 rounded-full bg-zinc-300" />
+                      <div className="w-8 h-1.5 rounded-full bg-[#CBD5E1]" />
                       <div className="w-4 h-1.5 rounded-full bg-emerald-600" />
                     </div>
                   </div>

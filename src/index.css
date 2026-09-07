@@ -3,32 +3,33 @@
 @layer base {
   :root {
     --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --color-zinc-950: #f8fafc;
-    --color-zinc-900: #ffffff;
-    --color-zinc-800: #f1f5f9;
-    --color-zinc-700: #e2e8f0;
-    --color-zinc-600: #cbd5e1;
-    --color-zinc-500: #64748b;
-    --color-zinc-400: #475569;
-    --color-zinc-300: #334155;
-    --color-zinc-200: #1e293b;
-    --color-zinc-100: #0f172a;
+    /* Fresh Slate Mist Light Theme */
+    --color-zinc-950: #F1F5F9; /* Clean, calm slate-mist background (not harsh blinding white, not yellowish) */
+    --color-zinc-900: #ffffff; /* Crisp white cards and containers */
+    --color-zinc-800: #E2E8F0; /* Clean light slate inputs, buttons & pill tags */
+    --color-zinc-700: #CBD5E1; /* Refined structural borders & dividers */
+    --color-zinc-600: #94A3B8; /* Muted slate icons & subtle elements */
+    --color-zinc-500: #64748B; /* Legible secondary text (passes WCAG AA) */
+    --color-zinc-400: #475569; /* Supporting body text */
+    --color-zinc-300: #334155; /* Regular body text */
+    --color-zinc-200: #1E293B; /* Prominent figures & subheaders */
+    --color-zinc-100: #0F172A; /* Deep slate primary titles & metrics */
     --color-zinc-50: #020617;
     color-scheme: light;
   }
 
   .dark {
-    /* Violet Dusk Theme */
-    --color-zinc-950: #140A17; 
-    --color-zinc-900: #1E1122; 
-    --color-zinc-800: #311B36; 
-    --color-zinc-700: #502D55; 
-    --color-zinc-600: #714065; 
-    --color-zinc-500: #935073; 
-    --color-zinc-400: #B58299; 
-    --color-zinc-300: #D9B8C3; 
-    --color-zinc-200: #F6DBC0; 
-    --color-zinc-100: #F8F4E9; 
+    /* Balanced Graphite Slate Dark Theme (Modern, comfortable, not pitch black) */
+    --color-zinc-950: #161D27; /* Deep graphite-slate background (eye-friendly, non-pitch black) */
+    --color-zinc-900: #1F2735; /* Elevated financial card surfaces */
+    --color-zinc-800: #2B3547; /* Inputs, table headers, hover states & pills */
+    --color-zinc-700: #3B4860; /* Subtle structural borders & dividers */
+    --color-zinc-600: #526384; /* Secondary borders & icon accents */
+    --color-zinc-500: #7E90B0; /* Muted captions & metadata */
+    --color-zinc-400: #A0B0CB; /* Clear supporting text */
+    --color-zinc-300: #C2D0E4; /* High-readability body text */
+    --color-zinc-200: #E0E9F5; /* Crisp text & subheaders */
+    --color-zinc-100: #F1F5FA; /* Clean bright headings & financial metrics */
     --color-zinc-50: #ffffff;
     color-scheme: dark;
   }
