@@ -419,7 +419,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
       </div>
 
       {/* Metric Cards Summary Row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Expense */}
         <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-xl space-y-1">
           <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">

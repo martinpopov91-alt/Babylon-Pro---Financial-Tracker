@@ -220,14 +220,14 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
       {/* Trigger Bar */}
       <div
         id="pay-period-control-bar"
-        className="flex items-center gap-1 bg-zinc-800/90 border border-zinc-700/70 hover:border-zinc-600 rounded-xl p-1 shadow-sm transition-all text-xs"
+        className="flex items-center gap-1 bg-slate-100 dark:bg-zinc-800/90 border border-slate-200 dark:border-zinc-700/70 hover:border-slate-300 dark:hover:border-zinc-600 rounded-xl p-1 shadow-sm transition-all text-xs"
       >
         {/* Previous Period Button */}
         <button
           id="prev-period-btn"
           onClick={handleStepPrevious}
           title={t('previousPeriod')}
-          className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-zinc-700/70 transition-colors cursor-pointer"
+          className="p-1.5 rounded-lg text-slate-500 dark:text-zinc-400 hover:text-slate-700 dark:hover:text-zinc-100 hover:bg-slate-200 dark:hover:bg-zinc-700/70 transition-colors cursor-pointer"
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
@@ -236,12 +236,12 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
         <button
           id="open-period-selector-btn"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 px-2.5 py-1 rounded-lg hover:bg-zinc-700/60 transition-colors text-left cursor-pointer group"
+          className="flex items-center gap-2 px-2.5 py-1 rounded-lg hover:bg-slate-200 dark:hover:bg-zinc-700/60 transition-colors text-left cursor-pointer group"
         >
-          <Calendar className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+          <Calendar className="w-4 h-4 text-emerald-500 flex-shrink-0" />
           
           <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
-            <span className="font-bold text-zinc-200 group-hover:text-emerald-400 transition-colors text-xs whitespace-nowrap">
+            <span className="font-bold text-slate-700 dark:text-zinc-200 group-hover:text-emerald-500 transition-colors text-xs whitespace-nowrap">
               {activePeriodInfo.label}
             </span>
 
@@ -262,7 +262,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
             )}
           </div>
 
-          <ChevronDown className={`w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-200 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          <ChevronDown className={`w-3.5 h-3.5 text-slate-400 dark:text-zinc-400 group-hover:text-slate-600 dark:group-hover:text-zinc-200 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
         </button>
 
         {/* Next Period Button */}
@@ -270,7 +270,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
           id="next-period-btn"
           onClick={handleStepNext}
           title={t('nextPeriod')}
-          className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-zinc-700/70 transition-colors cursor-pointer"
+          className="p-1.5 rounded-lg text-slate-500 dark:text-zinc-400 hover:text-slate-700 dark:hover:text-zinc-100 hover:bg-slate-200 dark:hover:bg-zinc-700/70 transition-colors cursor-pointer"
         >
           <ChevronRight className="w-4 h-4" />
         </button>
@@ -281,7 +281,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
             id="jump-to-current-btn"
             onClick={handleResetToCurrent}
             title={t('jumpToCurrent')}
-            className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold transition-all cursor-pointer ml-0.5"
+            className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30 text-[11px] font-bold transition-all cursor-pointer ml-0.5"
           >
             <RotateCcw className="w-3 h-3" />
             <span>{t('today')}</span>
@@ -293,10 +293,10 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
       {isOpen && (
         <div
           id="pay-period-popover"
-          className="absolute right-0 sm:right-auto sm:left-0 top-full mt-2 w-[300px] sm:w-[420px] max-w-[95vw] bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl p-4 sm:p-5 z-50 animate-fadeIn text-zinc-100 space-y-4 max-h-[85vh] flex flex-col"
+          className="absolute right-0 sm:right-auto sm:left-0 top-full mt-2 w-[300px] sm:w-[420px] max-w-[95vw] bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl shadow-2xl p-4 sm:p-5 z-50 animate-fadeIn text-slate-800 dark:text-zinc-100 space-y-4 max-h-[85vh] flex flex-col"
         >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-zinc-800 pb-3">
             <div className="flex items-center gap-2">
               <span className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                 <CalendarRange className="w-4 h-4" />

@@ -41,10 +41,12 @@ import { SpendingAnalytics } from './components/SpendingAnalytics';
 import { KeyboardShortcutsModal } from './components/KeyboardShortcutsModal';
 import { ConfirmModal } from './components/ConfirmModal';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
+import { CalendarWidget } from './components/CalendarWidget';
 
 export default function App() {
   const [appState, setAppState] = useState<AppState>(() => loadAppState());
   const [activeTab, setActiveTab] = useState<'dashboard' | 'ledger' | 'analytics' | 'vaults' | 'bills'>('dashboard');
+
 
   // Modals visibility
   const [isQuickAddOpen, setIsQuickAddOpen] = useState(false);
@@ -446,189 +448,228 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-emerald-500 selection:text-zinc-950 transition-colors duration-200 flex flex-col overflow-x-hidden w-full max-w-[100vw]">
-      {/* Top Navigation Header */}
-      <Header
-        state={appState}
-        onUpdateSettings={handleUpdateSettings}
-        onOpenSettings={() => setIsSettingsOpen(true)}
-        onOpenOnboarding={() => setIsOnboardingOpen(true)}
-        onOpenInstructions={() => setIsInstructionsOpen(true)}
-        onOpenShortcuts={() => setIsShortcutsOpen(true)}
-      />
-
-      {/* Primary Tab Bar */}
-      <nav id="app-primary-nav" className="bg-zinc-900/60 border-b border-zinc-800 sticky top-16 z-30 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between overflow-x-auto no-scrollbar py-2">
-          <div className="flex items-center gap-1 sm:gap-1.5">
-            <button
-              onClick={() => setActiveTab('dashboard')}
-              title={`Dashboard (${modKey}+1)`}
-              className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer whitespace-nowrap group ${
-                activeTab === 'dashboard'
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
-              }`}
-            >
-              <LayoutDashboard className="w-4 h-4" />
-              <span>{t('dashboard')}</span>
-              <kbd className={`hidden lg:inline-block px-1.5 py-0.2 rounded text-[10px] font-mono transition-opacity ${
-                activeTab === 'dashboard' ? 'bg-emerald-700/50 text-white font-bold' : 'bg-zinc-800/80 text-zinc-500 group-hover:text-zinc-300'
-              }`}>
-                1
-              </kbd>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('ledger')}
-              title={`Ledger (${modKey}+2)`}
-              className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer whitespace-nowrap group ${
-                activeTab === 'ledger'
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
-              }`}
-            >
-              <ListOrdered className="w-4 h-4" />
-              <span>{t('ledger')}</span>
-              <kbd className={`hidden lg:inline-block px-1.5 py-0.2 rounded text-[10px] font-mono transition-opacity ${
-                activeTab === 'ledger' ? 'bg-emerald-700/50 text-white font-bold' : 'bg-zinc-800/80 text-zinc-500 group-hover:text-zinc-300'
-              }`}>
-                2
-              </kbd>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('analytics')}
-              title={`Analytics (${modKey}+3)`}
-              className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer whitespace-nowrap group ${
-                activeTab === 'analytics'
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
-              }`}
-            >
-              <PieChart className="w-4 h-4" />
-              <span>{t('analytics')}</span>
-              <kbd className={`hidden lg:inline-block px-1.5 py-0.2 rounded text-[10px] font-mono transition-opacity ${
-                activeTab === 'analytics' ? 'bg-emerald-700/50 text-white font-bold' : 'bg-zinc-800/80 text-zinc-500 group-hover:text-zinc-300'
-              }`}>
-                3
-              </kbd>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('vaults')}
-              title={`Vaults (${modKey}+4)`}
-              className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer whitespace-nowrap group ${
-                activeTab === 'vaults'
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
-              }`}
-            >
-              <PiggyBank className="w-4 h-4" />
-              <span>{t('vaults')}</span>
-              <kbd className={`hidden lg:inline-block px-1.5 py-0.2 rounded text-[10px] font-mono transition-opacity ${
-                activeTab === 'vaults' ? 'bg-emerald-700/50 text-white font-bold' : 'bg-zinc-800/80 text-zinc-500 group-hover:text-zinc-300'
-              }`}>
-                4
-              </kbd>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('bills')}
-              title={`Bills & Debt (${modKey}+5)`}
-              className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer whitespace-nowrap group ${
-                activeTab === 'bills'
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
-              }`}
-            >
-              <Receipt className="w-4 h-4" />
-              <span>{t('billsAndDebt')}</span>
-              <kbd className={`hidden lg:inline-block px-1.5 py-0.2 rounded text-[10px] font-mono transition-opacity ${
-                activeTab === 'bills' ? 'bg-emerald-700/50 text-white font-bold' : 'bg-zinc-800/80 text-zinc-500 group-hover:text-zinc-300'
-              }`}>
-                5
-              </kbd>
-            </button>
+    <div className="flex h-screen w-full bg-[#F8FAFC] dark:bg-[#161D27] text-slate-800 dark:text-zinc-100 font-sans antialiased overflow-hidden">
+      {/* Sidebar */}
+      <aside className="w-64 bg-slate-900 text-slate-300 flex flex-col transition-all flex-shrink-0 hidden md:flex z-50">
+        <div className="h-16 flex items-center px-6 border-b border-slate-800">
+          <div className="flex items-center gap-2 text-white font-bold text-xl tracking-wide">
+            <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center shadow-sm">
+              <span className="text-white font-black">C</span>
+            </div>
+            {t('appTitle')}
           </div>
+        </div>
+        
+        <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-1.5">
+          <button
+            onClick={() => setActiveTab('dashboard')}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer ${
+              activeTab === 'dashboard'
+                ? 'bg-blue-600 text-white font-semibold shadow-md'
+                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200 font-medium'
+            }`}
+          >
+            <LayoutDashboard className="w-4 h-4" />
+            <span className="text-sm">{t('dashboard')}</span>
+          </button>
 
           <button
-            onClick={() => setIsQuickAddOpen(true)}
-            title={`Add Transaction (${modKey}+N)`}
-            className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-sm transition-all cursor-pointer"
+            onClick={() => setActiveTab('ledger')}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer ${
+              activeTab === 'ledger'
+                ? 'bg-blue-600 text-white font-semibold shadow-md'
+                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200 font-medium'
+            }`}
           >
-            <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-            <span>{t('addTransaction')}</span>
-            <kbd className="px-1.5 py-0.5 rounded bg-emerald-700/60 font-mono text-[10px] text-emerald-100 font-bold">
-              {modKey}N
-            </kbd>
+            <ListOrdered className="w-4 h-4" />
+            <span className="text-sm">{t('ledger')}</span>
           </button>
-        </div>
-      </nav>
+
+          <button
+            onClick={() => setActiveTab('analytics')}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer ${
+              activeTab === 'analytics'
+                ? 'bg-blue-600 text-white font-semibold shadow-md'
+                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200 font-medium'
+            }`}
+          >
+            <PieChart className="w-4 h-4" />
+            <span className="text-sm">{t('analytics')}</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('vaults')}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer ${
+              activeTab === 'vaults'
+                ? 'bg-blue-600 text-white font-semibold shadow-md'
+                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200 font-medium'
+            }`}
+          >
+            <PiggyBank className="w-4 h-4" />
+            <span className="text-sm">{t('vaults')}</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('bills')}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer ${
+              activeTab === 'bills'
+                ? 'bg-blue-600 text-white font-semibold shadow-md'
+                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200 font-medium'
+            }`}
+          >
+            <Receipt className="w-4 h-4" />
+            <span className="text-sm">{t('billsAndDebt')}</span>
+          </button>
+
+          <div className="pt-6 pb-2">
+            <p className="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">System</p>
+          </div>
+          
+          <button
+            onClick={() => setIsSettingsOpen(true)}
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer text-slate-400 hover:bg-slate-800 hover:text-slate-200 font-medium"
+          >
+            <SettingsIcon className="w-4 h-4" />
+            <span className="text-sm">{t('settings')}</span>
+          </button>
+        </nav>
+      </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-12 sm:pb-8 space-y-8">
-        {activeTab === 'dashboard' && (
-          <div className="space-y-8 animate-fadeIn">
-            {/* 1. Babylon Rules Allocations Overview (Pay Yourself First) */}
-            <AllocationsOverview
-              summary={summary}
-              currency={currency}
-              lang={lang}
-              tithePercent={appState.settings.tithePercent}
-              wealthPercent={appState.settings.wealthPercent}
-              onOpenSettings={() => setIsSettingsOpen(true)}
-              onSelectTab={(tab) => setActiveTab(tab)}
-            />
+      <div className="flex-1 flex flex-col h-full overflow-hidden relative">
+        <Header
+          state={appState}
+          onUpdateSettings={handleUpdateSettings}
+          onOpenSettings={() => setIsSettingsOpen(true)}
+          onOpenOnboarding={() => setIsOnboardingOpen(true)}
+          onOpenInstructions={() => setIsInstructionsOpen(true)}
+          onOpenShortcuts={() => setIsShortcutsOpen(true)}
+        />
 
-            {/* 2. Monthly Budget Tracker (Budget Limits) */}
-            <MonthlyBudgetTracker
-              appState={appState}
-              summary={summary}
-              onUpdateSettings={handleUpdateSettings}
-            />
+        <main className="flex-1 overflow-y-auto w-full p-4 sm:p-6 lg:px-8 pb-12 space-y-6">
+          {activeTab === 'dashboard' && (
+            <div className="space-y-6 animate-fadeIn">
+              {/* Dark Blue Welcome Banner with KPI metrics embedded */}
+              <div className="bg-blue-900 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-800 rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/3"></div>
+                
+                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                  <div>
+                    <h1 className="text-2xl font-bold mb-1">{t('dashboard')}</h1>
+                    <p className="text-blue-200 text-sm">{new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <button 
+                      onClick={() => setIsQuickAddOpen(true)}
+                      className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-xl transition-colors shadow-sm"
+                    >
+                      <Plus className="w-4 h-4" />
+                      <span className="hidden sm:inline">{t('addTransaction')}</span>
+                    </button>
+                  </div>
+                </div>
 
-            {/* 3. Hero Disposable Life Money Card */}
-            <HeroCard
-              summary={summary}
-              currency={currency}
-              lang={lang}
-              settings={appState.settings}
-              onOpenQuickAdd={() => setIsQuickAddOpen(true)}
-              onUpdateSettings={handleUpdateSettings}
-            />
+                <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="bg-blue-800/50 rounded-xl p-4 border border-blue-700/50 backdrop-blur-sm">
+                    <h3 className="text-blue-200 text-xs font-semibold mb-1">Total Balance</h3>
+                    <div className="text-xl font-bold text-white flex items-baseline gap-1">
+                      {currency} {summary.remaining}
+                    </div>
+                  </div>
+                  <div className="bg-blue-800/50 rounded-xl p-4 border border-blue-700/50 backdrop-blur-sm">
+                    <h3 className="text-blue-200 text-xs font-semibold mb-1">Income</h3>
+                    <div className="text-xl font-bold text-emerald-400 flex items-baseline gap-1">
+                      +{currency} {summary.income}
+                    </div>
+                  </div>
+                  <div className="bg-blue-800/50 rounded-xl p-4 border border-blue-700/50 backdrop-blur-sm">
+                    <h3 className="text-blue-200 text-xs font-semibold mb-1">Expenses</h3>
+                    <div className="text-xl font-bold text-red-400 flex items-baseline gap-1">
+                      -{currency} {summary.expense}
+                    </div>
+                  </div>
+                  <div className="bg-blue-800/50 rounded-xl p-4 border border-blue-700/50 backdrop-blur-sm">
+                    <h3 className="text-blue-200 text-xs font-semibold mb-1">Savings Rate</h3>
+                    <div className="text-xl font-bold text-white">
+                      {summary.income > 0 ? Math.round(((summary.income - summary.expense) / summary.income) * 100) : 0}%
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-            {/* 4. Goal Vaults & Sinking Funds */}
-            <SinkingFundsTracker
-              goals={appState.goals}
-              currency={currency}
-              lang={lang}
-              onAddGoal={handleAddGoal}
-              onUpdateGoal={handleUpdateGoal}
-              onDeleteGoal={handleDeleteGoal}
-              onDepositToGoal={handleDepositToGoal}
-            />
+              {/* Grid layout for previous components */}
+              <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                <div className="xl:col-span-2 space-y-6">
+                  {/* Hero Disposable Life Money Card adapted */}
+                  <HeroCard
+                    summary={summary}
+                    currency={currency}
+                    lang={lang}
+                    settings={appState.settings}
+                    onOpenQuickAdd={() => setIsQuickAddOpen(true)}
+                    onUpdateSettings={handleUpdateSettings}
+                  />
 
-            {/* 5. Recent Transactions Snapshot */}
-            <TransactionLedger
-              transactions={appState.transactions.slice(0, 6)}
-              categories={appState.categories}
-              currency={currency}
-              lang={lang}
-              settings={appState.settings}
-              isDashboardSnapshot={true}
-              onViewAllLedger={() => setActiveTab('ledger')}
-              onDeleteTransaction={handleDeleteTransaction}
-              onDeleteTransactions={handleDeleteTransactions}
-              onBatchUpdateCategory={handleBatchUpdateCategory}
-              onUpdateTransaction={handleUpdateTransaction}
-              onOpenQuickAdd={() => setIsQuickAddOpen(true)}
-              onExportCSV={handleExportCSV}
-              onExportXML={handleExportXML}
-              onImportCSV={handleImportTransactions}
-            />
-          </div>
-        )}
+                  {/* Monthly Budget Tracker (Budget Limits) */}
+                  <MonthlyBudgetTracker
+                    appState={appState}
+                    summary={summary}
+                    onUpdateSettings={handleUpdateSettings}
+                  />
+
+                  {/* Babylon Rules Allocations Overview (Pay Yourself First) */}
+                  <AllocationsOverview
+                    summary={summary}
+                    currency={currency}
+                    lang={lang}
+                    tithePercent={appState.settings.tithePercent}
+                    wealthPercent={appState.settings.wealthPercent}
+                    onOpenSettings={() => setIsSettingsOpen(true)}
+                    onSelectTab={(tab) => setActiveTab(tab)}
+                  />
+                </div>
+
+                <div className="space-y-6">
+                  {/* Goal Vaults & Sinking Funds */}
+                  <SinkingFundsTracker
+                    goals={appState.goals}
+                    currency={currency}
+                    lang={lang}
+                    onAddGoal={handleAddGoal}
+                    onUpdateGoal={handleUpdateGoal}
+                    onDeleteGoal={handleDeleteGoal}
+                    onDepositToGoal={handleDepositToGoal}
+                  />
+                </div>
+              </div>
+
+              {/* Monthly Spending & Income Calendar */}
+              <CalendarWidget 
+                transactions={appState.transactions}
+                currency={currency}
+                lang={lang}
+              />
+
+              {/* Recent Transactions Snapshot */}
+              <TransactionLedger
+                transactions={appState.transactions.slice(0, 6)}
+                categories={appState.categories}
+                currency={currency}
+                lang={lang}
+                settings={appState.settings}
+                isDashboardSnapshot={true}
+                onViewAllLedger={() => setActiveTab('ledger')}
+                onDeleteTransaction={handleDeleteTransaction}
+                onDeleteTransactions={handleDeleteTransactions}
+                onBatchUpdateCategory={handleBatchUpdateCategory}
+                onUpdateTransaction={handleUpdateTransaction}
+                onOpenQuickAdd={() => setIsQuickAddOpen(true)}
+                onExportCSV={handleExportCSV}
+                onExportXML={handleExportXML}
+                onImportCSV={handleImportTransactions}
+              />
+            </div>
+          )}
 
         {activeTab === 'ledger' && (
           <div className="animate-fadeIn">
@@ -692,22 +733,61 @@ export default function App() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-zinc-800 bg-zinc-950 py-6 text-center text-xs text-zinc-500">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="font-medium">
+      {/* Mobile Bottom Navigation */}
+      <nav className="md:hidden flex-shrink-0 bg-white dark:bg-zinc-900 border-t border-slate-200 dark:border-zinc-800 flex items-center justify-around pb-[env(safe-area-inset-bottom)] z-50">
+        <button
+          onClick={() => setActiveTab('dashboard')}
+          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'dashboard' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-zinc-200'}`}
+        >
+          <LayoutDashboard className="w-5 h-5" />
+          <span className="text-[10px] font-medium">{t('dashboard')}</span>
+        </button>
+        <button
+          onClick={() => setActiveTab('ledger')}
+          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'ledger' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-zinc-200'}`}
+        >
+          <ListOrdered className="w-5 h-5" />
+          <span className="text-[10px] font-medium">{t('ledger')}</span>
+        </button>
+        <button
+          onClick={() => setActiveTab('analytics')}
+          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'analytics' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-zinc-200'}`}
+        >
+          <PieChart className="w-5 h-5" />
+          <span className="text-[10px] font-medium">{t('analytics')}</span>
+        </button>
+        <button
+          onClick={() => setActiveTab('vaults')}
+          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'vaults' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-zinc-200'}`}
+        >
+          <PiggyBank className="w-5 h-5" />
+          <span className="text-[10px] font-medium">{t('vaults')}</span>
+        </button>
+        <button
+          onClick={() => setActiveTab('bills')}
+          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'bills' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-zinc-200'}`}
+        >
+          <Receipt className="w-5 h-5" />
+          <span className="text-[10px] font-medium">{t('billsAndDebt')}</span>
+        </button>
+      </nav>
+
+      {/* Desktop Footer (Hidden on mobile) */}
+      <footer className="hidden md:block border-t border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 py-6 text-center text-xs text-slate-500 dark:text-zinc-500">
+        <div className="max-w-7xl mx-auto px-4 flex items-center justify-between gap-3">
+          <p className="font-medium text-slate-600 dark:text-zinc-400">
             {t('appTitle')} &copy; {new Date().getFullYear()} — {t('tagline')}
           </p>
-          <div className="flex items-center gap-4 text-zinc-400 font-semibold">
-            <button onClick={() => setIsInstructionsOpen(true)} className="hover:text-emerald-400 transition-colors cursor-pointer text-emerald-400/90 font-bold">
+          <div className="flex items-center gap-4 text-slate-400 dark:text-zinc-400 font-semibold">
+            <button onClick={() => setIsInstructionsOpen(true)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer text-blue-600 dark:text-blue-400/90 font-bold">
               {t('instructions')}
             </button>
             <span>&bull;</span>
-            <button onClick={() => setIsOnboardingOpen(true)} className="hover:text-emerald-400 transition-colors cursor-pointer">
+            <button onClick={() => setIsOnboardingOpen(true)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
               {t('onboarding')}
             </button>
             <span>&bull;</span>
-            <button onClick={() => setIsSettingsOpen(true)} className="hover:text-emerald-400 transition-colors cursor-pointer">
+            <button onClick={() => setIsSettingsOpen(true)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
               {t('settings')}
             </button>
           </div>
@@ -783,6 +863,7 @@ export default function App() {
         onCancel={() => setDeleteConfirmation({ isOpen: false, type: null, id: null })}
         lang={lang}
       />
+      </div>
     </div>
   );
 }
