@@ -231,8 +231,9 @@ export const translations = {
     importJSON: 'Import JSON Backup',
     importSuccess: 'Data imported successfully!',
     importError: 'Failed to import data. Please check JSON format.',
-    resetWarning: 'Are you sure you want to reset all data? This action cannot be undone.',
-    resetSuccess: 'Application reset to initial default state.',
+    resetWarning: 'Are you sure you want to delete all data? This will permanently delete all transactions, goals, bills, debts, and budgets without adding any demo data. This action cannot be undone.',
+    resetSuccess: 'All data has been deleted successfully.',
+    confirmDeleteAll: 'Delete All',
     
     // Keyboard shortcuts
     keyboardShortcuts: 'Keyboard Shortcuts',
@@ -477,8 +478,9 @@ export const translations = {
     importJSON: 'Внос на JSON Архив',
     importSuccess: 'Данните са внесени успешно!',
     importError: 'Грешка при вноса на данни. Моля проверете JSON формата.',
-    resetWarning: 'Сигурни ли сте, че искате да нулирате всички данни? Това действие не може да бъде отменено.',
-    resetSuccess: 'Приложението е нулирано до началното си състояние.',
+    resetWarning: 'Сигурни ли сте, че искате да изтриете всички данни? Това ще изтрие напълно всички транзакции, цели, сметки, дългове и бюджети без добавяне на примерни данни. Това действие не може да бъде отменено.',
+    resetSuccess: 'Всички данни бяха изтрити успешно.',
+    confirmDeleteAll: 'Изтрий всичко',
     
     // Keyboard shortcuts
     keyboardShortcuts: 'Клавишни Комбинации',

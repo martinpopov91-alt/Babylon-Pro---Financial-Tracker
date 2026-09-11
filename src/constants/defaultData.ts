@@ -110,7 +110,7 @@ export const DEFAULT_CATEGORIES: Category[] = [
 export const INITIAL_APP_STATE: AppState = {
   isNewUser: false,
   settings: {
-    salary: 3000,
+    salary: 0,
     currency: 'BGN',
     startDay: 1,
     language: 'bg',
@@ -122,75 +122,31 @@ export const INITIAL_APP_STATE: AppState = {
     autoGenerateRecurringBills: true,
     budgetLimits: {},
   },
-  goals: [
-    {
-      id: 'g1',
-      name: 'Emergency Fund / Авариен Фонд',
-      targetAmount: 5000,
-      currentAmount: 1800,
-      startingAmount: 1000,
-      monthlyTarget: 300,
-      icon: 'Shield'
-    },
-    {
-      id: 'g2',
-      name: 'Summer Vacation / Лятна Почивка',
-      targetAmount: 2000,
-      currentAmount: 650,
-      startingAmount: 200,
-      monthlyTarget: 200,
-      icon: 'Plane'
-    }
-  ],
-  bills: [
-    {
-      id: 'b1',
-      name: 'Apartment Rent / Наем',
-      amount: 600,
-      dueDateDay: 5,
-      isPaid: false,
-      category: 'cat_rent',
-      isRecurring: true,
-      autoGenerateTransaction: true
-    },
-    {
-      id: 'b2',
-      name: 'Utilities & Power / Ток и Вода',
-      amount: 150,
-      dueDateDay: 15,
-      isPaid: false,
-      category: 'cat_energy',
-      isRecurring: true,
-      autoGenerateTransaction: true
-    }
-  ],
-  debts: [
-    {
-      id: 'd1',
-      name: 'Car Loan / Автокредит',
-      amount: 250,
-      totalBalance: 4500,
-      isPaid: false,
-      category: 'cat_debt'
-    }
-  ],
-  transactions: [
-    {
-      id: 't1',
-      amount: 85.40,
-      note: 'Weekly Groceries / Седмични покупки',
-      category: 'cat_groceries',
-      type: 'needs',
-      date: new Date().toISOString().split('T')[0]
-    },
-    {
-      id: 't2',
-      amount: 24.00,
-      note: 'Coffee & Lunch with friends',
-      category: 'cat_bar_cafe',
-      type: 'wants',
-      date: new Date().toISOString().split('T')[0]
-    }
-  ],
+  goals: [],
+  bills: [],
+  debts: [],
+  transactions: [],
   categories: DEFAULT_CATEGORIES
 };
+
+export const createEmptyAppState = (currentSettings?: Partial<AppState['settings']>): AppState => ({
+  isNewUser: false,
+  settings: {
+    salary: 0,
+    currency: currentSettings?.currency || 'BGN',
+    startDay: 1,
+    language: currentSettings?.language || 'bg',
+    theme: currentSettings?.theme || 'dark',
+    tithePercent: 10,
+    wealthPercent: 10,
+    rollover: true,
+    rolloverAmount: 0,
+    autoGenerateRecurringBills: true,
+    budgetLimits: {},
+  },
+  goals: [],
+  bills: [],
+  debts: [],
+  transactions: [],
+  categories: DEFAULT_CATEGORIES
+});

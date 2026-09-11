@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, 
   Settings, 
@@ -65,6 +65,16 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   const [wealthPercent, setWealthPercent] = useState<number>(settings.wealthPercent);
   const [rollover, setRollover] = useState<boolean>(settings.rollover);
   const [currentTheme, setCurrentTheme] = useState<Theme>(settings.theme || 'dark');
+
+  useEffect(() => {
+    setSalary(settings.salary || 0);
+    setCurrency(settings.currency);
+    setStartDay(settings.startDay);
+    setTithePercent(settings.tithePercent);
+    setWealthPercent(settings.wealthPercent);
+    setRollover(settings.rollover);
+    setCurrentTheme(settings.theme || 'dark');
+  }, [settings]);
 
   const handleThemeChange = (newTheme: Theme) => {
     setCurrentTheme(newTheme);

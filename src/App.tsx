@@ -23,7 +23,7 @@ import { loadAppState, saveAppState, exportToCSV, exportToXML, exportJSONBackup 
 import { calculateFinancials } from './utils/calculations';
 import { processRecurringBills } from './utils/recurringBills';
 import { getTranslation } from './constants/translations';
-import { INITIAL_APP_STATE } from './constants/defaultData';
+import { INITIAL_APP_STATE, createEmptyAppState } from './constants/defaultData';
 
 import { Header } from './components/Header';
 import { HeroCard } from './components/HeroCard';
@@ -56,7 +56,7 @@ export default function App() {
   const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState<{
     isOpen: boolean;
-    type: 'transaction' | 'goal' | null;
+    type: 'transaction' | 'goal' | 'reset' | null;
     id: string | null;
   }>({
     isOpen: false,
@@ -268,6 +268,8 @@ export default function App() {
       executeDeleteTransaction(deleteConfirmation.id);
     } else if (deleteConfirmation.type === 'goal' && deleteConfirmation.id) {
       executeDeleteGoal(deleteConfirmation.id);
+    } else if (deleteConfirmation.type === 'reset') {
+      executeResetData();
     }
     setDeleteConfirmation({ isOpen: false, type: null, id: null });
   };
@@ -424,11 +426,18 @@ export default function App() {
   };
 
   const handleResetData = () => {
-    if (confirm(t('resetWarning'))) {
-      setAppState({ ...INITIAL_APP_STATE, isNewUser: false });
-      alert(t('resetSuccess'));
-      setIsSettingsOpen(false);
-    }
+    setDeleteConfirmation({
+      isOpen: true,
+      type: 'reset',
+      id: 'all_data'
+    });
+  };
+
+  const executeResetData = () => {
+    const cleanState = createEmptyAppState(appState.settings);
+    setAppState(cleanState);
+    saveAppState(cleanState);
+    setIsSettingsOpen(false);
   };
 
   const handleCompleteWizard = (wizardData: {
@@ -854,11 +863,24 @@ export default function App() {
         onClose={() => setIsShortcutsOpen(false)}
       />
 
-      {/* Generic Confirmation Modal for Deletions */}
+      {/* Generic Confirmation Modal for Deletions & Reset */}
       <ConfirmModal
         isOpen={deleteConfirmation.isOpen}
-        title={deleteConfirmation.type === 'transaction' ? t('confirmDeleteTxTitle') : t('confirmDeleteGoalTitle')}
-        message={deleteConfirmation.type === 'transaction' ? t('confirmDeleteTxDesc') : t('confirmDeleteGoalDesc')}
+        title={
+          deleteConfirmation.type === 'transaction'
+            ? t('confirmDeleteTxTitle')
+            : deleteConfirmation.type === 'goal'
+            ? t('confirmDeleteGoalTitle')
+            : t('reset')
+        }
+        message={
+          deleteConfirmation.type === 'transaction'
+            ? t('confirmDeleteTxDesc')
+            : deleteConfirmation.type === 'goal'
+            ? t('confirmDeleteGoalDesc')
+            : t('resetWarning')
+        }
+        confirmText={deleteConfirmation.type === 'reset' ? t('confirmDeleteAll') : undefined}
         onConfirm={confirmDelete}
         onCancel={() => setDeleteConfirmation({ isOpen: false, type: null, id: null })}
         lang={lang}

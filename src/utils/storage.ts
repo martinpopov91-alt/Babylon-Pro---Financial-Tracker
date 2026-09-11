@@ -20,15 +20,23 @@ export const loadAppState = (): AppState => {
     return {
       isNewUser: parsed.isNewUser ?? INITIAL_APP_STATE.isNewUser,
       settings: { ...INITIAL_APP_STATE.settings, ...(parsed.settings || {}) },
-      goals: parsed.goals || INITIAL_APP_STATE.goals,
-      bills: parsed.bills || INITIAL_APP_STATE.bills,
-      debts: parsed.debts || INITIAL_APP_STATE.debts,
-      transactions: parsed.transactions || INITIAL_APP_STATE.transactions,
+      goals: Array.isArray(parsed.goals) ? parsed.goals : [],
+      bills: Array.isArray(parsed.bills) ? parsed.bills : [],
+      debts: Array.isArray(parsed.debts) ? parsed.debts : [],
+      transactions: Array.isArray(parsed.transactions) ? parsed.transactions : [],
       categories,
     };
   } catch (error) {
     console.error('Failed to load app state from localStorage:', error);
     return INITIAL_APP_STATE;
+  }
+};
+
+export const clearAppState = (): void => {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch (error) {
+    console.error('Failed to clear app state from localStorage:', error);
   }
 };
 
