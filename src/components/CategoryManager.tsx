@@ -56,27 +56,27 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
 
   return (
     <div className="space-y-4">
-      <h3 className="text-sm font-bold text-zinc-100 flex items-center gap-2">
+      <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
         <Tag className="w-4 h-4 text-emerald-400" />
         <span>{t('categoryManagement')}</span>
       </h3>
 
       {/* Add new category form */}
-      <form onSubmit={handleAdd} className="grid grid-cols-1 sm:grid-cols-5 gap-2 bg-zinc-800/60 p-3 rounded-xl border border-zinc-700/60">
+      <form onSubmit={handleAdd} className="grid grid-cols-1 sm:grid-cols-5 gap-2 bg-slate-50/60 p-3 rounded-xl border border-slate-200/60">
         <input
           type="text"
           required
           placeholder="Name (EN)"
           value={nameEn}
           onChange={(e) => setNameEn(e.target.value)}
-          className="px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-xs font-medium text-zinc-100"
+          className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium text-slate-800"
         />
         <input
           type="text"
           placeholder="Име (BG)"
           value={nameBg}
           onChange={(e) => setNameBg(e.target.value)}
-          className="px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-xs font-medium text-zinc-100"
+          className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium text-slate-800"
         />
         <select
           value={selectedType}
@@ -84,7 +84,7 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
             setSelectedType(e.target.value as CategoryType);
             setParentId('');
           }}
-          className="px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-xs font-medium text-zinc-200 cursor-pointer"
+          className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium text-slate-700 cursor-pointer"
         >
           {typesList.map((t) => (
             <option key={t.type} value={t.type}>
@@ -95,7 +95,7 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
         <select
           value={parentId}
           onChange={(e) => setParentId(e.target.value)}
-          className="px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-xs font-medium text-zinc-200 cursor-pointer"
+          className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium text-slate-700 cursor-pointer"
         >
           <option value="">{lang === 'bg' ? 'Основна категория' : 'Main Category'}</option>
           {mainCategoriesForSelectedType.map((cat) => (
@@ -129,8 +129,8 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
                 {mainCats.map((main) => {
                   const subCats = catGroup.filter(c => c.parentId === main.id);
                   return (
-                    <div key={main.id} className="bg-zinc-800/80 border border-zinc-700/50 rounded-xl p-2.5 space-y-1.5">
-                      <div className="flex items-center justify-between text-xs font-bold text-zinc-100">
+                    <div key={main.id} className="bg-slate-50/80 border border-slate-200/50 rounded-xl p-2.5 space-y-1.5">
+                      <div className="flex items-center justify-between text-xs font-bold text-slate-800">
                         <span 
                           className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold border transition-colors" 
                           style={{ 
@@ -145,18 +145,18 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
                           <button
                             type="button"
                             onClick={() => onDeleteCategory(main.id)}
-                            className="text-zinc-500 hover:text-rose-400 transition-colors p-1 cursor-pointer"
+                            className="text-slate-400 hover:text-rose-400 transition-colors p-1 cursor-pointer"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         )}
                       </div>
                       {subCats.length > 0 && (
-                        <div className="pl-3 border-l-2 border-zinc-700/60 grid grid-cols-1 sm:grid-cols-2 gap-1 text-[11px]">
+                        <div className="pl-3 border-l-2 border-slate-200/60 grid grid-cols-1 sm:grid-cols-2 gap-1 text-[11px]">
                           {subCats.map((sub) => (
                             <div
                               key={sub.id}
-                              className="flex items-center justify-between p-1.5 rounded-md bg-zinc-900/60 text-zinc-300"
+                              className="flex items-center justify-between p-1.5 rounded-md bg-white/60 text-slate-600"
                             >
                               <div className="flex items-center gap-1.5">
                                 <span 
@@ -174,7 +174,7 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
                                 <button
                                   type="button"
                                   onClick={() => onDeleteCategory(sub.id)}
-                                  className="text-zinc-500 hover:text-rose-400 transition-colors p-0.5"
+                                  className="text-slate-400 hover:text-rose-400 transition-colors p-0.5"
                                 >
                                   <Trash2 className="w-3 h-3" />
                                 </button>

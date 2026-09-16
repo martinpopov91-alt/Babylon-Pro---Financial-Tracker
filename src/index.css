@@ -1,36 +1,58 @@
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    /* Fresh Slate Mist Light Theme */
-    --color-zinc-950: #F1F5F9; /* Clean, calm slate-mist background (not harsh blinding white, not yellowish) */
-    --color-zinc-900: #ffffff; /* Crisp white cards and containers */
-    --color-zinc-800: #E2E8F0; /* Clean light slate inputs, buttons & pill tags */
-    --color-zinc-700: #CBD5E1; /* Refined structural borders & dividers */
-    --color-zinc-600: #94A3B8; /* Muted slate icons & subtle elements */
-    --color-zinc-500: #64748B; /* Legible secondary text (passes WCAG AA) */
-    --color-zinc-400: #475569; /* Supporting body text */
-    --color-zinc-300: #334155; /* Regular body text */
-    --color-zinc-200: #1E293B; /* Prominent figures & subheaders */
-    --color-zinc-100: #0F172A; /* Deep slate primary titles & metrics */
-    --color-zinc-50: #020617;
-    color-scheme: light;
-  }
+@theme {
+  --color-zinc-950: #1A1C19;
+  --color-zinc-900: #242722;
+  --color-zinc-850: #2A2E27;
+  --color-zinc-800: #31362E;
+  --color-zinc-750: #383E34;
+  --color-zinc-700: #3F443B;
+  --color-zinc-650: #4E5549;
+  --color-zinc-600: #5F6659;
+  --color-zinc-500: #818B7B;
+  --color-zinc-400: #A6AF9F;
+  --color-zinc-300: #CBD3C6;
+  --color-zinc-200: #E5ECE0;
+  --color-zinc-100: #F5F8F2;
+  --color-zinc-50: #FFFFFF;
 
-  .dark {
-    /* Balanced Graphite Slate Dark Theme (Modern, comfortable, not pitch black) */
-    --color-zinc-950: #161D27; /* Deep graphite-slate background (eye-friendly, non-pitch black) */
-    --color-zinc-900: #1F2735; /* Elevated financial card surfaces */
-    --color-zinc-800: #2B3547; /* Inputs, table headers, hover states & pills */
-    --color-zinc-700: #3B4860; /* Subtle structural borders & dividers */
-    --color-zinc-600: #526384; /* Secondary borders & icon accents */
-    --color-zinc-500: #7E90B0; /* Muted captions & metadata */
-    --color-zinc-400: #A0B0CB; /* Clear supporting text */
-    --color-zinc-300: #C2D0E4; /* High-readability body text */
-    --color-zinc-200: #E0E9F5; /* Crisp text & subheaders */
-    --color-zinc-100: #F1F5FA; /* Clean bright headings & financial metrics */
-    --color-zinc-50: #ffffff;
+  --color-gold-50: #FAF6E8;
+  --color-gold-100: #F5ECCB;
+  --color-gold-200: #EAD897;
+  --color-gold-300: #DFC463;
+  --color-gold-400: #D4AF37;
+  --color-gold-500: #D4AF37;
+  --color-gold-600: #C29F2B;
+  --color-gold-700: #A3841F;
+  --color-gold-800: #7A6317;
+  --color-gold-900: #52420F;
+}
+
+@layer base {
+  :root, .dark {
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* The Premium Wealth (Luxury & Growth) */
+    --color-zinc-950: #1A1C19; /* Very dark forest-slate background */
+    --color-zinc-900: #242722; /* Rich, warm charcoal card surface */
+    --color-zinc-850: #2A2E27; /* Elevated card surface */
+    --color-zinc-800: #31362E; /* Inputs, sub-cards, table headers, hover states */
+    --color-zinc-750: #383E34; /* Hover active state */
+    --color-zinc-700: #3F443B; /* Soft mossy border */
+    --color-zinc-650: #4E5549; /* Medium moss border */
+    --color-zinc-600: #5F6659; /* Secondary borders, muted icons */
+    --color-zinc-500: #818B7B; /* Muted captions, secondary labels */
+    --color-zinc-400: #A6AF9F; /* Clear supporting text */
+    --color-zinc-300: #CBD3C6; /* Body text */
+    --color-zinc-200: #E5ECE0; /* Subheadings, values */
+    --color-zinc-100: #F5F8F2; /* Bright headings, hero numbers */
+    --color-zinc-50: #FFFFFF;
+
+    --color-gold: #D4AF37; /* Matte gold / champagne */
+    --color-gold-hover: #C29F2B;
+    --color-gold-active: #B08F22;
+    --color-gold-muted: rgba(212, 175, 55, 0.14);
+    --color-gold-border: rgba(212, 175, 55, 0.35);
+
     color-scheme: dark;
   }
 
@@ -40,11 +62,13 @@
     overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
+    background-color: #1A1C19;
+    color: #F5F8F2;
   }
 
   body {
-    background-color: var(--color-zinc-950);
-    color: var(--color-zinc-100);
+    background-color: #1A1C19;
+    color: #F5F8F2;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     overflow-x: hidden;
     width: 100%;

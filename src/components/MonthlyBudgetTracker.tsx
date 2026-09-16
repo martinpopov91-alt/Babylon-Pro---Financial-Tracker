@@ -79,23 +79,23 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
   };
 
   return (
-    <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
-      <div className="p-4 sm:p-6 border-b border-zinc-800 flex items-center justify-between">
+    <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
+      <div className="p-4 sm:p-6 border-b border-slate-200 flex items-center justify-between">
         <div>
-          <h3 className="text-base sm:text-lg font-bold text-zinc-100 flex items-center gap-2">
-            <Target className="w-5 h-5 text-emerald-400" />
+          <h3 className="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
+            <Target className="w-5 h-5 text-[#F7B352]" />
             <span>{lang === 'bg' ? 'Бюджетни Лимити' : 'Budget Limits'}</span>
           </h3>
-          <p className="text-xs text-zinc-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             {lang === 'bg' ? 'Проследявайте разходите си по категории.' : 'Track your spending against set category limits.'}
           </p>
         </div>
         <button
           onClick={() => setIsEditing(!isEditing)}
-          className={`p-2 rounded-lg transition-colors cursor-pointer ${
+          className={`p-2 rounded-xl transition-colors cursor-pointer ${
             isEditing 
-              ? 'bg-emerald-500/15 text-emerald-400' 
-              : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700'
+              ? 'bg-[#F7B352]/15 text-[#174E5B] border border-[#F7B352]/30' 
+              : 'bg-slate-50 text-slate-500 hover:text-slate-700 hover:bg-slate-100 border border-slate-200'
           }`}
         >
           <Settings2 className="w-4 h-4" />
@@ -104,8 +104,8 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
 
       <div className="p-4 sm:p-6 space-y-6">
         {budgetedCategoryIds.length === 0 && !isEditing ? (
-          <div className="text-center py-6 text-zinc-500">
-            <Target className="w-8 h-8 mx-auto mb-3 text-zinc-600 opacity-50" />
+          <div className="text-center py-6 text-slate-400">
+            <Target className="w-8 h-8 mx-auto mb-3 text-slate-400 opacity-50" />
             <p className="text-sm font-medium">{lang === 'bg' ? 'Нямате зададени лимити.' : 'No budget limits set.'}</p>
             <p className="text-xs mt-1">{lang === 'bg' ? 'Натиснете иконката за настройки, за да добавите.' : 'Click the settings icon to add some.'}</p>
           </div>
@@ -120,15 +120,15 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
               const remaining = limit - spent;
               const percentage = Math.min(100, Math.max(0, (spent / limit) * 100));
               
-              let statusColor = 'bg-emerald-500 text-emerald-500';
-              if (percentage >= 100) statusColor = 'bg-rose-500 text-rose-500';
-              else if (percentage >= 80) statusColor = 'bg-amber-500 text-amber-500';
+              let statusColor = 'bg-[#8DA37C] text-[#8DA37C]';
+              if (percentage >= 100) statusColor = 'bg-[#E07A6C] text-[#E07A6C]';
+              else if (percentage >= 80) statusColor = 'bg-[#F7B352] text-[#F7B352]';
 
               return (
                 <div key={catId} className="space-y-2">
                   <div className="flex items-center justify-between text-sm">
-                    <div className="flex items-center gap-2 text-zinc-200 font-medium">
-                      <span className="p-1.5 rounded-md" style={{ backgroundColor: `${cat.color || '#a1a1aa'}15`, color: cat.color || '#a1a1aa' }}>
+                    <div className="flex items-center gap-2 text-slate-700 font-semibold">
+                      <span className="p-1.5 rounded-lg" style={{ backgroundColor: `${cat.color || '#a1a1aa'}15`, color: cat.color || '#a1a1aa' }}>
                         {renderIcon(cat.icon)}
                       </span>
                       <span>{getCategoryName(catId, categories, lang)}</span>
@@ -139,24 +139,24 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
                           type="number"
                           value={limit}
                           onChange={(e) => handleUpdateLimit(catId, e.target.value)}
-                          className="w-24 px-2 py-1 bg-zinc-950 border border-zinc-800 rounded-md text-xs text-right text-zinc-200 focus:outline-none focus:border-emerald-500"
+                          className="w-24 px-2 py-1 bg-slate-50 border border-slate-200 rounded-lg text-xs text-right text-slate-700 focus:outline-none focus:border-[#F7B352]"
                         />
                         <button
                           onClick={() => handleRemoveLimit(catId)}
-                          className="p-1 text-zinc-500 hover:text-rose-500 transition-colors cursor-pointer"
+                          className="p-1 text-slate-500 hover:text-[#E07A6C] transition-colors cursor-pointer"
                         >
                           <X className="w-4 h-4" />
                         </button>
                       </div>
                     ) : (
                       <div className="text-right">
-                        <span className="font-bold text-zinc-100">{formatCurrency(spent, currency)}</span>
-                        <span className="text-zinc-500 text-xs ml-1">/ {formatCurrency(limit, currency)}</span>
+                        <span className="font-bold text-slate-800">{formatCurrency(spent, currency)}</span>
+                        <span className="text-slate-400 text-xs ml-1">/ {formatCurrency(limit, currency)}</span>
                       </div>
                     )}
                   </div>
                   
-                  <div className="h-2 bg-zinc-950 rounded-full overflow-hidden flex">
+                  <div className="h-2 bg-slate-50 rounded-full overflow-hidden flex">
                     <div 
                       className={`h-full ${statusColor.split(' ')[0]} transition-all duration-500`} 
                       style={{ width: `${percentage}%` }}
@@ -165,10 +165,10 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
                   
                   {!isEditing && (
                     <div className="flex items-center justify-between text-[11px] font-medium">
-                      <span className="text-zinc-500">
+                      <span className="text-slate-400">
                         {percentage.toFixed(0)}% {lang === 'bg' ? 'изразходвани' : 'spent'}
                       </span>
-                      <span className={remaining < 0 ? 'text-rose-400' : remaining < (limit * 0.2) ? 'text-amber-400' : 'text-emerald-400'}>
+                      <span className={remaining < 0 ? 'text-[#E07A6C] font-bold' : remaining < (limit * 0.2) ? 'text-[#174E5B] font-bold' : 'text-[#9BB18A] font-bold'}>
                         {remaining < 0 
                           ? `${lang === 'bg' ? 'Надхвърлен с' : 'Over by'} ${formatCurrency(Math.abs(remaining), currency)}` 
                           : `${formatCurrency(remaining, currency)} ${lang === 'bg' ? 'оставащи' : 'left'}`}
@@ -182,15 +182,15 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
         )}
 
         {isEditing && (
-          <div className="pt-4 border-t border-zinc-800/50 mt-4">
-            <h4 className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-3">
+          <div className="pt-4 border-t border-slate-200/60 mt-4">
+            <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">
               {lang === 'bg' ? 'Добави лимит' : 'Add New Limit'}
             </h4>
             <div className="flex gap-2 items-center">
               <select
                 value={newCategoryId}
                 onChange={(e) => setNewCategoryId(e.target.value)}
-                className="flex-1 px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-lg text-sm text-zinc-200 focus:outline-none focus:border-emerald-500"
+                className="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 focus:outline-none focus:border-[#F7B352]"
               >
                 <option value="">{lang === 'bg' ? 'Избери категория' : 'Select category'}</option>
                 {availableCategories.map(c => (
@@ -204,12 +204,12 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
                 placeholder="0.00"
                 value={newLimit}
                 onChange={(e) => setNewLimit(e.target.value)}
-                className="w-24 px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-lg text-sm text-zinc-200 focus:outline-none focus:border-emerald-500"
+                className="w-24 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 focus:outline-none focus:border-[#F7B352]"
               />
               <button
                 onClick={handleSaveNewLimit}
                 disabled={!newCategoryId || !newLimit}
-                className="p-2 bg-emerald-600 text-white rounded-lg font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-emerald-500 transition-colors cursor-pointer"
+                className="p-2 bg-[#F7B352] hover:bg-[#E59F2A] active:scale-[0.98] text-slate-900 rounded-xl font-black disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer shadow-sm shadow-[#F7B352]/25"
               >
                 <Plus className="w-5 h-5" />
               </button>

@@ -7,7 +7,8 @@ import {
   Settings as SettingsIcon,
   Sparkles,
   Plus,
-  PieChart
+  PieChart,
+  Coins
 } from 'lucide-react';
 import { 
   AppState, 
@@ -20,7 +21,7 @@ import {
   Transaction 
 } from './types';
 import { loadAppState, saveAppState, exportToCSV, exportToXML, exportJSONBackup } from './utils/storage';
-import { calculateFinancials } from './utils/calculations';
+import { calculateFinancials, formatCurrency } from './utils/calculations';
 import { processRecurringBills } from './utils/recurringBills';
 import { getTranslation } from './constants/translations';
 import { INITIAL_APP_STATE, createEmptyAppState } from './constants/defaultData';
@@ -457,95 +458,122 @@ export default function App() {
   };
 
   return (
-    <div className="flex h-screen w-full bg-[#F8FAFC] dark:bg-[#161D27] text-slate-800 dark:text-zinc-100 font-sans antialiased overflow-hidden">
-      {/* Sidebar */}
-      <aside className="w-64 bg-slate-900 text-slate-300 flex flex-col transition-all flex-shrink-0 hidden md:flex z-50">
-        <div className="h-16 flex items-center px-6 border-b border-slate-800">
-          <div className="flex items-center gap-2 text-white font-bold text-xl tracking-wide">
-            <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center shadow-sm">
-              <span className="text-white font-black">C</span>
+    <div className="flex h-screen w-full bg-[#8E8B85] p-2 sm:p-6 text-slate-800 font-sans antialiased overflow-hidden">
+      {/* Main App Container */}
+      <div className="flex w-full h-full bg-[#EFF3F8] rounded-[2rem] sm:rounded-[3rem] overflow-hidden shadow-2xl relative">
+        {/* Sidebar */}
+        <aside className="w-64 bg-[#282A3A] flex flex-col flex-shrink-0 hidden lg:flex z-50">
+          {/* Top Teal Section */}
+          <div className="bg-[#174E5B] pt-12 pb-10 px-6 rounded-br-[3rem] flex flex-col items-center text-center relative z-10">
+            <div className="w-16 h-16 rounded-full border-2 border-white/20 p-1 mb-3">
+              <img 
+                src={`https://ui-avatars.com/api/?name=Hasan+Sajjad&background=random`} 
+                alt="Profile" 
+                className="w-full h-full rounded-full object-cover"
+              />
             </div>
-            {t('appTitle')}
-          </div>
-        </div>
-        
-        <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-1.5">
-          <button
-            onClick={() => setActiveTab('dashboard')}
-            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer ${
-              activeTab === 'dashboard'
-                ? 'bg-blue-600 text-white font-semibold shadow-md'
-                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200 font-medium'
-            }`}
-          >
-            <LayoutDashboard className="w-4 h-4" />
-            <span className="text-sm">{t('dashboard')}</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('ledger')}
-            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer ${
-              activeTab === 'ledger'
-                ? 'bg-blue-600 text-white font-semibold shadow-md'
-                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200 font-medium'
-            }`}
-          >
-            <ListOrdered className="w-4 h-4" />
-            <span className="text-sm">{t('ledger')}</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('analytics')}
-            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer ${
-              activeTab === 'analytics'
-                ? 'bg-blue-600 text-white font-semibold shadow-md'
-                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200 font-medium'
-            }`}
-          >
-            <PieChart className="w-4 h-4" />
-            <span className="text-sm">{t('analytics')}</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('vaults')}
-            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer ${
-              activeTab === 'vaults'
-                ? 'bg-blue-600 text-white font-semibold shadow-md'
-                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200 font-medium'
-            }`}
-          >
-            <PiggyBank className="w-4 h-4" />
-            <span className="text-sm">{t('vaults')}</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('bills')}
-            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer ${
-              activeTab === 'bills'
-                ? 'bg-blue-600 text-white font-semibold shadow-md'
-                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200 font-medium'
-            }`}
-          >
-            <Receipt className="w-4 h-4" />
-            <span className="text-sm">{t('billsAndDebt')}</span>
-          </button>
-
-          <div className="pt-6 pb-2">
-            <p className="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">System</p>
+            <h3 className="text-white font-bold text-lg leading-tight mb-1">Hasan Sajjad</h3>
+            <p className="text-teal-200 text-xs">hasansajadux@gmail.com</p>
           </div>
           
-          <button
-            onClick={() => setIsSettingsOpen(true)}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all cursor-pointer text-slate-400 hover:bg-slate-800 hover:text-slate-200 font-medium"
-          >
-            <SettingsIcon className="w-4 h-4" />
-            <span className="text-sm">{t('settings')}</span>
-          </button>
-        </nav>
-      </aside>
+          {/* Bottom Navy Section */}
+          <div className="flex-1 flex flex-col -mt-8 pt-16 px-4 pb-6 overflow-y-auto">
+            <nav className="space-y-2 flex-1">
+              <button
+                onClick={() => setActiveTab('dashboard')}
+                className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer ${
+                  activeTab === 'dashboard'
+                    ? 'bg-[#EFF3F8] text-[#174E5B] font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
+                    : 'text-slate-400 hover:text-white font-medium'
+                }`}
+              >
+                <LayoutDashboard className={`w-5 h-5 ${activeTab === 'dashboard' ? 'text-[#174E5B]' : 'text-slate-400'}`} />
+                <span>{t('dashboard')}</span>
+              </button>
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col h-full overflow-hidden relative">
+              <button
+                onClick={() => setActiveTab('ledger')}
+                className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer ${
+                  activeTab === 'ledger'
+                    ? 'bg-[#EFF3F8] text-[#174E5B] font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
+                    : 'text-slate-400 hover:text-white font-medium'
+                }`}
+              >
+                <ListOrdered className={`w-5 h-5 ${activeTab === 'ledger' ? 'text-[#174E5B]' : 'text-slate-400'}`} />
+                <span>{t('ledger')}</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('analytics')}
+                className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer ${
+                  activeTab === 'analytics'
+                    ? 'bg-[#EFF3F8] text-[#174E5B] font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
+                    : 'text-slate-400 hover:text-white font-medium'
+                }`}
+              >
+                <PieChart className={`w-5 h-5 ${activeTab === 'analytics' ? 'text-[#174E5B]' : 'text-slate-400'}`} />
+                <span>{t('analytics')}</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('vaults')}
+                className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer ${
+                  activeTab === 'vaults'
+                    ? 'bg-[#EFF3F8] text-[#174E5B] font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
+                    : 'text-slate-400 hover:text-white font-medium'
+                }`}
+              >
+                <PiggyBank className={`w-5 h-5 ${activeTab === 'vaults' ? 'text-[#174E5B]' : 'text-slate-400'}`} />
+                <span>{t('vaults')}</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('bills')}
+                className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer ${
+                  activeTab === 'bills'
+                    ? 'bg-[#EFF3F8] text-[#174E5B] font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
+                    : 'text-slate-400 hover:text-white font-medium'
+                }`}
+              >
+                <Receipt className={`w-5 h-5 ${activeTab === 'bills' ? 'text-[#174E5B]' : 'text-slate-400'}`} />
+                <span>{t('billsAndDebt')}</span>
+              </button>
+            </nav>
+
+            <div className="mt-8">
+              <button
+                onClick={() => setIsSettingsOpen(true)}
+                className="w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer text-slate-400 hover:text-white font-medium"
+              >
+                <SettingsIcon className="w-5 h-5 text-slate-400" />
+                <span>{t('settings')}</span>
+              </button>
+            </div>
+            
+            {/* Small Calendar Widget in Sidebar */}
+            <div className="mt-6 bg-[#EBE9F1] rounded-3xl p-4 text-slate-800">
+               <div className="flex items-center justify-between mb-3">
+                 <h4 className="text-sm font-bold">Sun, Jan 19</h4>
+                 <div className="w-4 h-4 bg-slate-300 rounded-full"></div>
+               </div>
+               <div className="grid grid-cols-7 gap-1 text-center text-[10px] font-medium text-slate-500 mb-2">
+                 <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+               </div>
+               <div className="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-slate-800">
+                 <div className="text-slate-400">1</div><div className="text-slate-400">2</div><div className="text-slate-400">3</div><div className="text-slate-400">4</div>
+                 <div className="text-indigo-600 font-bold border border-indigo-200 rounded-full w-5 h-5 flex items-center justify-center mx-auto">5</div>
+                 <div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div>
+                 <div>13</div><div>14</div><div>15</div><div>16</div>
+                 <div className="bg-[#282A3A] text-white rounded-full w-6 h-6 flex items-center justify-center mx-auto -mt-0.5">17</div>
+                 <div>18</div><div>19</div>
+                 <div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div>
+               </div>
+            </div>
+          </div>
+        </aside>
+
+        {/* Main Content Area */}
+        <div className="flex-1 flex flex-col h-full overflow-hidden relative">
         <Header
           state={appState}
           onUpdateSettings={handleUpdateSettings}
@@ -555,58 +583,85 @@ export default function App() {
           onOpenShortcuts={() => setIsShortcutsOpen(true)}
         />
 
-        <main className="flex-1 overflow-y-auto w-full p-4 sm:p-6 lg:px-8 pb-12 space-y-6">
+        <main className="flex-1 overflow-y-auto w-full p-6 lg:p-8 space-y-6">
           {activeTab === 'dashboard' && (
             <div className="space-y-6 animate-fadeIn">
-              {/* Dark Blue Welcome Banner with KPI metrics embedded */}
-              <div className="bg-blue-900 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-800 rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/3"></div>
-                
-                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                  <div>
-                    <h1 className="text-2xl font-bold mb-1">{t('dashboard')}</h1>
-                    <p className="text-blue-200 text-sm">{new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+              {/* Top Stat Cards Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                {/* Total Balance */}
+                <div className="bg-[#174E5B] rounded-[1.25rem] p-5 shadow-sm text-white flex flex-col justify-between relative overflow-hidden h-32">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-teal-100/90 text-[11px] font-semibold">Total Balance</h3>
+                    <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center">
+                      <Coins className="w-3.5 h-3.5 text-white" />
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <button 
-                      onClick={() => setIsQuickAddOpen(true)}
-                      className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-xl transition-colors shadow-sm"
-                    >
-                      <Plus className="w-4 h-4" />
-                      <span className="hidden sm:inline">{t('addTransaction')}</span>
-                    </button>
+                  <div>
+                    <div className="text-2xl font-bold font-display mb-1 tracking-tight">
+                      {formatCurrency(summary.remainingLifeMoney, currency)}
+                    </div>
+                    <div className="text-[10px] text-teal-200/70 flex items-center gap-1 font-medium">
+                      Updated Just Now &rarr;
+                    </div>
                   </div>
                 </div>
 
-                <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="bg-blue-800/50 rounded-xl p-4 border border-blue-700/50 backdrop-blur-sm">
-                    <h3 className="text-blue-200 text-xs font-semibold mb-1">Total Balance</h3>
-                    <div className="text-xl font-bold text-white flex items-baseline gap-1">
-                      {currency} {summary.remaining}
+                {/* Total Income / Sales */}
+                <div className="bg-[#F7B352] rounded-[1.25rem] p-5 shadow-sm text-slate-900 flex flex-col justify-between relative overflow-hidden h-32">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-slate-800/80 text-[11px] font-semibold">Total Income</h3>
+                    <div className="w-7 h-7 rounded-full bg-black/10 flex items-center justify-center">
+                      <PiggyBank className="w-3.5 h-3.5 text-slate-800" />
                     </div>
                   </div>
-                  <div className="bg-blue-800/50 rounded-xl p-4 border border-blue-700/50 backdrop-blur-sm">
-                    <h3 className="text-blue-200 text-xs font-semibold mb-1">Income</h3>
-                    <div className="text-xl font-bold text-emerald-400 flex items-baseline gap-1">
-                      +{currency} {summary.income}
+                  <div>
+                    <div className="text-2xl font-bold font-display mb-1 tracking-tight">
+                      +{formatCurrency(summary.totalIncome, currency)}
+                    </div>
+                    <div className="text-[10px] text-slate-800/60 flex items-center gap-1 font-medium">
+                      Updated Just Now
                     </div>
                   </div>
-                  <div className="bg-blue-800/50 rounded-xl p-4 border border-blue-700/50 backdrop-blur-sm">
-                    <h3 className="text-blue-200 text-xs font-semibold mb-1">Expenses</h3>
-                    <div className="text-xl font-bold text-red-400 flex items-baseline gap-1">
-                      -{currency} {summary.expense}
+                </div>
+
+                {/* Total Expenses */}
+                <div className="bg-[#174E5B] rounded-[1.25rem] p-5 shadow-sm text-white flex flex-col justify-between relative overflow-hidden h-32">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-teal-100/90 text-[11px] font-semibold">Total Expenses</h3>
+                    <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center">
+                      <Receipt className="w-3.5 h-3.5 text-white" />
                     </div>
                   </div>
-                  <div className="bg-blue-800/50 rounded-xl p-4 border border-blue-700/50 backdrop-blur-sm">
-                    <h3 className="text-blue-200 text-xs font-semibold mb-1">Savings Rate</h3>
-                    <div className="text-xl font-bold text-white">
-                      {summary.income > 0 ? Math.round(((summary.income - summary.expense) / summary.income) * 100) : 0}%
+                  <div>
+                    <div className="text-2xl font-bold font-display mb-1 tracking-tight">
+                      -{formatCurrency(summary.totalVariableExpenses + summary.totalBills + summary.totalDebts + summary.totalSavingsAllocated, currency)}
+                    </div>
+                    <div className="text-[10px] text-teal-200/70 flex items-center gap-1 font-medium">
+                      Updated Just Now &rarr;
+                    </div>
+                  </div>
+                </div>
+
+                {/* Savings Rate / Visitors */}
+                <div className="bg-[#282A3A] rounded-[1.25rem] p-5 shadow-sm text-white flex flex-col justify-between relative overflow-hidden h-32">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-slate-400 text-[11px] font-semibold">Savings Rate</h3>
+                    <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center">
+                      <PieChart className="w-3.5 h-3.5 text-white" />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold font-display mb-1 tracking-tight">
+                      {summary.totalIncome > 0 ? Math.round(((summary.totalSavingsAllocated + summary.wealthAmount) / summary.totalIncome) * 100) : 0}%
+                    </div>
+                    <div className="text-[10px] text-slate-500 flex items-center gap-1 font-medium">
+                      Updated Just Now
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Grid layout for previous components */}
+              {/* Grid layout for middle sections */}
               <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
                 <div className="xl:col-span-2 space-y-6">
                   {/* Hero Disposable Life Money Card adapted */}
@@ -617,6 +672,13 @@ export default function App() {
                     settings={appState.settings}
                     onOpenQuickAdd={() => setIsQuickAddOpen(true)}
                     onUpdateSettings={handleUpdateSettings}
+                  />
+
+                  {/* Monthly Spending & Income Calendar */}
+                  <CalendarWidget 
+                    transactions={appState.transactions}
+                    currency={currency}
+                    lang={lang}
                   />
 
                   {/* Monthly Budget Tracker (Budget Limits) */}
@@ -652,13 +714,6 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Monthly Spending & Income Calendar */}
-              <CalendarWidget 
-                transactions={appState.transactions}
-                currency={currency}
-                lang={lang}
-              />
-
               {/* Recent Transactions Snapshot */}
               <TransactionLedger
                 transactions={appState.transactions.slice(0, 6)}
@@ -680,7 +735,7 @@ export default function App() {
             </div>
           )}
 
-        {activeTab === 'ledger' && (
+          {activeTab === 'ledger' && (
           <div className="animate-fadeIn">
             <TransactionLedger
               transactions={appState.transactions}
@@ -743,52 +798,52 @@ export default function App() {
       </main>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden flex-shrink-0 bg-white dark:bg-zinc-900 border-t border-slate-200 dark:border-zinc-800 flex items-center justify-around pb-[env(safe-area-inset-bottom)] z-50">
+      <nav className="md:hidden flex-shrink-0 bg-white border-t border-slate-200 flex items-center justify-around pb-[env(safe-area-inset-bottom)] z-50">
         <button
           onClick={() => setActiveTab('dashboard')}
-          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'dashboard' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-zinc-200'}`}
+          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'dashboard' ? 'text-[#174E5B] font-bold' : 'text-slate-400 hover:text-slate-600'}`}
         >
           <LayoutDashboard className="w-5 h-5" />
-          <span className="text-[10px] font-medium">{t('dashboard')}</span>
+          <span className="text-[10px]">{t('dashboard')}</span>
         </button>
         <button
           onClick={() => setActiveTab('ledger')}
-          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'ledger' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-zinc-200'}`}
+          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'ledger' ? 'text-[#174E5B] font-bold' : 'text-slate-400 hover:text-slate-600'}`}
         >
           <ListOrdered className="w-5 h-5" />
-          <span className="text-[10px] font-medium">{t('ledger')}</span>
+          <span className="text-[10px]">{t('ledger')}</span>
         </button>
         <button
           onClick={() => setActiveTab('analytics')}
-          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'analytics' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-zinc-200'}`}
+          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'analytics' ? 'text-[#174E5B] font-bold' : 'text-slate-400 hover:text-slate-600'}`}
         >
           <PieChart className="w-5 h-5" />
-          <span className="text-[10px] font-medium">{t('analytics')}</span>
+          <span className="text-[10px]">{t('analytics')}</span>
         </button>
         <button
           onClick={() => setActiveTab('vaults')}
-          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'vaults' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-zinc-200'}`}
+          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'vaults' ? 'text-[#174E5B] font-bold' : 'text-slate-400 hover:text-slate-600'}`}
         >
           <PiggyBank className="w-5 h-5" />
-          <span className="text-[10px] font-medium">{t('vaults')}</span>
+          <span className="text-[10px]">{t('vaults')}</span>
         </button>
         <button
           onClick={() => setActiveTab('bills')}
-          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'bills' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-zinc-200'}`}
+          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'bills' ? 'text-[#174E5B] font-bold' : 'text-slate-400 hover:text-slate-600'}`}
         >
           <Receipt className="w-5 h-5" />
-          <span className="text-[10px] font-medium">{t('billsAndDebt')}</span>
+          <span className="text-[10px]">{t('billsAndDebt')}</span>
         </button>
       </nav>
 
       {/* Desktop Footer (Hidden on mobile) */}
-      <footer className="hidden md:block border-t border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 py-6 text-center text-xs text-slate-500 dark:text-zinc-500">
+      <footer className="hidden md:block border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between gap-3">
-          <p className="font-medium text-slate-600 dark:text-zinc-400">
+          <p className="font-medium text-slate-600">
             {t('appTitle')} &copy; {new Date().getFullYear()} — {t('tagline')}
           </p>
-          <div className="flex items-center gap-4 text-slate-400 dark:text-zinc-400 font-semibold">
-            <button onClick={() => setIsInstructionsOpen(true)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer text-blue-600 dark:text-blue-400/90 font-bold">
+          <div className="flex items-center gap-4 text-zinc-400 font-semibold">
+            <button onClick={() => setIsInstructionsOpen(true)} className="hover:text-[#F7B352] transition-colors cursor-pointer text-[#174E5B] font-bold">
               {t('instructions')}
             </button>
             <span>&bull;</span>
@@ -864,7 +919,7 @@ export default function App() {
       />
 
       {/* Generic Confirmation Modal for Deletions & Reset */}
-      <ConfirmModal
+        <ConfirmModal
         isOpen={deleteConfirmation.isOpen}
         title={
           deleteConfirmation.type === 'transaction'
@@ -885,6 +940,7 @@ export default function App() {
         onCancel={() => setDeleteConfirmation({ isOpen: false, type: null, id: null })}
         lang={lang}
       />
+        </div>
       </div>
     </div>
   );

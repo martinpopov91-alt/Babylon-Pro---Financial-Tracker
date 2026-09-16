@@ -319,13 +319,13 @@ export const getTypeBadgeColor = (type: CategoryType): string => {
     case 'bills':
       return 'bg-blue-500/10 text-blue-400 border-blue-500/20';
     case 'savings':
-      return 'bg-teal-500/10 text-teal-400 border-teal-500/20';
+      return 'bg-[#F7B352]/15 text-[#174E5B] border-[#F7B352]/30';
     case 'income':
-      return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
+      return 'bg-[#8DA37C]/15 text-[#9BB18A] border-[#8DA37C]/30';
     case 'debt':
-      return 'bg-rose-500/10 text-rose-400 border-rose-500/20';
+      return 'bg-[#E07A6C]/15 text-[#E07A6C] border-[#E07A6C]/30';
     default:
-      return 'bg-zinc-800 text-zinc-400 border-zinc-700';
+      return 'bg-white text-zinc-400 border-slate-200';
   }
 };
 

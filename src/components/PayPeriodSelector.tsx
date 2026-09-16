@@ -220,14 +220,14 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
       {/* Trigger Bar */}
       <div
         id="pay-period-control-bar"
-        className="flex items-center gap-1 bg-slate-100 dark:bg-zinc-800/90 border border-slate-200 dark:border-zinc-700/70 hover:border-slate-300 dark:hover:border-zinc-600 rounded-xl p-1 shadow-sm transition-all text-xs"
+        className="flex items-center gap-1 bg-slate-100 dark:bg-slate-50/90 border border-slate-200 dark:border-slate-200/70 hover:border-slate-300 dark:hover:border-slate-200 rounded-xl p-1 shadow-sm transition-all text-xs"
       >
         {/* Previous Period Button */}
         <button
           id="prev-period-btn"
           onClick={handleStepPrevious}
           title={t('previousPeriod')}
-          className="p-1.5 rounded-lg text-slate-500 dark:text-zinc-400 hover:text-slate-700 dark:hover:text-zinc-100 hover:bg-slate-200 dark:hover:bg-zinc-700/70 transition-colors cursor-pointer"
+          className="p-1.5 rounded-lg text-slate-500 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-800 hover:bg-slate-200 dark:hover:bg-slate-100/70 transition-colors cursor-pointer"
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
@@ -236,12 +236,12 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
         <button
           id="open-period-selector-btn"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 px-2.5 py-1 rounded-lg hover:bg-slate-200 dark:hover:bg-zinc-700/60 transition-colors text-left cursor-pointer group"
+          className="flex items-center gap-2 px-2.5 py-1 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-100/60 transition-colors text-left cursor-pointer group"
         >
           <Calendar className="w-4 h-4 text-emerald-500 flex-shrink-0" />
           
           <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
-            <span className="font-bold text-slate-700 dark:text-zinc-200 group-hover:text-emerald-500 transition-colors text-xs whitespace-nowrap">
+            <span className="font-bold text-slate-700 dark:text-slate-700 group-hover:text-emerald-500 transition-colors text-xs whitespace-nowrap">
               {activePeriodInfo.label}
             </span>
 
@@ -262,7 +262,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
             )}
           </div>
 
-          <ChevronDown className={`w-3.5 h-3.5 text-slate-400 dark:text-zinc-400 group-hover:text-slate-600 dark:group-hover:text-zinc-200 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          <ChevronDown className={`w-3.5 h-3.5 text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-700 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
         </button>
 
         {/* Next Period Button */}
@@ -270,7 +270,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
           id="next-period-btn"
           onClick={handleStepNext}
           title={t('nextPeriod')}
-          className="p-1.5 rounded-lg text-slate-500 dark:text-zinc-400 hover:text-slate-700 dark:hover:text-zinc-100 hover:bg-slate-200 dark:hover:bg-zinc-700/70 transition-colors cursor-pointer"
+          className="p-1.5 rounded-lg text-slate-500 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-800 hover:bg-slate-200 dark:hover:bg-slate-100/70 transition-colors cursor-pointer"
         >
           <ChevronRight className="w-4 h-4" />
         </button>
@@ -293,34 +293,34 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
       {isOpen && (
         <div
           id="pay-period-popover"
-          className="absolute right-0 sm:right-auto sm:left-0 top-full mt-2 w-[300px] sm:w-[420px] max-w-[95vw] bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl shadow-2xl p-4 sm:p-5 z-50 animate-fadeIn text-slate-800 dark:text-zinc-100 space-y-4 max-h-[85vh] flex flex-col"
+          className="absolute right-0 sm:right-auto sm:left-0 top-full mt-2 w-[300px] sm:w-[420px] max-w-[95vw] bg-white dark:bg-white border border-slate-200 dark:border-slate-200 rounded-3xl shadow-xl p-4 sm:p-5 z-50 animate-fadeIn text-slate-800 dark:text-slate-800 space-y-4 max-h-[85vh] flex flex-col"
         >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-slate-200 dark:border-zinc-800 pb-3">
+          <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-200 pb-3">
             <div className="flex items-center gap-2">
-              <span className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span className="p-1.5 rounded-lg bg-teal-50 dark:bg-emerald-500/10 text-teal-600 dark:text-emerald-400 border border-teal-200 dark:border-emerald-500/20">
                 <CalendarRange className="w-4 h-4" />
               </span>
-              <h3 className="text-sm font-bold font-display text-zinc-100">
+              <h3 className="text-sm font-bold font-display text-slate-900 dark:text-slate-800">
                 {t('selectPayPeriod')}
               </h3>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="p-1 rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 transition-colors"
+              className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-800 hover:bg-slate-100 dark:hover:bg-slate-50 transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
           {/* Mode Selector Tabs */}
-          <div className="grid grid-cols-3 gap-1.5 p-1 bg-zinc-950 rounded-xl border border-zinc-800">
+          <div className="grid grid-cols-3 gap-1.5 p-1 bg-slate-100 dark:bg-slate-100 rounded-xl border border-slate-200 dark:border-slate-200">
             <button
               onClick={() => setActiveTab('payday')}
-              className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-bold transition-all ${
+              className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 activeTab === 'payday'
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-zinc-400 hover:text-zinc-200'
+                  ? 'bg-teal-600 text-white shadow-sm'
+                  : 'text-slate-600 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-700'
               }`}
             >
               <CalendarDays className="w-3.5 h-3.5" />
@@ -328,10 +328,10 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
             </button>
             <button
               onClick={() => setActiveTab('calendar')}
-              className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-bold transition-all ${
+              className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 activeTab === 'calendar'
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-zinc-400 hover:text-zinc-200'
+                  ? 'bg-teal-600 text-white shadow-sm'
+                  : 'text-slate-600 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-700'
               }`}
             >
               <Calendar className="w-3.5 h-3.5" />
@@ -339,10 +339,10 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
             </button>
             <button
               onClick={() => setActiveTab('custom')}
-              className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-bold transition-all ${
+              className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 activeTab === 'custom'
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-zinc-400 hover:text-zinc-200'
+                  ? 'bg-teal-600 text-white shadow-sm'
+                  : 'text-slate-600 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-700'
               }`}
             >
               <SlidersHorizontal className="w-3.5 h-3.5" />
@@ -356,10 +356,10 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
             {activeTab === 'payday' && (
               <div className="space-y-3">
                 {/* Payday startDay adjustment bar */}
-                <div className="p-3 bg-zinc-800/60 rounded-xl border border-zinc-700/50 flex items-center justify-between gap-3">
+                <div className="p-3 bg-slate-50 dark:bg-slate-50/60 rounded-xl border border-slate-200 dark:border-slate-200/50 flex items-center justify-between gap-3">
                   <div className="text-xs">
-                    <span className="font-semibold text-zinc-300">{t('paydayDay')}: </span>
-                    <span className="font-bold text-emerald-400">
+                    <span className="font-semibold text-slate-600 dark:text-slate-600">{t('paydayDay')}: </span>
+                    <span className="font-bold text-teal-600 dark:text-emerald-400">
                       {tempStartDay === 1 ? (lang === 'bg' ? '1-во число (Месечен)' : '1st of month') : `${tempStartDay}-то число`}
                     </span>
                   </div>
@@ -370,13 +370,13 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                       max="31"
                       value={tempStartDay}
                       onChange={(e) => setTempStartDay(Math.min(31, Math.max(1, parseInt(e.target.value) || 1)))}
-                      className="w-14 px-2 py-1 bg-zinc-950 border border-zinc-700 rounded-lg text-xs text-center font-bold text-emerald-400 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                      className="w-14 px-2 py-1 bg-white dark:bg-slate-100 border border-slate-200 dark:border-slate-200 rounded-lg text-xs text-center font-bold text-teal-600 dark:text-emerald-400 focus:outline-none focus:ring-1 focus:ring-teal-500"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 px-1">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-1">
                     {lang === 'bg' ? 'Изберете бюджетен период' : 'Choose Payday Period'}
                   </p>
 
@@ -390,25 +390,25 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                         onClick={() => handleSelectPaydayPeriod(opt.offset)}
                         className={`w-full flex items-center justify-between p-2.5 rounded-xl border text-xs text-left transition-all cursor-pointer ${
                           isSelected
-                            ? 'bg-emerald-500/15 border-emerald-500 text-emerald-400 font-bold'
-                            : 'bg-zinc-950/60 border-zinc-800/80 text-zinc-300 hover:bg-zinc-800/70 hover:border-zinc-700'
+                            ? 'bg-teal-50 dark:bg-emerald-500/15 border-teal-500 text-teal-700 dark:text-emerald-400 font-bold'
+                            : 'bg-white dark:bg-slate-100/60 border-slate-200 dark:border-slate-200/80 text-slate-700 dark:text-slate-600 hover:bg-slate-50 dark:hover:bg-slate-50/70 hover:border-slate-300'
                         }`}
                       >
                         <div className="space-y-0.5">
                           <div className="flex items-center gap-2">
                             <span className="font-semibold">{opt.label}</span>
                             {opt.isCurrent && (
-                              <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">
+                              <span className="px-1.5 py-0.2 rounded bg-teal-500/20 text-teal-700 dark:text-emerald-400 text-[10px] font-bold">
                                 {t('currentPeriod')}
                               </span>
                             )}
                           </div>
-                          <p className="text-[10px] text-zinc-400">
+                          <p className="text-[10px] text-slate-500 dark:text-slate-500">
                             {opt.subLabel} {txCount > 0 && `• ${txCount} ${lang === 'bg' ? 'транзакции' : 'transactions'}`}
                           </p>
                         </div>
 
-                        {isSelected && <Check className="w-4 h-4 text-emerald-400" />}
+                        {isSelected && <Check className="w-4 h-4 text-teal-600 dark:text-emerald-400" />}
                       </button>
                     );
                   })}
@@ -419,7 +419,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
             {/* TAB 2: Calendar Month List */}
             {activeTab === 'calendar' && (
               <div className="space-y-2">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 px-1">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-1">
                   {lang === 'bg' ? 'Изберете календарен месец' : 'Choose Calendar Month'}
                 </p>
 
@@ -433,25 +433,25 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                       onClick={() => handleSelectCalendarMonth(opt.offset)}
                       className={`w-full flex items-center justify-between p-2.5 rounded-xl border text-xs text-left transition-all cursor-pointer ${
                         isSelected
-                          ? 'bg-emerald-500/15 border-emerald-500 text-emerald-400 font-bold'
-                          : 'bg-zinc-950/60 border-zinc-800/80 text-zinc-300 hover:bg-zinc-800/70 hover:border-zinc-700'
+                          ? 'bg-teal-50 dark:bg-emerald-500/15 border-teal-500 text-teal-700 dark:text-emerald-400 font-bold'
+                          : 'bg-white dark:bg-slate-100/60 border-slate-200 dark:border-slate-200/80 text-slate-700 dark:text-slate-600 hover:bg-slate-50 dark:hover:bg-slate-50/70 hover:border-slate-300'
                       }`}
                     >
                       <div className="space-y-0.5">
                         <div className="flex items-center gap-2">
                           <span className="font-semibold">{opt.label}</span>
                           {opt.isCurrent && (
-                            <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">
+                            <span className="px-1.5 py-0.2 rounded bg-teal-500/20 text-teal-700 dark:text-emerald-400 text-[10px] font-bold">
                               {t('currentPeriod')}
                             </span>
                           )}
                         </div>
-                        <p className="text-[10px] text-zinc-400">
+                        <p className="text-[10px] text-slate-500 dark:text-slate-500">
                           {opt.subLabel} {txCount > 0 && `• ${txCount} ${lang === 'bg' ? 'транзакции' : 'transactions'}`}
                         </p>
                       </div>
 
-                      {isSelected && <Check className="w-4 h-4 text-emerald-400" />}
+                      {isSelected && <Check className="w-4 h-4 text-teal-600 dark:text-emerald-400" />}
                     </button>
                   );
                 })}
@@ -464,7 +464,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                 {/* Date Inputs */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[11px] font-semibold text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-500 mb-1">
                       {t('startDate')}
                     </label>
                     <input
@@ -472,12 +472,12 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                       required
                       value={customStart}
                       onChange={(e) => setCustomStart(e.target.value)}
-                      className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-xs text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-100 border border-slate-200 dark:border-slate-200 rounded-xl text-xs text-slate-800 dark:text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-semibold text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-500 mb-1">
                       {t('endDate')}
                     </label>
                     <input
@@ -485,56 +485,56 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                       required
                       value={customEnd}
                       onChange={(e) => setCustomEnd(e.target.value)}
-                      className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-xs text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-100 border border-slate-200 dark:border-slate-200 rounded-xl text-xs text-slate-800 dark:text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500"
                     />
                   </div>
                 </div>
 
                 {/* Quick Presets */}
                 <div className="space-y-1.5 pt-1">
-                  <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider block">
+                  <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-500 uppercase tracking-wider block">
                     {t('quickPresets')}
                   </span>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     <button
                       type="button"
                       onClick={() => handleApplyQuickPreset('thisMonth')}
-                      className="px-2.5 py-1.5 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700/70 rounded-lg text-[11px] font-medium text-zinc-200 text-left transition-colors"
+                      className="px-2.5 py-1.5 bg-slate-100 dark:bg-slate-50 hover:bg-slate-200 dark:hover:bg-slate-100 border border-slate-200 dark:border-slate-200/70 rounded-lg text-[11px] font-medium text-slate-700 dark:text-slate-700 text-left transition-colors cursor-pointer"
                     >
                       {lang === 'bg' ? 'Този месец' : 'This Month'}
                     </button>
                     <button
                       type="button"
                       onClick={() => handleApplyQuickPreset('lastMonth')}
-                      className="px-2.5 py-1.5 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700/70 rounded-lg text-[11px] font-medium text-zinc-200 text-left transition-colors"
+                      className="px-2.5 py-1.5 bg-slate-100 dark:bg-slate-50 hover:bg-slate-200 dark:hover:bg-slate-100 border border-slate-200 dark:border-slate-200/70 rounded-lg text-[11px] font-medium text-slate-700 dark:text-slate-700 text-left transition-colors cursor-pointer"
                     >
                       {lang === 'bg' ? 'Миналия месец' : 'Last Month'}
                     </button>
                     <button
                       type="button"
                       onClick={() => handleApplyQuickPreset('last30')}
-                      className="px-2.5 py-1.5 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700/70 rounded-lg text-[11px] font-medium text-zinc-200 text-left transition-colors"
+                      className="px-2.5 py-1.5 bg-slate-100 dark:bg-slate-50 hover:bg-slate-200 dark:hover:bg-slate-100 border border-slate-200 dark:border-slate-200/70 rounded-lg text-[11px] font-medium text-slate-700 dark:text-slate-700 text-left transition-colors cursor-pointer"
                     >
                       {t('last30Days')}
                     </button>
                     <button
                       type="button"
                       onClick={() => handleApplyQuickPreset('last90')}
-                      className="px-2.5 py-1.5 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700/70 rounded-lg text-[11px] font-medium text-zinc-200 text-left transition-colors"
+                      className="px-2.5 py-1.5 bg-slate-100 dark:bg-slate-50 hover:bg-slate-200 dark:hover:bg-slate-100 border border-slate-200 dark:border-slate-200/70 rounded-lg text-[11px] font-medium text-slate-700 dark:text-slate-700 text-left transition-colors cursor-pointer"
                     >
                       {t('last90Days')}
                     </button>
                     <button
                       type="button"
                       onClick={() => handleApplyQuickPreset('ytd')}
-                      className="px-2.5 py-1.5 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700/70 rounded-lg text-[11px] font-medium text-zinc-200 text-left transition-colors"
+                      className="px-2.5 py-1.5 bg-slate-100 dark:bg-slate-50 hover:bg-slate-200 dark:hover:bg-slate-100 border border-slate-200 dark:border-slate-200/70 rounded-lg text-[11px] font-medium text-slate-700 dark:text-slate-700 text-left transition-colors cursor-pointer"
                     >
                       {t('yearToDate')}
                     </button>
                     <button
                       type="button"
                       onClick={() => handleApplyQuickPreset('thisYear')}
-                      className="px-2.5 py-1.5 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700/70 rounded-lg text-[11px] font-medium text-zinc-200 text-left transition-colors"
+                      className="px-2.5 py-1.5 bg-slate-100 dark:bg-slate-50 hover:bg-slate-200 dark:hover:bg-slate-100 border border-slate-200 dark:border-slate-200/70 rounded-lg text-[11px] font-medium text-slate-700 dark:text-slate-700 text-left transition-colors cursor-pointer"
                     >
                       {t('fullYear')}
                     </button>
@@ -544,7 +544,7 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
                 <div className="pt-2 flex justify-end">
                   <button
                     type="submit"
-                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-sm transition-all cursor-pointer"
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs shadow-sm transition-all cursor-pointer"
                   >
                     <span>{t('applyDates')}</span>
                     <ArrowRight className="w-3.5 h-3.5" />

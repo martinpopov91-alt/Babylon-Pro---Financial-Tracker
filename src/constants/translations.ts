@@ -247,6 +247,11 @@ export const translations = {
     csvCategory: 'Category',
     csvType: 'Type',
     csvAmount: 'Amount',
+
+    // Dashboard metrics
+    totalBalance: 'Total Balance',
+    expenses: 'Expenses',
+    savingsRate: 'Savings Rate',
   },
   bg: {
     // General & Brand
@@ -494,6 +499,11 @@ export const translations = {
     csvCategory: 'Категория',
     csvType: 'Тип',
     csvAmount: 'Сума',
+
+    // Dashboard metrics
+    totalBalance: 'Общ Баланс',
+    expenses: 'Разходи',
+    savingsRate: 'Спестовна Норма',
   }
 };
 

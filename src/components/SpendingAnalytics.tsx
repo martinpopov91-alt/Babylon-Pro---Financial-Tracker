@@ -299,15 +299,15 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-zinc-900 border border-zinc-700/80 p-3 rounded-xl shadow-xl text-xs space-y-1">
-          <div className="flex items-center gap-2 font-bold text-zinc-100">
+        <div className="bg-white border border-slate-200 p-3 rounded-xl shadow-xl text-xs space-y-1">
+          <div className="flex items-center gap-2 font-bold text-slate-800">
             <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: data.color }} />
             <span>{data.name}</span>
           </div>
-          <div className="text-emerald-400 font-extrabold text-sm">
+          <div className="text-[#F7B352] font-extrabold text-sm">
             {formatCurrency(data.value, currency)}
           </div>
-          <div className="text-zinc-400">
+          <div className="text-slate-500">
             {data.percent.toFixed(1)}% {lang === 'bg' ? 'от общо' : 'of total'} ({data.count} {lang === 'bg' ? 'транзакции' : 'txs'})
           </div>
         </div>
@@ -319,14 +319,14 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
   return (
     <div className="space-y-6 animate-fadeIn">
       {/* Header & Controls Bar */}
-      <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 sm:p-6 space-y-4">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800 pb-4">
+      <div className="bg-white border border-slate-200 rounded-3xl p-4 sm:p-6 shadow-sm space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
           <div>
-            <h2 className="text-xl font-bold text-zinc-100 flex items-center gap-2.5">
-              <PieIcon className="w-6 h-6 text-emerald-400" />
+            <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2.5">
+              <PieIcon className="w-6 h-6 text-[#F7B352]" />
               <span>{lang === 'bg' ? 'Анализ на Разходите' : 'Spending Analytics'}</span>
             </h2>
-            <p className="text-xs text-zinc-400 mt-1">
+            <p className="text-xs text-slate-500 mt-1">
               {lang === 'bg' 
                 ? 'Визуализация на разходите по категории с интерактивна графика.'
                 : 'Interactive pie chart breakdown of monthly expense distribution.'}
@@ -334,13 +334,13 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
           </div>
 
           {/* Chart Type Toggle Button */}
-          <div className="flex items-center gap-1 bg-zinc-950 border border-zinc-800 p-1 rounded-xl self-start md:self-auto">
+          <div className="flex items-center gap-1 bg-slate-100 border border-slate-200 p-1 rounded-xl self-start md:self-auto">
             <button
               onClick={() => setChartType('pie')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 chartType === 'pie'
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-zinc-400 hover:text-zinc-200'
+                  ? 'bg-[#F7B352] text-slate-900 shadow-sm shadow-[#F7B352]/20 font-black'
+                  : 'text-slate-500 hover:text-slate-700'
               }`}
             >
               <PieIcon className="w-3.5 h-3.5" />
@@ -348,10 +348,10 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
             </button>
             <button
               onClick={() => setChartType('bar')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 chartType === 'bar'
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-zinc-400 hover:text-zinc-200'
+                  ? 'bg-[#F7B352] text-slate-900 shadow-sm shadow-[#F7B352]/20 font-black'
+                  : 'text-slate-500 hover:text-slate-700'
               }`}
             >
               <BarChart3 className="w-3.5 h-3.5" />
@@ -364,14 +364,14 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {/* Time Period Filter */}
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1">
-              <Calendar className="w-3 h-3 text-emerald-400" />
+            <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1">
+              <Calendar className="w-3 h-3 text-[#F7B352]" />
               <span>{lang === 'bg' ? 'Период' : 'Time Period'}</span>
             </label>
             <select
               value={period}
               onChange={(e) => setPeriod(e.target.value as PeriodFilter)}
-              className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#F7B352] cursor-pointer"
             >
               <option value="period">
                 {lang === 'bg' ? `Бюджетен период (${activePeriodInfo.label})` : `Selected Period (${activePeriodInfo.label})`}
@@ -384,14 +384,14 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
 
           {/* View Level Filter */}
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1">
-              <Layers className="w-3 h-3 text-emerald-400" />
+            <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1">
+              <Layers className="w-3 h-3 text-[#F7B352]" />
               <span>{lang === 'bg' ? 'Ниво на детайлност' : 'Category Level'}</span>
             </label>
             <select
               value={viewLevel}
               onChange={(e) => setViewLevel(e.target.value as ViewLevel)}
-              className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#F7B352] cursor-pointer"
             >
               <option value="main">{lang === 'bg' ? 'Основни Категории' : 'Main Categories'}</option>
               <option value="detailed">{lang === 'bg' ? 'Подробни Подкатегории' : 'Detailed Subcategories'}</option>
@@ -400,14 +400,14 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
 
           {/* Expense Type Filter */}
           <div className="space-y-1 sm:col-span-2 lg:col-span-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1">
-              <Filter className="w-3 h-3 text-emerald-400" />
+            <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1">
+              <Filter className="w-3 h-3 text-[#F7B352]" />
               <span>{lang === 'bg' ? 'Тип разход' : 'Expense Type'}</span>
             </label>
             <select
               value={expenseType}
               onChange={(e) => setExpenseType(e.target.value as ExpenseTypeFilter)}
-              className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-medium text-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#F7B352] cursor-pointer"
             >
               <option value="all">{lang === 'bg' ? 'Всички разходи' : 'All Expense Types'}</option>
               <option value="needs">{lang === 'bg' ? 'Нужди (Задължителни)' : 'Needs (Essential)'}</option>
@@ -418,56 +418,56 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
         </div>
       </div>
 
-      {/* Metric Cards Summary Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Metric Cards Summary Row (Stacks to single column on mobile) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {/* Total Expense */}
-        <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-xl space-y-1">
-          <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">
+        <div className="bg-white border border-slate-200 p-4 rounded-3xl shadow-sm space-y-1">
+          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
             {lang === 'bg' ? 'Общо Разходи' : 'Total Expenses'}
           </span>
-          <div className="text-xl sm:text-2xl font-extrabold text-emerald-400">
+          <div className="text-xl sm:text-2xl font-extrabold text-slate-800">
             {formatCurrency(totalSpent, currency)}
           </div>
-          <p className="text-[10px] text-zinc-500">
+          <p className="text-[10px] text-slate-400">
             {filteredTransactions.length} {lang === 'bg' ? 'транзакции' : 'transactions'}
           </p>
         </div>
 
         {/* Top Expense Category */}
-        <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-xl space-y-1">
-          <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">
+        <div className="bg-white border border-slate-200 p-4 rounded-3xl shadow-sm space-y-1">
+          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
             {lang === 'bg' ? 'Топ Категория' : 'Top Category'}
           </span>
-          <div className="text-base sm:text-lg font-bold text-zinc-100 truncate">
+          <div className="text-base sm:text-lg font-bold text-slate-800 truncate">
             {topCategory ? topCategory.name : '—'}
           </div>
-          <p className="text-[10px] text-emerald-400/90 font-medium">
+          <p className="text-[10px] text-[#9BB18A] font-semibold">
             {topCategory ? `${formatCurrency(topCategory.value, currency)} (${topCategory.percent.toFixed(1)}%)` : '—'}
           </p>
         </div>
 
         {/* Active Categories Count */}
-        <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-xl space-y-1">
-          <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">
+        <div className="bg-white border border-slate-200 p-4 rounded-3xl shadow-sm space-y-1">
+          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
             {lang === 'bg' ? 'Активни Категории' : 'Active Categories'}
           </span>
-          <div className="text-xl sm:text-2xl font-extrabold text-zinc-100">
+          <div className="text-xl sm:text-2xl font-extrabold text-slate-800">
             {categoryBreakdown.length}
           </div>
-          <p className="text-[10px] text-zinc-500">
+          <p className="text-[10px] text-slate-400">
             {lang === 'bg' ? 'категории с разходи' : 'categories with spending'}
           </p>
         </div>
 
         {/* Average Expense Transaction */}
-        <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-xl space-y-1">
-          <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">
+        <div className="bg-white border border-slate-200 p-4 rounded-3xl shadow-sm space-y-1">
+          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
             {lang === 'bg' ? 'Средна Транзакция' : 'Average Transaction'}
           </span>
-          <div className="text-xl sm:text-2xl font-extrabold text-zinc-100">
+          <div className="text-xl sm:text-2xl font-extrabold text-slate-800">
             {formatCurrency(avgTx, currency)}
           </div>
-          <p className="text-[10px] text-zinc-500">
+          <p className="text-[10px] text-slate-400">
             {lang === 'bg' ? 'за единичен разход' : 'per expense record'}
           </p>
         </div>
@@ -476,16 +476,16 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
       {/* Chart Section & Legend Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Visual Chart Card */}
-        <div className="lg:col-span-7 bg-zinc-900 border border-zinc-800 rounded-2xl p-4 sm:p-6 flex flex-col justify-between">
+        <div className="lg:col-span-7 bg-white border border-slate-200 rounded-3xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-bold text-zinc-100 flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-emerald-400" />
+            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
+              <TrendingUp className="w-4 h-4 text-[#F7B352]" />
               <span>{lang === 'bg' ? 'Разпределение на разходите' : 'Expense Distribution'}</span>
             </h3>
             {selectedCatId && (
               <button
                 onClick={() => setSelectedCatId(null)}
-                className="text-xs text-emerald-400 hover:underline"
+                className="text-xs text-[#F7B352] hover:underline cursor-pointer font-bold"
               >
                 {lang === 'bg' ? 'Изчисти избора' : 'Reset selection'}
               </button>
@@ -493,7 +493,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
           </div>
 
           {chartData.length === 0 ? (
-            <div className="h-64 flex flex-col items-center justify-center text-zinc-500">
+            <div className="h-64 flex flex-col items-center justify-center text-slate-400">
               <Receipt className="w-10 h-10 mb-2 opacity-40" />
               <p className="text-sm font-medium">
                 {lang === 'bg' ? 'Няма записани разходи за избрания период.' : 'No expense data for the selected filter.'}
@@ -524,7 +524,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                         <Cell
                           key={entry.id}
                           fill={entry.color}
-                          stroke="#18181b"
+                          stroke="#1A1C19"
                           strokeWidth={2}
                           opacity={selectedCatId && selectedCatId !== entry.id ? 0.35 : 1}
                         />
@@ -538,8 +538,8 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                     layout="vertical"
                     margin={{ top: 5, right: 20, left: 20, bottom: 5 }}
                   >
-                    <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
-                    <XAxis type="number" stroke="#71717a" fontSize={11} tickFormatter={(v) => formatCurrency(v, currency)} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#3F443B" vertical={false} />
+                    <XAxis type="number" stroke="#94a3b8" fontSize={11} tickFormatter={(v) => formatCurrency(v, currency)} />
                     <YAxis type="category" dataKey="name" stroke="#a1a1aa" fontSize={11} width={110} tickLine={false} />
                     <Tooltip content={<CustomTooltip />} />
                     <Bar dataKey="value" radius={[0, 6, 6, 0]}>
@@ -554,10 +554,10 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
               {/* Center Donut Stats Label */}
               {chartType === 'pie' && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                  <span className="text-[10px] font-medium text-zinc-400 uppercase tracking-wider">
+                  <span className="text-[10px] font-medium text-slate-500 uppercase tracking-wider">
                     {lang === 'bg' ? 'Общо' : 'Total'}
                   </span>
-                  <span className="text-lg font-extrabold text-zinc-100">
+                  <span className="text-lg font-extrabold text-slate-800">
                     {formatCurrency(totalSpent, currency)}
                   </span>
                 </div>
@@ -567,10 +567,10 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
         </div>
 
         {/* Legend / Category List Breakdown */}
-        <div className="lg:col-span-5 bg-zinc-900 border border-zinc-800 rounded-2xl p-4 sm:p-6 space-y-4 max-h-[480px] overflow-y-auto">
-          <h3 className="text-sm font-bold text-zinc-100 flex items-center justify-between border-b border-zinc-800 pb-3">
+        <div className="lg:col-span-5 bg-white border border-slate-200 rounded-3xl p-4 sm:p-6 shadow-sm space-y-4 max-h-[480px] overflow-y-auto">
+          <h3 className="text-sm font-bold text-slate-800 flex items-center justify-between border-b border-slate-200 pb-3">
             <span>{lang === 'bg' ? 'Детайлен преглед' : 'Category Breakdown'}</span>
-            <span className="text-xs text-zinc-500 font-normal">
+            <span className="text-xs text-slate-500 font-normal">
               {categoryBreakdown.length} {lang === 'bg' ? 'категории' : 'items'}
             </span>
           </h3>
@@ -588,8 +588,8 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                   key={item.id}
                   className={`p-3 rounded-xl border transition-all ${
                     isSelected
-                      ? 'bg-emerald-500/10 border-emerald-500/50'
-                      : 'bg-zinc-950/60 border-zinc-800/80 hover:border-zinc-700'
+                      ? 'bg-[#F7B352]/10 border-[#F7B352]/50'
+                      : 'bg-slate-50 border-slate-200 hover:border-slate-200'
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2">
@@ -601,17 +601,17 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                         className="w-3 h-3 rounded-full flex-shrink-0"
                         style={{ backgroundColor: item.color }}
                       />
-                      <span className="text-xs font-bold text-zinc-200 truncate">
+                      <span className="text-xs font-bold text-slate-700 truncate">
                         {item.name}
                       </span>
                     </div>
 
                     <div className="flex items-center gap-2 text-right">
                       <div>
-                        <div className="text-xs font-extrabold text-zinc-100">
+                        <div className="text-xs font-extrabold text-slate-800">
                           {formatCurrency(item.value, currency)}
                         </div>
-                        <div className="text-[10px] text-zinc-400 font-medium">
+                        <div className="text-[10px] text-slate-500 font-medium">
                           {item.percent.toFixed(1)}%
                         </div>
                       </div>
@@ -619,7 +619,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                       {hasSubcategories && (
                         <button
                           onClick={() => toggleExpandMainCat(item.id)}
-                          className="p-1 text-zinc-400 hover:text-zinc-200"
+                          className="p-1 text-slate-500 hover:text-slate-700 cursor-pointer"
                         >
                           {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
                         </button>
@@ -628,7 +628,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                   </div>
 
                   {/* Progress Bar */}
-                  <div className="mt-2 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                  <div className="mt-2 h-1.5 bg-slate-50 rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all duration-500"
                       style={{
@@ -640,11 +640,11 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
 
                   {/* Budget warning indicator if limit set */}
                   {limit && (
-                    <div className="mt-2 flex items-center justify-between text-[10px] text-zinc-400">
+                    <div className="mt-2 flex items-center justify-between text-[10px] text-slate-500">
                       <span>
                         {lang === 'bg' ? 'Лимит:' : 'Limit:'} {formatCurrency(limit, currency)}
                       </span>
-                      <span className={isOverBudget ? 'text-rose-400 font-bold' : 'text-emerald-400'}>
+                      <span className={isOverBudget ? 'text-[#E07A6C] font-bold' : 'text-[#9BB18A]'}>
                         {isOverBudget
                           ? `${lang === 'bg' ? 'Надхвърлен с' : 'Over by'} ${formatCurrency(item.value - limit, currency)}`
                           : `${lang === 'bg' ? 'Остават' : 'Left:'} ${formatCurrency(limit - item.value, currency)}`}
@@ -654,15 +654,15 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
 
                   {/* Expandable Subcategories */}
                   {hasSubcategories && isExpanded && (
-                    <div className="mt-3 pt-2 border-t border-zinc-800/80 space-y-2 pl-2">
+                    <div className="mt-3 pt-2 border-t border-slate-200 space-y-2 pl-2">
                       {(item as any).subcategories.map((sub: any) => (
-                        <div key={sub.id} className="flex items-center justify-between text-[11px] text-zinc-300">
-                          <span className="truncate flex items-center pl-2 text-zinc-300">
+                        <div key={sub.id} className="flex items-center justify-between text-[11px] text-slate-600">
+                          <span className="truncate flex items-center pl-2 text-slate-600">
                             <span>{sub.name}</span>
                           </span>
-                          <div className="font-medium text-zinc-200">
+                          <div className="font-medium text-slate-700">
                             {formatCurrency(sub.value, currency)}
-                            <span className="text-zinc-500 text-[10px] ml-1">
+                            <span className="text-slate-500 text-[10px] ml-1">
                               ({sub.percent.toFixed(0)}%)
                             </span>
                           </div>
@@ -678,11 +678,11 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
       </div>
 
       {/* 6-Month Trend Line Chart */}
-      <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 sm:p-6 mt-6">
+      <div className="bg-white border border-slate-200 rounded-3xl p-4 sm:p-6 shadow-sm mt-6">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-sm font-bold text-zinc-100 flex items-center gap-2">
-              <Activity className="w-4 h-4 text-emerald-400" />
+            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
+              <Activity className="w-4 h-4 text-[#F7B352]" />
               <span>{lang === 'bg' ? 'Тенденция на разходите (Последните 6 месеца)' : 'Expense Trend (Last 6 Months)'}</span>
             </h3>
           </div>
@@ -694,8 +694,8 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
               data={sixMonthTrendData}
               margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
-              <XAxis dataKey="name" stroke="#71717a" fontSize={11} tickLine={false} axisLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#3F443B" vertical={false} />
+              <XAxis dataKey="name" stroke="#a1a1aa" fontSize={11} tickLine={false} axisLine={false} />
               <YAxis 
                 stroke="#a1a1aa" 
                 fontSize={11} 
@@ -708,9 +708,9 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                 content={({ active, payload, label }) => {
                   if (active && payload && payload.length) {
                     return (
-                      <div className="bg-zinc-900 border border-zinc-700/80 p-3 rounded-xl shadow-xl text-xs space-y-1">
-                        <div className="font-bold text-zinc-100 mb-1">{label}</div>
-                        <div className="text-emerald-400 font-extrabold text-sm">
+                      <div className="bg-white border border-slate-200 p-3 rounded-xl shadow-xl text-xs space-y-1">
+                        <div className="font-bold text-slate-800 mb-1">{label}</div>
+                        <div className="text-[#F7B352] font-extrabold text-sm">
                           {formatCurrency(payload[0].value as number, currency)}
                         </div>
                       </div>
@@ -722,10 +722,10 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
               <Line 
                 type="monotone" 
                 dataKey="total" 
-                stroke="#34D399" 
+                stroke="#F7B352" 
                 strokeWidth={3}
-                dot={{ r: 4, fill: '#34D399', strokeWidth: 0 }}
-                activeDot={{ r: 6, fill: '#34D399', stroke: '#fff', strokeWidth: 2 }}
+                dot={{ r: 4, fill: '#F7B352', strokeWidth: 0 }}
+                activeDot={{ r: 6, fill: '#F7B352', stroke: '#1A1C19', strokeWidth: 2 }}
               />
             </LineChart>
           </ResponsiveContainer>
