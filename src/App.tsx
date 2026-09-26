@@ -463,17 +463,20 @@ export default function App() {
       <div className="flex w-full h-full bg-[#EFF3F8] rounded-[2rem] sm:rounded-[3rem] overflow-hidden shadow-2xl relative">
         {/* Sidebar */}
         <aside className="w-64 bg-[#282A3A] flex flex-col flex-shrink-0 hidden lg:flex z-50">
-          {/* Top Teal Section */}
-          <div className="bg-[#174E5B] pt-12 pb-10 px-6 rounded-br-[3rem] flex flex-col items-center text-center relative z-10">
-            <div className="w-16 h-16 rounded-full border-2 border-white/20 p-1 mb-3">
-              <img 
-                src={`https://ui-avatars.com/api/?name=Hasan+Sajjad&background=random`} 
-                alt="Profile" 
-                className="w-full h-full rounded-full object-cover"
-              />
+          {/* Top Teal Section - App Logo */}
+          <div className="bg-[#174E5B] pt-10 pb-8 px-6 rounded-br-[3rem] flex flex-col items-center text-center relative z-10 select-none shadow-md">
+            <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 p-2 mb-3 shadow-lg flex items-center justify-center backdrop-blur-sm">
+              <div className="w-full h-full rounded-xl bg-gradient-to-tr from-amber-400 via-amber-300 to-amber-200 text-[#174E5B] flex items-center justify-center shadow-inner">
+                <Coins className="w-8 h-8 stroke-[2.5]" />
+              </div>
             </div>
-            <h3 className="text-white font-bold text-lg leading-tight mb-1">Hasan Sajjad</h3>
-            <p className="text-teal-200 text-xs">hasansajadux@gmail.com</p>
+            <h2 className="text-white font-extrabold text-xl tracking-tight leading-tight">
+              {t('appTitle')}
+            </h2>
+            <div className="inline-flex items-center gap-1.5 text-teal-200/90 text-[11px] font-semibold tracking-wider uppercase mt-1 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/10">
+              <Sparkles className="w-3 h-3 text-amber-300" />
+              <span>Financial Tracker</span>
+            </div>
           </div>
           
           {/* Bottom Navy Section */}
