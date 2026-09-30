@@ -46,26 +46,26 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-      <div className="w-full max-w-sm bg-white border border-slate-200 rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div className="w-full max-w-sm bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         <div className="p-5 flex flex-col items-center text-center space-y-4">
           <div className="w-12 h-12 rounded-full bg-rose-500/10 flex items-center justify-center border border-rose-500/20">
             <AlertTriangle className="w-6 h-6 text-rose-500" />
           </div>
           <div className="space-y-1">
-            <h3 className="font-bold text-lg text-slate-800">{title}</h3>
-            <p className="text-sm text-slate-500">{message}</p>
+            <h3 className="font-bold text-lg text-slate-800 dark:text-white">{title}</h3>
+            <p className="text-sm text-slate-500 dark:text-slate-400">{message}</p>
           </div>
         </div>
-        <div className="p-4 border-t border-slate-200 bg-slate-100/50 flex items-center gap-3">
+        <div className="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-[#14171F] flex items-center gap-3">
           <button
             onClick={onCancel}
-            className="flex-1 py-2.5 rounded-xl font-semibold text-xs text-slate-600 hover:text-slate-800 hover:bg-slate-50 transition-colors cursor-pointer"
+            className="flex-1 py-2.5 rounded-xl font-semibold text-xs text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
           >
             {cancelText || t('cancel')}
           </button>
           <button
             onClick={onConfirm}
-            className="flex-1 py-2.5 rounded-xl font-bold text-xs bg-rose-500 hover:bg-rose-400 text-slate-900 transition-colors shadow-lg shadow-rose-500/20 cursor-pointer"
+            className="flex-1 py-2.5 rounded-xl font-bold text-xs bg-rose-500 hover:bg-rose-400 text-white transition-colors shadow-lg shadow-rose-500/20 cursor-pointer"
           >
             {confirmText || (lang === 'bg' ? 'Изтрий' : 'Delete')}
           </button>

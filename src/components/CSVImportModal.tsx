@@ -251,21 +251,21 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm overflow-y-auto">
-      <div className="w-full max-w-4xl bg-white border border-slate-200 rounded-3xl flex flex-col my-8 shadow-2xl relative" style={{ maxHeight: 'calc(100vh - 4rem)' }}>
+      <div className="w-full max-w-4xl bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl flex flex-col my-8 shadow-2xl relative" style={{ maxHeight: 'calc(100vh - 4rem)' }}>
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-200 p-6 shrink-0">
+        <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 p-6 shrink-0">
           <div>
-            <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2">
-              <Upload className="w-5 h-5 text-indigo-400" />
+            <h3 className="font-bold text-lg text-slate-800 dark:text-white flex items-center gap-2">
+              <Upload className="w-5 h-5 text-indigo-500 dark:text-indigo-400" />
               <span>{lang === 'bg' ? 'Импортиране на Файл (XML & CSV)' : 'Import Transactions (XML & CSV)'}</span>
             </h3>
-            <p className="text-sm text-slate-500 mt-1">
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
               {lang === 'bg' 
                 ? 'Качете XML или CSV файл, прегледайте и редактирайте преди импорт.' 
                 : 'Upload an XML or CSV file, preview and edit before importing.'}
             </p>
           </div>
-          <button onClick={onClose} className="text-slate-500 hover:text-slate-800 p-2 rounded-lg hover:bg-slate-50 transition-colors">
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -273,7 +273,7 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
         {/* Content */}
         <div className="p-6 overflow-y-auto grow space-y-6">
           {errorMessage && (
-            <div className="p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl text-sm flex items-center justify-between">
+            <div className="p-4 bg-rose-500/10 border border-rose-500/20 text-rose-500 dark:text-rose-400 rounded-xl text-sm flex items-center justify-between">
               <span>{errorMessage}</span>
               <button onClick={() => setErrorMessage(null)} className="text-xs underline hover:text-rose-300">
                 {lang === 'bg' ? 'Затвори' : 'Dismiss'}
@@ -291,22 +291,22 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
                 className={`border-2 border-dashed rounded-3xl p-8 sm:p-12 flex flex-col items-center justify-center text-center transition-all ${
                   isDragOver 
                     ? 'border-indigo-500 bg-indigo-500/10 scale-[1.01]' 
-                    : 'border-slate-200 bg-slate-100/50 hover:border-slate-200'
+                    : 'border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-[#101217] hover:border-slate-300 dark:hover:border-slate-700'
                 }`}
               >
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
+                  <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-500 dark:text-purple-400">
                     <FileCode className="w-7 h-7" />
                   </div>
-                  <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400">
+                  <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-500 dark:text-blue-400">
                     <FileText className="w-7 h-7" />
                   </div>
                 </div>
 
-                <h4 className="text-slate-700 font-bold text-base mb-1">
+                <h4 className="text-slate-800 dark:text-white font-bold text-base mb-1">
                   {lang === 'bg' ? 'Плъзнете XML или CSV файл тук' : 'Drag & drop XML or CSV file here'}
                 </h4>
-                <p className="text-xs text-slate-400 mb-6 max-w-md">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mb-6 max-w-md">
                   {lang === 'bg' 
                     ? 'Поддържа стандартни XML структури, банкови извлечения и CSV формати (Дата, Тип, Категория, Бележка, Сума).' 
                     : 'Supports standard XML files, bank statements, and CSV formats (Date, Type, Category, Note, Amount).'}
@@ -324,7 +324,7 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
                 <div className="flex flex-wrap items-center justify-center gap-3">
                   <label 
                     htmlFor="transaction-file-upload"
-                    className="px-6 py-2.5 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-bold text-sm cursor-pointer transition-colors shadow-lg shadow-indigo-500/20 flex items-center gap-2"
+                    className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm cursor-pointer transition-colors shadow-lg shadow-indigo-500/20 flex items-center gap-2"
                   >
                     <Upload className="w-4 h-4" />
                     <span>{lang === 'bg' ? 'Избери XML / CSV Файл' : 'Choose XML / CSV File'}</span>
@@ -333,25 +333,25 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
               </div>
 
               {/* Sample XML Guide Card */}
-              <div className="bg-slate-100 border border-slate-200 rounded-3xl p-5 space-y-3">
+              <div className="bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-slate-800 rounded-3xl p-5 space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Code2 className="w-4 h-4 text-purple-400" />
-                    <h5 className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                    <Code2 className="w-4 h-4 text-purple-500 dark:text-purple-400" />
+                    <h5 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                       {lang === 'bg' ? 'Примерен XML Формат' : 'Sample XML Format'}
                     </h5>
                   </div>
                   <button
                     type="button"
                     onClick={copySampleXML}
-                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-50 hover:bg-slate-100 text-xs font-semibold text-slate-600 transition-colors"
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white dark:bg-[#181B22] hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-600 dark:text-slate-300 transition-colors cursor-pointer"
                   >
                     {copiedSample ? <Check className="w-3.5 h-3.5 text-[#9BB18A]" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copiedSample ? (lang === 'bg' ? 'Копирано!' : 'Copied!') : (lang === 'bg' ? 'Копирай' : 'Copy')}</span>
                   </button>
                 </div>
 
-                <pre className="p-3 bg-white border border-slate-200 rounded-xl text-[11px] font-mono text-purple-300 overflow-x-auto">
+                <pre className="p-3 bg-white dark:bg-[#14171F] border border-slate-200 dark:border-slate-800 rounded-xl text-[11px] font-mono text-purple-600 dark:text-purple-300 overflow-x-auto">
                   {sampleXML}
                 </pre>
               </div>
@@ -360,9 +360,9 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div className="flex items-center gap-3">
-                  <h4 className="font-bold text-slate-800 flex items-center gap-2">
+                  <h4 className="font-bold text-slate-800 dark:text-white flex items-center gap-2">
                     <span>{lang === 'bg' ? 'Преглед на транзакциите' : 'Transactions Preview'}</span>
-                    <span className="px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 text-xs border border-indigo-500/20 font-bold">
+                    <span className="px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 text-xs border border-indigo-500/20 font-bold">
                       {parsedTransactions.length}
                     </span>
                   </h4>
@@ -370,8 +370,8 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
                   {detectedFormat && (
                     <span className={`px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase border ${
                       detectedFormat === 'xml' 
-                        ? 'bg-purple-500/10 text-purple-400 border-purple-500/30' 
-                        : 'bg-blue-500/10 text-blue-400 border-blue-500/30'
+                        ? 'bg-purple-500/10 text-purple-500 dark:text-purple-400 border-purple-500/30' 
+                        : 'bg-blue-500/10 text-blue-500 dark:text-blue-400 border-blue-500/30'
                     }`}>
                       {detectedFormat.toUpperCase()} {lang === 'bg' ? 'Формат' : 'Format'}
                     </span>
@@ -384,16 +384,16 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
                     setDetectedFormat(null);
                     setErrorMessage(null);
                   }}
-                  className="text-xs font-semibold text-slate-500 hover:text-slate-700 transition-colors cursor-pointer self-start sm:self-auto"
+                  className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors cursor-pointer self-start sm:self-auto"
                 >
                   {lang === 'bg' ? 'Изчисти и качи друг файл' : 'Clear and upload another file'}
                 </button>
               </div>
 
-              <div className="bg-slate-100 border border-slate-200 rounded-xl overflow-hidden">
+              <div className="bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left text-xs text-slate-600 min-w-[650px]">
-                    <thead className="bg-white border-b border-slate-200 text-slate-500 font-semibold uppercase tracking-wider">
+                  <table className="w-full text-left text-xs text-slate-600 dark:text-slate-300 min-w-[650px]">
+                    <thead className="bg-white dark:bg-[#14171F] border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider">
                       <tr>
                         <th className="py-3 px-4">{t('date')}</th>
                         <th className="py-3 px-4">{t('type')}</th>
@@ -403,19 +403,19 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
                         <th className="py-3 px-4 text-center">{t('actions')}</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-zinc-800">
+                    <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
                       {parsedTransactions.map((tx, idx) => {
                         const isEditing = editingIndex === idx;
 
                         return (
-                          <tr key={idx} className={isEditing ? 'bg-slate-50/50' : 'hover:bg-white/50'}>
+                          <tr key={idx} className={isEditing ? 'bg-slate-100/50 dark:bg-[#1A1E26]' : 'hover:bg-white dark:hover:bg-[#181B22]/50'}>
                             <td className="py-2.5 px-4 font-mono">
                               {isEditing ? (
                                 <input
                                   type="date"
                                   value={editForm?.date || ''}
                                   onChange={e => setEditForm(prev => prev ? { ...prev, date: e.target.value } : null)}
-                                  className="w-full bg-white border border-slate-200 rounded px-2 py-1 text-xs text-slate-800"
+                                  className="w-full bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs text-slate-800 dark:text-white"
                                 />
                               ) : tx.date}
                             </td>
@@ -424,7 +424,7 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
                                 <select
                                   value={editForm?.type || 'needs'}
                                   onChange={e => setEditForm(prev => prev ? { ...prev, type: e.target.value as Transaction['type'] } : null)}
-                                  className="w-full bg-white border border-slate-200 rounded px-2 py-1 text-xs text-slate-800"
+                                  className="w-full bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs text-slate-800 dark:text-white"
                                 >
                                   <option value="needs">{t('needs')}</option>
                                   <option value="wants">{t('wants')}</option>
@@ -434,7 +434,7 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
                                   <option value="debt">{t('debt')}</option>
                                 </select>
                               ) : (
-                                <span className="inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-slate-50 border border-slate-200 text-slate-600">
+                                <span className="inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300">
                                   {tx.type}
                                 </span>
                               )}
@@ -444,7 +444,7 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
                                 <select
                                   value={editForm?.category || ''}
                                   onChange={e => setEditForm(prev => prev ? { ...prev, category: e.target.value } : null)}
-                                  className="w-full bg-white border border-slate-200 rounded px-2 py-1 text-xs text-slate-800"
+                                  className="w-full bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs text-slate-800 dark:text-white"
                                 >
                                   {categories.map(c => (
                                     <option key={c.id} value={c.id}>
@@ -453,7 +453,7 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
                                   ))}
                                 </select>
                               ) : (
-                                <span className="font-medium text-slate-700">
+                                <span className="font-medium text-slate-700 dark:text-slate-200">
                                   {getCategoryName(tx.category, categories, lang)}
                                 </span>
                               )}
@@ -464,10 +464,10 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
                                   type="text"
                                   value={editForm?.note || ''}
                                   onChange={e => setEditForm(prev => prev ? { ...prev, note: e.target.value } : null)}
-                                  className="w-full bg-white border border-slate-200 rounded px-2 py-1 text-xs text-slate-800"
+                                  className="w-full bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs text-slate-800 dark:text-white"
                                 />
                               ) : (
-                                <span className="text-slate-500 max-w-[180px] truncate block" title={tx.note}>
+                                <span className="text-slate-500 dark:text-slate-400 max-w-[180px] truncate block" title={tx.note}>
                                   {tx.note || '-'}
                                 </span>
                               )}
@@ -479,10 +479,10 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
                                   step="0.01"
                                   value={editForm?.amount || 0}
                                   onChange={e => setEditForm(prev => prev ? { ...prev, amount: parseFloat(e.target.value) || 0 } : null)}
-                                  className="w-full bg-white border border-slate-200 rounded px-2 py-1 text-xs text-right font-bold text-[#9BB18A]"
+                                  className="w-full bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs text-right font-bold text-[#9BB18A]"
                                 />
                               ) : (
-                                <span className={`font-bold font-display ${tx.type === 'income' ? 'text-[#9BB18A]' : 'text-slate-800'}`}>
+                                <span className={`font-bold font-display ${tx.type === 'income' ? 'text-[#9BB18A]' : 'text-slate-800 dark:text-white'}`}>
                                   {tx.amount.toFixed(2)}
                                 </span>
                               )}
@@ -500,14 +500,14 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
                                 <div className="flex items-center justify-center gap-1">
                                   <button
                                     onClick={() => handleEditClick(idx)}
-                                    className="p-1.5 text-slate-500 hover:text-[#F7B352] hover:bg-slate-50 rounded-lg transition-colors cursor-pointer"
+                                    className="p-1.5 text-slate-400 hover:text-[#F7B352] hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
                                     title={t('editBill')}
                                   >
                                     <Edit3 className="w-4 h-4" />
                                   </button>
                                   <button
                                     onClick={() => handleDelete(idx)}
-                                    className="p-1.5 text-slate-500 hover:text-[#E07A6C] hover:bg-slate-50 rounded-lg transition-colors cursor-pointer"
+                                    className="p-1.5 text-slate-400 hover:text-[#E07A6C] hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
                                     title={t('delete')}
                                   >
                                     <Trash2 className="w-4 h-4" />
@@ -527,10 +527,10 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="p-6 border-t border-slate-200 flex justify-end gap-3 shrink-0">
+        <div className="p-6 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-3 shrink-0">
           <button
             onClick={onClose}
-            className="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-500 hover:text-slate-700 transition-colors cursor-pointer"
+            className="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors cursor-pointer"
           >
             {t('cancel')}
           </button>
@@ -540,7 +540,7 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({
             onClick={handleConfirmImport}
             className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-black shadow-sm transition-all ${
               parsedTransactions.length === 0
-                ? 'bg-slate-50 text-slate-400 cursor-not-allowed'
+                ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed'
                 : 'bg-[#F7B352] hover:bg-[#E59F2A] active:scale-[0.98] text-slate-900 cursor-pointer shadow-[#F7B352]/20'
             }`}
           >

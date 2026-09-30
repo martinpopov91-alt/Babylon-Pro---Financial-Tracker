@@ -143,13 +143,13 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
   return (
     <div id="vaults-sinking-funds" className="space-y-6">
       {/* Top Header Card */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-white border border-slate-200/90 dark:border-slate-200 rounded-3xl p-6 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-[#181B22] border border-slate-200/90 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
         <div className="space-y-1">
-          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-800 font-display flex items-center gap-2">
-            <PiggyBank className="w-6 h-6 text-black dark:text-black" />
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white font-display flex items-center gap-2">
+            <PiggyBank className="w-6 h-6 text-black dark:text-emerald-400" />
             <span>{t('goalTrackerTitle')}</span>
           </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-500">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             {t('goalTrackerSub')}
           </p>
         </div>
@@ -165,21 +165,21 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
 
       {/* Aggregate Overview Bar */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white dark:bg-white border border-slate-200/90 dark:border-slate-200 rounded-3xl p-4 shadow-sm">
-          <p className="text-xs font-semibold text-slate-500 dark:text-slate-500">{lang === 'bg' ? 'Общо Спестено' : 'Total Saved'}</p>
-          <p className="text-2xl font-black text-black dark:text-black font-display mt-1">
+        <div className="bg-white dark:bg-[#181B22] border border-slate-200/90 dark:border-slate-800 rounded-3xl p-4 shadow-sm">
+          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">{lang === 'bg' ? 'Общо Спестено' : 'Total Saved'}</p>
+          <p className="text-2xl font-black text-black dark:text-white font-display mt-1">
             {formatCurrency(totalSavedSum, currency)}
           </p>
         </div>
-        <div className="bg-white dark:bg-white border border-slate-200/90 dark:border-slate-200 rounded-3xl p-4 shadow-sm">
-          <p className="text-xs font-semibold text-slate-500 dark:text-slate-500">{lang === 'bg' ? 'Обща Цел' : 'Total Target'}</p>
-          <p className="text-2xl font-black text-slate-900 dark:text-slate-800 font-display mt-1">
+        <div className="bg-white dark:bg-[#181B22] border border-slate-200/90 dark:border-slate-800 rounded-3xl p-4 shadow-sm">
+          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">{lang === 'bg' ? 'Обща Цел' : 'Total Target'}</p>
+          <p className="text-2xl font-black text-slate-900 dark:text-white font-display mt-1">
             {formatCurrency(totalTargetSum, currency)}
           </p>
         </div>
-        <div className="bg-white dark:bg-white border border-slate-200/90 dark:border-slate-200 rounded-3xl p-4 shadow-sm">
-          <p className="text-xs font-semibold text-slate-500 dark:text-slate-500">{t('monthlyTarget')}</p>
-          <p className="text-2xl font-black text-black dark:text-black font-display mt-1">
+        <div className="bg-white dark:bg-[#181B22] border border-slate-200/90 dark:border-slate-800 rounded-3xl p-4 shadow-sm">
+          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('monthlyTarget')}</p>
+          <p className="text-2xl font-black text-black dark:text-white font-display mt-1">
             {formatCurrency(totalMonthlySum, currency)}
           </p>
         </div>
@@ -187,13 +187,13 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
 
       {/* Goal Cards Grid */}
       {goals.length === 0 ? (
-        <div className="p-10 sm:p-12 text-center bg-slate-50/80 dark:bg-white/50 border border-dashed border-slate-200/90 dark:border-slate-200 rounded-3xl space-y-3">
-          <p className="text-slate-500 dark:text-slate-500 text-sm font-medium">
+        <div className="p-10 sm:p-12 text-center bg-slate-50/80 dark:bg-[#181B22]/50 border border-dashed border-slate-200/90 dark:border-slate-800 rounded-3xl space-y-3">
+          <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">
             {lang === 'bg' ? 'Все още нямате създадени спестовни цели.' : 'No goal vaults created yet.'}
           </p>
           <button
             onClick={handleOpenAddModal}
-            className="px-4 py-2 rounded-xl bg-black text-white hover:bg-neutral-800 border border-black text-xs font-bold transition-colors cursor-pointer"
+            className="px-4 py-2 rounded-xl bg-black dark:bg-white text-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-200 border border-black dark:border-white text-xs font-bold transition-colors cursor-pointer"
           >
             + {t('addGoal')}
           </button>
@@ -212,7 +212,7 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
             return (
               <div
                 key={goal.id}
-                className="bg-white dark:bg-white border border-slate-200/90 dark:border-slate-200 hover:border-teal-500/40 rounded-3xl p-5 space-y-4 shadow-sm transition-all relative overflow-hidden flex flex-col justify-between"
+                className="bg-white dark:bg-[#181B22] border border-slate-200/90 dark:border-slate-800 hover:border-teal-500/40 dark:hover:border-emerald-500/40 rounded-3xl p-5 space-y-4 shadow-sm transition-all relative overflow-hidden flex flex-col justify-between"
               >
                 {/* Header */}
                 <div className="flex items-start justify-between gap-2">
@@ -221,17 +221,17 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
                       <Target className="w-5 h-5" />
                     </span>
                     <div className="min-w-0 flex-1">
-                      <h3 className="font-bold text-slate-900 dark:text-slate-800 text-sm sm:text-base leading-tight truncate" title={goal.name}>
+                      <h3 className="font-bold text-slate-900 dark:text-white text-sm sm:text-base leading-tight truncate" title={goal.name}>
                         {goal.name}
                       </h3>
                       {goal.biblicalPrinciple && (
                         <div className="mt-1 mb-0.5">
-                          <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-medium bg-slate-100 dark:bg-slate-50/80 text-slate-600 dark:text-slate-600 border border-slate-200 dark:border-slate-200/60 truncate max-w-full">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-medium bg-slate-100 dark:bg-[#1A1E26] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 truncate max-w-full">
                             {biblicalPrinciples.find(p => p.value === goal.biblicalPrinciple)?.[lang === 'bg' ? 'labelBg' : 'labelEn'] || goal.biblicalPrinciple}
                           </span>
                         </div>
                       )}
-                      <p className="text-xs text-slate-500 dark:text-slate-500 font-medium mt-0.5">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
                         {t('monthlyTarget')}: <span className="text-emerald-600 dark:text-emerald-400 font-bold">{goal.monthlyTarget > 0 ? formatCurrency(goal.monthlyTarget, currency) : (lang === 'bg' ? 'Няма' : 'None')}</span>
                       </p>
                     </div>
@@ -240,14 +240,14 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
                   <div className="flex items-center gap-1 flex-shrink-0">
                     <button
                       onClick={() => handleOpenEditModal(goal)}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-50 transition-colors cursor-pointer"
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
                       title={lang === 'bg' ? 'Редактирай' : 'Edit'}
                     >
                       <Edit3 className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => onDeleteGoal(goal.id)}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors cursor-pointer"
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
                       title={lang === 'bg' ? 'Изтрий' : 'Delete'}
                     >
                       <Trash2 className="w-4 h-4" />
@@ -258,15 +258,15 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
                 {/* Main Progress Metric */}
                 <div className="space-y-2">
                   <div className="flex items-baseline justify-between">
-                    <span className="text-2xl font-black text-teal-600 dark:text-teal-400 font-display">
+                    <span className="text-2xl font-black text-teal-600 dark:text-emerald-400 font-display">
                       {formatCurrency(goal.currentAmount, currency)}
                     </span>
                     {hasTarget ? (
-                      <span className="text-xs text-slate-400 dark:text-slate-500 font-semibold">
+                      <span className="text-xs text-slate-400 dark:text-slate-400 font-semibold">
                         / {formatCurrency(goal.targetAmount, currency)}
                       </span>
                     ) : (
-                      <span className="text-[11px] text-teal-600 dark:text-teal-400/80 font-medium bg-teal-50 dark:bg-teal-500/10 px-2 py-0.5 rounded-full border border-teal-200 dark:border-teal-500/20">
+                      <span className="text-[11px] text-teal-600 dark:text-teal-400 font-medium bg-teal-50 dark:bg-teal-500/10 px-2 py-0.5 rounded-full border border-teal-200 dark:border-teal-500/20">
                         {lang === 'bg' ? 'Отворен Сейф' : 'Open Vault'}
                       </span>
                     )}
@@ -274,10 +274,10 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
 
                   {/* Progress bar */}
                   {hasTarget ? (
-                    <div className="w-full h-3 rounded-full bg-slate-100 dark:bg-slate-50 p-0.5 overflow-hidden border border-slate-200 dark:border-slate-200/50">
+                    <div className="w-full h-3 rounded-full bg-slate-100 dark:bg-[#12141A] p-0.5 overflow-hidden border border-slate-200/50 dark:border-slate-700/60">
                       <div
                         className={`h-full rounded-full transition-all duration-500 ${
-                          isCompleted ? 'bg-gradient-to-r from-emerald-400 to-teal-400' : 'bg-teal-500'
+                          isCompleted ? 'bg-gradient-to-r from-emerald-400 to-teal-400' : 'bg-teal-500 dark:bg-emerald-500'
                         }`}
                         style={{ width: `${progressPercent}%` }}
                       />
@@ -288,16 +288,16 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
 
                   <div className="flex items-center justify-between text-xs font-semibold pt-0.5">
                     {hasTarget ? (
-                      <span className="text-teal-600 dark:text-teal-400">{progressPercent.toFixed(0)}% {lang === 'bg' ? 'постигнати' : 'achieved'}</span>
+                      <span className="text-teal-600 dark:text-emerald-400">{progressPercent.toFixed(0)}% {lang === 'bg' ? 'постигнати' : 'achieved'}</span>
                     ) : (
-                      <span className="text-teal-600 dark:text-teal-400">{lang === 'bg' ? 'Гъвкав Фонд' : 'Flexible Vault'}</span>
+                      <span className="text-teal-600 dark:text-emerald-400">{lang === 'bg' ? 'Гъвкав Фонд' : 'Flexible Vault'}</span>
                     )}
                     {isCompleted ? (
                       <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-bold">
                         <CheckCircle2 className="w-3.5 h-3.5" /> {t('goalAchieved')}
                       </span>
                     ) : monthsLeft !== null ? (
-                      <span className="text-slate-400 dark:text-slate-500">
+                      <span className="text-slate-400 dark:text-slate-400">
                         ~{monthsLeft} {lang === 'bg' ? 'месеца остават' : 'months left'}
                       </span>
                     ) : null}
@@ -310,7 +310,7 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
                     setActiveDepositGoal(goal);
                     setDepositAmount('');
                   }}
-                  className="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-xl bg-teal-50 hover:bg-teal-100 dark:bg-teal-500/10 dark:hover:bg-teal-500/20 text-teal-700 dark:text-teal-400 border border-teal-200 dark:border-teal-500/30 text-xs font-bold transition-all cursor-pointer shadow-xs"
+                  className="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-xl bg-teal-50 hover:bg-teal-100 dark:bg-emerald-500/10 dark:hover:bg-emerald-500/20 text-teal-700 dark:text-emerald-300 border border-teal-200 dark:border-emerald-500/30 text-xs font-bold transition-all cursor-pointer shadow-xs"
                 >
                   <ArrowUpRight className="w-4 h-4" />
                   <span>{t('deposit')}</span>
@@ -323,23 +323,23 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
 
       {/* Deposit Modal */}
       {activeDepositGoal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/75 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-white dark:bg-white border border-slate-200 dark:border-slate-200 rounded-3xl p-6 space-y-4 text-slate-900 dark:text-slate-800 shadow-2xl relative">
-            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-200 pb-3">
-              <h3 className="font-bold text-base flex items-center gap-2">
-                <PiggyBank className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 space-y-4 text-slate-900 dark:text-slate-100 shadow-2xl relative">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+              <h3 className="font-bold text-base flex items-center gap-2 text-slate-900 dark:text-white">
+                <PiggyBank className="w-5 h-5 text-teal-600 dark:text-emerald-400" />
                 <span>{t('depositModalTitle')}</span>
               </h3>
               <button
                 onClick={() => setActiveDepositGoal(null)}
-                className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-800 cursor-pointer"
+                className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <p className="text-xs text-slate-500 dark:text-slate-500">
-              {t('depositAmountPrompt')} <span className="font-bold text-slate-800 dark:text-slate-700">{activeDepositGoal.name}</span>:
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              {t('depositAmountPrompt')} <span className="font-bold text-slate-800 dark:text-slate-100">{activeDepositGoal.name}</span>:
             </p>
 
             <form onSubmit={handleConfirmDeposit} className="space-y-4">
@@ -351,15 +351,15 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
                 placeholder="0.00"
                 value={depositAmount}
                 onChange={(e) => setDepositAmount(e.target.value)}
-                className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-50 border border-slate-200 dark:border-slate-200 rounded-xl text-xl font-bold text-teal-600 dark:text-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                className="w-full px-4 py-3 bg-slate-50 dark:bg-[#1A1E26] border border-slate-200 dark:border-slate-700 rounded-xl text-xl font-bold text-teal-600 dark:text-emerald-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
               />
 
-              <label className="flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-slate-600 cursor-pointer">
+              <label className="flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-slate-300 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={recordTransaction}
                   onChange={(e) => setRecordTransaction(e.target.checked)}
-                  className="rounded bg-slate-100 dark:bg-slate-50 border-slate-300 dark:border-slate-200 text-teal-600 focus:ring-teal-500"
+                  className="rounded bg-slate-100 dark:bg-[#1A1E26] border-slate-300 dark:border-slate-700 text-teal-600 focus:ring-teal-500"
                 />
                 <span>{t('addTransactionForDeposit')}</span>
               </label>
@@ -368,7 +368,7 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
                 <button
                   type="button"
                   onClick={() => setActiveDepositGoal(null)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-500 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-700 cursor-pointer"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer"
                 >
                   {t('cancel')}
                 </button>
@@ -386,15 +386,15 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
 
       {/* Add / Edit Goal Modal */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/75 backdrop-blur-sm">
-          <div className="w-full max-w-lg bg-white dark:bg-white border border-slate-200 dark:border-slate-200 rounded-3xl p-6 space-y-4 text-slate-900 dark:text-slate-800 shadow-2xl relative">
-            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-200 pb-3">
-              <h3 className="font-bold text-base">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm">
+          <div className="w-full max-w-lg bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 space-y-4 text-slate-900 dark:text-slate-100 shadow-2xl relative">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+              <h3 className="font-bold text-base text-slate-900 dark:text-white">
                 {editingGoal ? t('editGoal') : t('addGoal')}
               </h3>
               <button
                 onClick={() => setIsAddModalOpen(false)}
-                className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-800 cursor-pointer"
+                className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -402,21 +402,21 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
 
             <form onSubmit={handleSaveGoal} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-500 mb-1">{t('goalName')} *</label>
+                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">{t('goalName')} *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Emergency Fund, Summer Trip"
                   value={goalName}
                   onChange={(e) => setGoalName(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-50 border border-slate-200 dark:border-slate-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-teal-500 focus:outline-none text-slate-900 dark:text-slate-800"
+                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-[#1A1E26] border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium focus:ring-2 focus:ring-teal-500 focus:outline-none text-slate-900 dark:text-slate-100"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-500 mb-1">
-                    {t('targetAmount')} ({currency}) <span className="text-slate-400 dark:text-slate-400 font-normal">({lang === 'bg' ? 'Опционално' : 'Optional'})</span>
+                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                    {t('targetAmount')} ({currency}) <span className="text-slate-400 dark:text-slate-500 font-normal">({lang === 'bg' ? 'Опционално' : 'Optional'})</span>
                   </label>
                   <input
                     type="number"
@@ -424,13 +424,13 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
                     placeholder="0.00"
                     value={targetAmount}
                     onChange={(e) => setTargetAmount(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-50 border border-slate-200 dark:border-slate-200 rounded-xl text-sm font-bold text-teal-600 dark:text-teal-400 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-[#1A1E26] border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-bold text-teal-600 dark:text-emerald-400 focus:ring-2 focus:ring-teal-500 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-500 mb-1">
-                    {t('currentAmount')} ({currency}) <span className="text-slate-400 dark:text-slate-400 font-normal">({lang === 'bg' ? 'Опционално' : 'Optional'})</span>
+                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                    {t('currentAmount')} ({currency}) <span className="text-slate-400 dark:text-slate-500 font-normal">({lang === 'bg' ? 'Опционално' : 'Optional'})</span>
                   </label>
                   <input
                     type="number"
@@ -438,14 +438,14 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
                     placeholder="0.00"
                     value={currentAmount}
                     onChange={(e) => setCurrentAmount(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-50 border border-slate-200 dark:border-slate-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-teal-500 focus:outline-none text-slate-900 dark:text-slate-800"
+                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-[#1A1E26] border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium focus:ring-2 focus:ring-teal-500 focus:outline-none text-slate-900 dark:text-slate-100"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-500 mb-1">
-                  {t('monthlyTarget')} ({currency}) <span className="text-slate-400 dark:text-slate-400 font-normal">({lang === 'bg' ? 'Опционално' : 'Optional'})</span>
+                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                  {t('monthlyTarget')} ({currency}) <span className="text-slate-400 dark:text-slate-500 font-normal">({lang === 'bg' ? 'Опционално' : 'Optional'})</span>
                 </label>
                 <input
                   type="number"
@@ -453,32 +453,32 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
                   placeholder="0.00"
                   value={monthlyTarget}
                   onChange={(e) => setMonthlyTarget(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-50 border border-slate-200 dark:border-slate-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-teal-500 focus:outline-none text-slate-900 dark:text-slate-800"
+                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-[#1A1E26] border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium focus:ring-2 focus:ring-teal-500 focus:outline-none text-slate-900 dark:text-slate-100"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-500 mb-1">
-                  {lang === 'bg' ? 'Библейски принцип' : 'Biblical Principle'} <span className="text-slate-400 dark:text-slate-400 font-normal">({lang === 'bg' ? 'Опционално' : 'Optional'})</span>
+                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                  {lang === 'bg' ? 'Библейски принцип' : 'Biblical Principle'} <span className="text-slate-400 dark:text-slate-500 font-normal">({lang === 'bg' ? 'Опционално' : 'Optional'})</span>
                 </label>
                 <select
                   value={biblicalPrinciple}
                   onChange={(e) => setBiblicalPrinciple(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-50 border border-slate-200 dark:border-slate-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-teal-500 focus:outline-none text-slate-800 dark:text-slate-700"
+                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-[#1A1E26] border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium focus:ring-2 focus:ring-teal-500 focus:outline-none text-slate-800 dark:text-slate-200"
                 >
                   {biblicalPrinciples.map(principle => (
-                    <option key={principle.value} value={principle.value}>
+                    <option key={principle.value} value={principle.value} className="dark:bg-[#1A1E26]">
                       {lang === 'bg' ? principle.labelBg : principle.labelEn}
                     </option>
                   ))}
                 </select>
               </div>
 
-              <div className="flex justify-end gap-3 pt-3 border-t border-slate-100 dark:border-slate-200">
+              <div className="flex justify-end gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
                 <button
                   type="button"
                   onClick={() => setIsAddModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-500 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-700 cursor-pointer"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer"
                 >
                   {t('cancel')}
                 </button>

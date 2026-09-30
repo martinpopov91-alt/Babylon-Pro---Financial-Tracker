@@ -7,7 +7,8 @@ import {
   Settings as SettingsIcon, 
   Sparkles, 
   BookOpen,
-  Keyboard
+  Keyboard,
+  Search
 } from 'lucide-react';
 import { AppState, Currency, Language, Theme } from '../types';
 import { getTranslation } from '../constants/translations';
@@ -37,24 +38,31 @@ export const Header: React.FC<HeaderProps> = ({
   const currencies: Currency[] = ['BGN', 'EUR', 'USD', 'GBP'];
 
   return (
-    <header id="app-header" className="flex-shrink-0 z-40 w-full bg-[#EFF3F8] border-b border-white/60 text-slate-800 transition-colors duration-200">
-      <div className="w-full px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
-        {/* Mobile Logo / Space */}
-        <div className="flex md:hidden items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-[#174E5B] text-white flex items-center justify-center font-black shadow-sm">
-            <Coins className="w-5 h-5 stroke-[2.5]" />
+    <header id="app-header" className="sticky top-0 z-40 w-full bg-white/85 dark:bg-[#15181E]/90 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800 text-slate-800 dark:text-slate-100 transition-colors duration-200 shadow-2xs">
+      <div className="w-full px-2 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-1.5 sm:gap-3">
+        {/* Logo & Brand Name */}
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#174E5B] to-[#0d343d] text-white flex items-center justify-center font-black shadow-xs">
+            <Coins className="w-3.5 h-3.5 sm:w-5 sm:h-5 stroke-[2.5]" />
+          </div>
+          <div className="hidden min-[480px]:flex flex-col leading-none">
+            <span className="font-extrabold text-xs sm:text-sm text-slate-900 dark:text-white tracking-tight font-display">Babylon</span>
+            <span className="text-[9px] text-teal-600 dark:text-emerald-400 font-bold uppercase tracking-wider">Money</span>
           </div>
         </div>
-        <div className="hidden md:block flex-1 max-w-xs relative">
+
+        {/* Desktop Search Bar */}
+        <div className="hidden lg:block flex-1 max-w-xs relative">
+          <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input 
             type="text" 
-            placeholder="Search..." 
-            className="w-full pl-4 pr-4 py-1.5 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#174E5B]/40 focus:border-[#174E5B] shadow-sm"
+            placeholder={lang === 'bg' ? 'Търсене...' : 'Search records...'} 
+            className="w-full pl-9 pr-4 py-1.5 bg-slate-50/80 dark:bg-[#1A1E26] hover:bg-slate-50 dark:hover:bg-[#20252F] focus:bg-white dark:focus:bg-[#20252F] border border-slate-200 dark:border-slate-700/80 rounded-xl text-xs sm:text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#174E5B]/20 dark:focus:ring-emerald-500/20 focus:border-[#174E5B] dark:focus:border-emerald-500 transition-all shadow-2xs"
           />
         </div>
 
         {/* Pay Period Interactive Selector */}
-        <div className="flex items-center">
+        <div className="flex items-center flex-shrink min-w-0 justify-center">
           <PayPeriodSelector
             settings={settings}
             transactions={transactions}
@@ -63,79 +71,84 @@ export const Header: React.FC<HeaderProps> = ({
           />
         </div>
 
-        {/* Controls: Currency, Language, Theme, Settings, Wizard */}
-        <div className="flex items-center gap-1.5 sm:gap-2">
+        {/* Controls: Currency, Grouped Toggles (Language + Theme), Settings */}
+        <div className="flex items-center gap-1 sm:gap-1.5 flex-shrink-0">
           {/* Currency Dropdown */}
           <select
             id="currency-selector"
             value={settings.currency}
             onChange={(e) => onUpdateSettings({ currency: e.target.value as Currency })}
-            className="bg-white hover:bg-slate-50 text-slate-800 text-xs font-semibold px-2.5 py-1.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#174E5B]/30 focus:border-[#174E5B] cursor-pointer transition-colors shadow-sm"
+            className="bg-slate-50 dark:bg-[#1A1E26] hover:bg-slate-100 dark:hover:bg-[#20252F] text-slate-800 dark:text-slate-200 text-[11px] sm:text-xs font-semibold px-1.5 sm:px-2.5 py-1 sm:py-1.5 rounded-xl border border-slate-200 dark:border-slate-700/80 focus:outline-none focus:ring-2 focus:ring-[#174E5B]/20 dark:focus:ring-emerald-500/20 focus:border-[#174E5B] dark:focus:border-emerald-500 cursor-pointer transition-colors shadow-2xs"
           >
             {currencies.map((c) => (
-              <option key={c} value={c}>
+              <option key={c} value={c} className="dark:bg-[#1A1E26] dark:text-slate-200">
                 {c}
               </option>
             ))}
           </select>
 
-          {/* Language Toggle */}
-          <button
-            id="language-toggle-btn"
-            onClick={() => onUpdateSettings({ language: lang === 'en' ? 'bg' : 'en' })}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-xs font-semibold text-slate-800 border border-slate-200 shadow-sm transition-colors cursor-pointer"
-            title="Toggle Language (EN / BG)"
-          >
-            <Globe className="w-3.5 h-3.5 text-[#174E5B]" />
-            <span className="uppercase">{lang}</span>
-          </button>
+          {/* Grouped Toggles: Language & Theme Pill to prevent mobile overflow */}
+          <div className="inline-flex items-center rounded-xl bg-slate-50 dark:bg-[#1A1E26] border border-slate-200 dark:border-slate-700/80 p-0.5 shadow-2xs">
+            {/* Language Toggle */}
+            <button
+              id="language-toggle-btn"
+              onClick={() => onUpdateSettings({ language: lang === 'en' ? 'bg' : 'en' })}
+              className="flex items-center gap-1 px-1.5 py-1 rounded-lg hover:bg-white dark:hover:bg-[#252B37] text-[11px] font-bold text-slate-700 dark:text-slate-200 transition-all cursor-pointer"
+              title="Toggle Language (EN / BG)"
+            >
+              <Globe className="w-3.5 h-3.5 text-[#174E5B] dark:text-emerald-400" />
+              <span className="uppercase text-[10px] sm:text-[11px] font-bold">{lang}</span>
+            </button>
 
-          {/* Theme Toggle */}
-          <button
-            id="theme-toggle-btn"
-            onClick={() => onUpdateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' })}
-            className="p-2 rounded-xl bg-white hover:bg-slate-50 text-slate-400 hover:text-[#174E5B] border border-slate-200 shadow-sm transition-colors cursor-pointer"
-            title="Toggle Theme"
-          >
-            {settings.theme === 'dark' ? (
-              <Sun className="w-4 h-4 text-[#174E5B]" />
-            ) : (
-              <Moon className="w-4 h-4 text-[#174E5B]" />
-            )}
-          </button>
+            <div className="w-[1px] h-3.5 bg-slate-200 dark:bg-slate-700 mx-0.5" />
 
-          {/* Keyboard Shortcuts Trigger */}
+            {/* Theme Toggle */}
+            <button
+              id="theme-toggle-btn"
+              onClick={() => onUpdateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' })}
+              className="p-1 sm:p-1.5 rounded-lg hover:bg-white dark:hover:bg-[#252B37] text-slate-500 dark:text-slate-400 hover:text-[#174E5B] dark:hover:text-amber-300 transition-all cursor-pointer"
+              title="Toggle Theme"
+            >
+              {settings.theme === 'dark' ? (
+                <Sun className="w-3.5 h-3.5 text-amber-300" />
+              ) : (
+                <Moon className="w-3.5 h-3.5 text-[#174E5B]" />
+              )}
+            </button>
+          </div>
+
+          {/* Keyboard Shortcuts Trigger (Desktop only) */}
           {onOpenShortcuts && (
             <button
               id="open-shortcuts-btn"
               onClick={onOpenShortcuts}
-              className="p-2 rounded-xl bg-white hover:bg-slate-50 text-slate-400 hover:text-[#174E5B] border border-slate-200 shadow-sm transition-colors cursor-pointer hidden md:flex items-center gap-1.5"
+              className="p-2 rounded-xl bg-slate-50 dark:bg-[#1A1E26] hover:bg-slate-100 dark:hover:bg-[#20252F] text-slate-500 dark:text-slate-400 hover:text-[#174E5B] dark:hover:text-slate-200 border border-slate-200 dark:border-slate-700/80 shadow-2xs transition-colors cursor-pointer hidden md:flex items-center gap-1.5"
               title={`${t('keyboardShortcuts')} (?)`}
             >
               <Keyboard className="w-4 h-4" />
             </button>
           )}
 
-          {/* Instructions Trigger */}
+          {/* Instructions Trigger (Tablet / Desktop) */}
           {onOpenInstructions && (
             <button
               id="open-instructions-btn"
               onClick={onOpenInstructions}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-500 hover:text-[#174E5B] border border-slate-200 text-xs font-semibold shadow-sm transition-colors cursor-pointer"
+              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-[#1A1E26] hover:bg-slate-100 dark:hover:bg-[#20252F] text-slate-600 dark:text-slate-300 hover:text-[#174E5B] dark:hover:text-emerald-400 border border-slate-200 dark:border-slate-700/80 text-xs font-semibold shadow-2xs transition-colors cursor-pointer"
               title={t('instructions')}
             >
-              <BookOpen className="w-3.5 h-3.5 text-[#174E5B]" />
-              <span className="hidden md:inline">{t('instructions')}</span>
+              <BookOpen className="w-3.5 h-3.5 text-[#174E5B] dark:text-emerald-400" />
+              <span>{t('instructions')}</span>
             </button>
           )}
 
-          {/* Onboarding Wizard Trigger */}
+          {/* Onboarding Wizard Trigger (Desktop) */}
           <button
             id="open-wizard-btn"
             onClick={onOpenOnboarding}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#174E5B]/10 hover:bg-[#174E5B]/20 text-[#174E5B] border border-[#174E5B]/20 text-xs font-semibold shadow-sm transition-colors cursor-pointer"
+            className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#174E5B]/10 dark:bg-emerald-500/10 hover:bg-[#174E5B]/15 dark:hover:bg-emerald-500/20 text-[#174E5B] dark:text-emerald-400 border border-[#174E5B]/20 dark:border-emerald-500/30 text-xs font-semibold shadow-2xs transition-colors cursor-pointer"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#174E5B]" />
+            <Sparkles className="w-3.5 h-3.5 text-[#174E5B] dark:text-emerald-400" />
             <span>{t('onboarding')}</span>
           </button>
 
@@ -143,10 +156,10 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             id="open-settings-btn"
             onClick={onOpenSettings}
-            className="p-2 rounded-xl bg-white hover:bg-slate-50 text-slate-500 hover:text-[#174E5B] border border-slate-200 shadow-sm transition-colors cursor-pointer"
+            className="p-1 sm:p-1.5 rounded-xl bg-slate-50 dark:bg-[#1A1E26] hover:bg-slate-100 dark:hover:bg-[#20252F] text-slate-600 dark:text-slate-300 hover:text-[#174E5B] dark:hover:text-emerald-400 border border-slate-200 dark:border-slate-700/80 shadow-2xs transition-all cursor-pointer group"
             title={t('settings')}
           >
-            <SettingsIcon className="w-4 h-4" />
+            <SettingsIcon className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
           </button>
         </div>
       </div>

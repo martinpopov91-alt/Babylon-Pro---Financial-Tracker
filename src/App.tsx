@@ -457,11 +457,11 @@ export default function App() {
   };
 
   return (
-    <div className="flex h-screen w-full bg-[#8E8B85] p-2 sm:p-6 text-slate-800 font-sans antialiased overflow-hidden">
+    <div className="flex h-screen w-full bg-[#8E8B85] dark:bg-[#0B0D11] p-2 sm:p-6 text-slate-800 dark:text-slate-100 font-sans antialiased overflow-hidden">
       {/* Main App Container */}
-      <div className="flex w-full h-full bg-[#EFF3F8] rounded-[2rem] sm:rounded-[3rem] overflow-hidden shadow-2xl relative">
+      <div className="flex w-full h-full bg-[#EFF3F8] dark:bg-[#13161C] rounded-[2rem] sm:rounded-[3rem] overflow-hidden shadow-2xl relative border border-transparent dark:border-slate-800/80">
         {/* Sidebar */}
-        <aside className="w-64 bg-[#282A3A] flex flex-col flex-shrink-0 hidden lg:flex z-50">
+        <aside className="w-64 bg-[#282A3A] dark:bg-[#181B22] border-r border-transparent dark:border-slate-800/80 flex flex-col flex-shrink-0 hidden lg:flex z-50">
           {/* Top Teal Section - App Logo */}
           <div className="bg-[#174E5B] pt-10 pb-8 px-6 rounded-br-[3rem] flex flex-col items-center text-center relative z-10 select-none shadow-md">
             <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 p-2 mb-3 shadow-lg flex items-center justify-center backdrop-blur-sm">
@@ -485,11 +485,11 @@ export default function App() {
                 onClick={() => setActiveTab('dashboard')}
                 className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer ${
                   activeTab === 'dashboard'
-                    ? 'bg-[#EFF3F8] text-[#174E5B] font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
+                    ? 'bg-[#EFF3F8] dark:bg-[#13161C] text-[#174E5B] dark:text-emerald-400 font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
                     : 'text-slate-400 hover:text-white font-medium'
                 }`}
               >
-                <LayoutDashboard className={`w-5 h-5 ${activeTab === 'dashboard' ? 'text-[#174E5B]' : 'text-slate-400'}`} />
+                <LayoutDashboard className={`w-5 h-5 ${activeTab === 'dashboard' ? 'text-[#174E5B] dark:text-emerald-400' : 'text-slate-400'}`} />
                 <span>{t('dashboard')}</span>
               </button>
 
@@ -497,11 +497,11 @@ export default function App() {
                 onClick={() => setActiveTab('ledger')}
                 className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer ${
                   activeTab === 'ledger'
-                    ? 'bg-[#EFF3F8] text-[#174E5B] font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
+                    ? 'bg-[#EFF3F8] dark:bg-[#13161C] text-[#174E5B] dark:text-emerald-400 font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
                     : 'text-slate-400 hover:text-white font-medium'
                 }`}
               >
-                <ListOrdered className={`w-5 h-5 ${activeTab === 'ledger' ? 'text-[#174E5B]' : 'text-slate-400'}`} />
+                <ListOrdered className={`w-5 h-5 ${activeTab === 'ledger' ? 'text-[#174E5B] dark:text-emerald-400' : 'text-slate-400'}`} />
                 <span>{t('ledger')}</span>
               </button>
 
@@ -509,11 +509,11 @@ export default function App() {
                 onClick={() => setActiveTab('analytics')}
                 className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer ${
                   activeTab === 'analytics'
-                    ? 'bg-[#EFF3F8] text-[#174E5B] font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
+                    ? 'bg-[#EFF3F8] dark:bg-[#13161C] text-[#174E5B] dark:text-emerald-400 font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
                     : 'text-slate-400 hover:text-white font-medium'
                 }`}
               >
-                <PieChart className={`w-5 h-5 ${activeTab === 'analytics' ? 'text-[#174E5B]' : 'text-slate-400'}`} />
+                <PieChart className={`w-5 h-5 ${activeTab === 'analytics' ? 'text-[#174E5B] dark:text-emerald-400' : 'text-slate-400'}`} />
                 <span>{t('analytics')}</span>
               </button>
 
@@ -521,11 +521,11 @@ export default function App() {
                 onClick={() => setActiveTab('vaults')}
                 className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer ${
                   activeTab === 'vaults'
-                    ? 'bg-[#EFF3F8] text-[#174E5B] font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
+                    ? 'bg-[#EFF3F8] dark:bg-[#13161C] text-[#174E5B] dark:text-emerald-400 font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
                     : 'text-slate-400 hover:text-white font-medium'
                 }`}
               >
-                <PiggyBank className={`w-5 h-5 ${activeTab === 'vaults' ? 'text-[#174E5B]' : 'text-slate-400'}`} />
+                <PiggyBank className={`w-5 h-5 ${activeTab === 'vaults' ? 'text-[#174E5B] dark:text-emerald-400' : 'text-slate-400'}`} />
                 <span>{t('vaults')}</span>
               </button>
 
@@ -533,11 +533,11 @@ export default function App() {
                 onClick={() => setActiveTab('bills')}
                 className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer ${
                   activeTab === 'bills'
-                    ? 'bg-[#EFF3F8] text-[#174E5B] font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
+                    ? 'bg-[#EFF3F8] dark:bg-[#13161C] text-[#174E5B] dark:text-emerald-400 font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
                     : 'text-slate-400 hover:text-white font-medium'
                 }`}
               >
-                <Receipt className={`w-5 h-5 ${activeTab === 'bills' ? 'text-[#174E5B]' : 'text-slate-400'}`} />
+                <Receipt className={`w-5 h-5 ${activeTab === 'bills' ? 'text-[#174E5B] dark:text-emerald-400' : 'text-slate-400'}`} />
                 <span>{t('billsAndDebt')}</span>
               </button>
             </nav>
@@ -553,7 +553,7 @@ export default function App() {
             </div>
             
             {/* Small Calendar Widget in Sidebar */}
-            <div className="mt-6 bg-[#EBE9F1] rounded-3xl p-4 text-slate-800">
+            <div className="mt-6 bg-[#EBE9F1] dark:bg-[#101217] rounded-3xl p-4 text-slate-800 dark:text-slate-200 border border-transparent dark:border-slate-800/60">
                <div className="flex items-center justify-between mb-3">
                  <h4 className="text-sm font-bold">Sun, Jan 19</h4>
                  <div className="w-4 h-4 bg-slate-300 rounded-full"></div>
@@ -585,7 +585,7 @@ export default function App() {
           onOpenShortcuts={() => setIsShortcutsOpen(true)}
         />
 
-        <main className="flex-1 overflow-y-auto w-full p-6 lg:p-8 space-y-6">
+        <main className="flex-1 overflow-y-auto w-full p-3.5 sm:p-6 lg:p-8 space-y-6 pb-28 md:pb-8">
           {activeTab === 'dashboard' && (
             <div className="space-y-6 animate-fadeIn">
               {/* Top Stat Cards Grid */}
@@ -777,61 +777,119 @@ export default function App() {
         )}
       </main>
 
+      {/* Mobile Floating Action Button (FAB) for Quick Add */}
+      <button
+        type="button"
+        onClick={() => {
+          try { navigator.vibrate?.(12); } catch (_) {}
+          setIsQuickAddOpen(true);
+        }}
+        aria-label={t('addTransaction')}
+        className="fixed bottom-20 right-4 z-40 md:hidden flex items-center gap-2 bg-gradient-to-r from-[#174E5B] to-[#0d343d] text-white px-4 py-3 rounded-full shadow-lg shadow-[#174E5B]/30 hover:shadow-xl active:scale-95 transition-all duration-200 border border-white/20 cursor-pointer"
+      >
+        <Plus className="w-5 h-5 stroke-[2.5]" />
+        <span className="text-xs font-bold font-display tracking-wide">{lang === 'bg' ? 'Запис' : 'Add'}</span>
+      </button>
+
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden flex-shrink-0 bg-white border-t border-slate-200 flex items-center justify-around pb-[env(safe-area-inset-bottom)] z-50">
+      <nav className="fixed bottom-0 left-0 right-0 md:hidden bg-white/95 dark:bg-[#15181E]/95 backdrop-blur-xl border-t border-slate-200/90 dark:border-slate-800 shadow-[0_-4px_24px_rgba(0,0,0,0.06)] z-50 flex items-center justify-around px-2 py-1.5 pb-[max(env(safe-area-inset-bottom),0.625rem)]">
         <button
-          onClick={() => setActiveTab('dashboard')}
-          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'dashboard' ? 'text-[#174E5B] font-bold' : 'text-slate-400 hover:text-slate-600'}`}
+          type="button"
+          onClick={() => {
+            try { navigator.vibrate?.(8); } catch (_) {}
+            setActiveTab('dashboard');
+          }}
+          className={`flex-1 py-1.5 flex flex-col items-center gap-0.5 transition-all rounded-xl cursor-pointer ${
+            activeTab === 'dashboard'
+              ? 'text-[#174E5B] dark:text-emerald-400 font-bold bg-[#174E5B]/8 dark:bg-emerald-500/15'
+              : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
+          }`}
         >
-          <LayoutDashboard className="w-5 h-5" />
-          <span className="text-[10px]">{t('dashboard')}</span>
+          <LayoutDashboard className={`w-5 h-5 transition-transform ${activeTab === 'dashboard' ? 'scale-110 text-[#174E5B] dark:text-emerald-400' : ''}`} />
+          <span className="text-[10px] tracking-tight">{t('dashboard')}</span>
         </button>
+
         <button
-          onClick={() => setActiveTab('ledger')}
-          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'ledger' ? 'text-[#174E5B] font-bold' : 'text-slate-400 hover:text-slate-600'}`}
+          type="button"
+          onClick={() => {
+            try { navigator.vibrate?.(8); } catch (_) {}
+            setActiveTab('ledger');
+          }}
+          className={`flex-1 py-1.5 flex flex-col items-center gap-0.5 transition-all rounded-xl cursor-pointer ${
+            activeTab === 'ledger'
+              ? 'text-[#174E5B] dark:text-emerald-400 font-bold bg-[#174E5B]/8 dark:bg-emerald-500/15'
+              : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
+          }`}
         >
-          <ListOrdered className="w-5 h-5" />
-          <span className="text-[10px]">{t('ledger')}</span>
+          <ListOrdered className={`w-5 h-5 transition-transform ${activeTab === 'ledger' ? 'scale-110 text-[#174E5B] dark:text-emerald-400' : ''}`} />
+          <span className="text-[10px] tracking-tight">{t('ledger')}</span>
         </button>
+
         <button
-          onClick={() => setActiveTab('analytics')}
-          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'analytics' ? 'text-[#174E5B] font-bold' : 'text-slate-400 hover:text-slate-600'}`}
+          type="button"
+          onClick={() => {
+            try { navigator.vibrate?.(8); } catch (_) {}
+            setActiveTab('analytics');
+          }}
+          className={`flex-1 py-1.5 flex flex-col items-center gap-0.5 transition-all rounded-xl cursor-pointer ${
+            activeTab === 'analytics'
+              ? 'text-[#174E5B] dark:text-emerald-400 font-bold bg-[#174E5B]/8 dark:bg-emerald-500/15'
+              : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
+          }`}
         >
-          <PieChart className="w-5 h-5" />
-          <span className="text-[10px]">{t('analytics')}</span>
+          <PieChart className={`w-5 h-5 transition-transform ${activeTab === 'analytics' ? 'scale-110 text-[#174E5B] dark:text-emerald-400' : ''}`} />
+          <span className="text-[10px] tracking-tight">{t('analytics')}</span>
         </button>
+
         <button
-          onClick={() => setActiveTab('vaults')}
-          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'vaults' ? 'text-[#174E5B] font-bold' : 'text-slate-400 hover:text-slate-600'}`}
+          type="button"
+          onClick={() => {
+            try { navigator.vibrate?.(8); } catch (_) {}
+            setActiveTab('vaults');
+          }}
+          className={`flex-1 py-1.5 flex flex-col items-center gap-0.5 transition-all rounded-xl cursor-pointer ${
+            activeTab === 'vaults'
+              ? 'text-[#174E5B] dark:text-emerald-400 font-bold bg-[#174E5B]/8 dark:bg-emerald-500/15'
+              : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
+          }`}
         >
-          <PiggyBank className="w-5 h-5" />
-          <span className="text-[10px]">{t('vaults')}</span>
+          <PiggyBank className={`w-5 h-5 transition-transform ${activeTab === 'vaults' ? 'scale-110 text-[#174E5B] dark:text-emerald-400' : ''}`} />
+          <span className="text-[10px] tracking-tight">{t('vaults')}</span>
         </button>
+
         <button
-          onClick={() => setActiveTab('bills')}
-          className={`flex-1 py-3 flex flex-col items-center gap-1 transition-colors ${activeTab === 'bills' ? 'text-[#174E5B] font-bold' : 'text-slate-400 hover:text-slate-600'}`}
+          type="button"
+          onClick={() => {
+            try { navigator.vibrate?.(8); } catch (_) {}
+            setActiveTab('bills');
+          }}
+          className={`flex-1 py-1.5 flex flex-col items-center gap-0.5 transition-all rounded-xl cursor-pointer ${
+            activeTab === 'bills'
+              ? 'text-[#174E5B] dark:text-emerald-400 font-bold bg-[#174E5B]/8 dark:bg-emerald-500/15'
+              : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
+          }`}
         >
-          <Receipt className="w-5 h-5" />
-          <span className="text-[10px]">{t('billsAndDebt')}</span>
+          <Receipt className={`w-5 h-5 transition-transform ${activeTab === 'bills' ? 'scale-110 text-[#174E5B] dark:text-emerald-400' : ''}`} />
+          <span className="text-[10px] tracking-tight">{t('billsAndDebt')}</span>
         </button>
       </nav>
 
       {/* Desktop Footer (Hidden on mobile) */}
-      <footer className="hidden md:block border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500 shadow-sm">
+      <footer className="hidden md:block border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#15181E] py-6 text-center text-xs text-slate-500 dark:text-slate-400 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between gap-3">
-          <p className="font-medium text-slate-600">
+          <p className="font-medium text-slate-600 dark:text-slate-400">
             {t('appTitle')} &copy; {new Date().getFullYear()} — {t('tagline')}
           </p>
-          <div className="flex items-center gap-4 text-zinc-400 font-semibold">
-            <button onClick={() => setIsInstructionsOpen(true)} className="hover:text-[#F7B352] transition-colors cursor-pointer text-[#174E5B] font-bold">
+          <div className="flex items-center gap-4 text-slate-400 dark:text-slate-500 font-semibold">
+            <button onClick={() => setIsInstructionsOpen(true)} className="hover:text-[#F7B352] transition-colors cursor-pointer text-[#174E5B] dark:text-emerald-400 font-bold">
               {t('instructions')}
             </button>
             <span>&bull;</span>
-            <button onClick={() => setIsOnboardingOpen(true)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
+            <button onClick={() => setIsOnboardingOpen(true)} className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer">
               {t('onboarding')}
             </button>
             <span>&bull;</span>
-            <button onClick={() => setIsSettingsOpen(true)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
+            <button onClick={() => setIsSettingsOpen(true)} className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer">
               {t('settings')}
             </button>
           </div>

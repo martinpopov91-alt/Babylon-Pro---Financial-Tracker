@@ -108,31 +108,31 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
   return (
     <div id="settings-modal" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-      <div className="w-full max-w-2xl bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-2xl text-slate-800 space-y-6 relative overflow-hidden max-h-[90vh] flex flex-col">
+      <div className="w-full max-w-2xl bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl text-slate-800 dark:text-slate-100 space-y-6 relative overflow-hidden max-h-[90vh] flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+        <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
           <div className="flex items-center gap-2.5">
             <span className="p-2.5 rounded-xl bg-[#F7B352]/10 text-[#F7B352] border border-[#F7B352]/30">
               <Settings className="w-5 h-5" />
             </span>
-            <h2 className="text-xl font-bold font-display text-slate-800">{t('settingsTitle')}</h2>
+            <h2 className="text-xl font-bold font-display text-slate-900 dark:text-white">{t('settingsTitle')}</h2>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-50 transition-colors cursor-pointer"
+            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex items-center gap-2 border-b border-slate-200 pb-3 overflow-x-auto no-scrollbar">
+        <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3 overflow-x-auto no-scrollbar">
           <button
             onClick={() => setActiveTab('general')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'general'
                 ? 'bg-[#F7B352] text-slate-900 font-black shadow-sm shadow-[#F7B352]/20'
-                : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50/60'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100/60 dark:hover:bg-slate-800/60'
             }`}
           >
             {t('profileAndSalary')}
@@ -142,7 +142,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'appearance'
                 ? 'bg-[#F7B352] text-slate-900 font-black shadow-sm shadow-[#F7B352]/20'
-                : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50/60'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100/60 dark:hover:bg-slate-800/60'
             }`}
           >
             <Palette className="w-3.5 h-3.5" />
@@ -153,7 +153,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'categories'
                 ? 'bg-[#F7B352] text-slate-900 font-black shadow-sm shadow-[#F7B352]/20'
-                : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50/60'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100/60 dark:hover:bg-slate-800/60'
             }`}
           >
             {t('categoryManagement')}
@@ -163,7 +163,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'backup'
                 ? 'bg-[#F7B352] text-slate-900 font-black shadow-sm shadow-[#F7B352]/20'
-                : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50/60'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100/60 dark:hover:bg-slate-800/60'
             }`}
           >
             {t('exportImportData')}
@@ -176,13 +176,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           {activeTab === 'general' && (
             <form onSubmit={handleSaveGeneral} className="space-y-4">
               {/* Quick Theme Selector Banner in General Tab for high discoverability */}
-              <div className="p-4 bg-slate-50/60 rounded-3xl border border-slate-200/60 space-y-3">
+              <div className="p-4 bg-slate-50/60 dark:bg-[#101217] rounded-3xl border border-slate-200/60 dark:border-slate-800 space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-[#F7B352] uppercase tracking-wider flex items-center gap-1.5">
                     <Palette className="w-3.5 h-3.5" />
                     {t('theme')}
                   </span>
-                  <span className="text-[11px] text-slate-500 font-medium">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
                     {settings.theme === 'dark' ? t('darkMode') : t('lightMode')}
                   </span>
                 </div>
@@ -193,7 +193,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all cursor-pointer ${
                       settings.theme === 'dark'
                         ? 'bg-[#F7B352]/10 border-[#F7B352] text-[#F7B352] ring-1 ring-[#F7B352]/50'
-                        : 'bg-slate-50 border-slate-200 text-slate-500 hover:text-slate-700 hover:bg-slate-100/50'
+                        : 'bg-slate-50 dark:bg-[#181B22] border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                     }`}
                   >
                     <div className="flex items-center gap-2">
@@ -209,7 +209,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all cursor-pointer ${
                       settings.theme === 'light'
                         ? 'bg-[#F7B352]/10 border-[#F7B352] text-[#F7B352] ring-1 ring-[#F7B352]/50'
-                        : 'bg-slate-50 border-slate-200 text-slate-500 hover:text-slate-700 hover:bg-slate-100/50'
+                        : 'bg-slate-50 dark:bg-[#181B22] border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                     }`}
                   >
                     <div className="flex items-center gap-2">
@@ -223,23 +223,23 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-500 mb-1">{t('salary')} *</label>
+                  <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">{t('salary')} *</label>
                   <input
                     type="number"
                     step="0.01"
                     required
                     value={salary}
                     onChange={(e) => setSalary(parseFloat(e.target.value) || 0)}
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-bold text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#F7B352]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-500 mb-1">{t('currency')} *</label>
+                  <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">{t('currency')} *</label>
                   <select
                     value={currency}
                     onChange={(e) => setCurrency(e.target.value as Currency)}
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
+                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#F7B352] cursor-pointer"
                   >
                     <option value="BGN">BGN (лв.)</option>
                     <option value="EUR">EUR (€)</option>
@@ -251,14 +251,14 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-500 mb-1">{t('paydayStartDay')} (1-31)</label>
+                  <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">{t('paydayStartDay')} (1-31)</label>
                   <input
                     type="number"
                     min="1"
                     max="31"
                     value={startDay}
                     onChange={(e) => setStartDay(parseInt(e.target.value) || 1)}
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#F7B352]"
+                    className="w-full px-4 py-2.5 bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium text-slate-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#F7B352]"
                   />
                 </div>
 
@@ -268,16 +268,16 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     id="rollover-toggle"
                     checked={rollover}
                     onChange={(e) => setRollover(e.target.checked)}
-                    className="w-4 h-4 rounded bg-slate-50 border-slate-200 text-[#F7B352] focus:ring-[#F7B352] cursor-pointer accent-[#F7B352]"
+                    className="w-4 h-4 rounded bg-slate-50 dark:bg-[#101217] border-slate-200 dark:border-slate-700 text-[#F7B352] focus:ring-[#F7B352] cursor-pointer accent-[#F7B352]"
                   />
-                  <label htmlFor="rollover-toggle" className="text-xs font-semibold text-slate-600 cursor-pointer">
+                  <label htmlFor="rollover-toggle" className="text-xs font-semibold text-slate-600 dark:text-slate-300 cursor-pointer">
                     {t('rolloverEnabled')}
                   </label>
                 </div>
               </div>
 
               {/* Babylon Rule Sliders */}
-              <div className="p-4 bg-slate-50/60 rounded-3xl border border-slate-200/60 space-y-4">
+              <div className="p-4 bg-slate-50/60 dark:bg-[#101217] rounded-3xl border border-slate-200/60 dark:border-slate-800 space-y-4">
                 <h4 className="text-xs font-bold text-[#F7B352] uppercase tracking-wider">{t('babylonHeadline')}</h4>
 
                 <div className="space-y-2">
@@ -339,9 +339,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
                   <Palette className="w-4 h-4 text-emerald-400" />
-                  <h3 className="text-sm font-bold text-slate-800">{t('appearance')}</h3>
+                  <h3 className="text-sm font-bold text-slate-800 dark:text-white">{t('appearance')}</h3>
                 </div>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   {lang === 'bg'
                     ? 'Превключвайте плавно между тъмен и светъл изглед. Промените се отразяват мигновено във целия интерфейс.'
                     : 'Seamlessly switch between dark and light themes. Changes reflect immediately across all components.'}
@@ -353,12 +353,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     onClick={() => handleThemeChange('dark')}
                     className={`p-4 rounded-3xl border-2 transition-all cursor-pointer relative overflow-hidden flex flex-col justify-between gap-3 ${
                       settings.theme === 'dark'
-                        ? 'bg-slate-100 border-emerald-500 shadow-lg shadow-emerald-500/10'
-                        : 'bg-slate-50/80 border-slate-200/80 hover:border-slate-200'
+                        ? 'bg-slate-100 dark:bg-[#1A1E26] border-emerald-500 shadow-lg shadow-emerald-500/10'
+                        : 'bg-slate-50/80 dark:bg-[#101217] border-slate-200/80 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
                     }`}
                   >
                     <div className="flex items-start justify-between">
-                      <div className="p-2.5 rounded-xl bg-white border border-slate-200 text-emerald-400">
+                      <div className="p-2.5 rounded-xl bg-white dark:bg-[#14171F] border border-slate-200 dark:border-slate-700 text-emerald-500 dark:text-emerald-400">
                         <Moon className="w-5 h-5" />
                       </div>
                       {settings.theme === 'dark' && (
@@ -370,8 +370,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     </div>
 
                     <div>
-                      <h4 className="text-sm font-bold text-slate-800 mb-1">{t('darkMode')}</h4>
-                      <p className="text-xs text-slate-500 leading-relaxed">{t('darkModeDesc')}</p>
+                      <h4 className="text-sm font-bold text-slate-800 dark:text-white mb-1">{t('darkMode')}</h4>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{t('darkModeDesc')}</p>
                     </div>
 
                     {/* Miniature Theme Preview Bars */}
@@ -387,12 +387,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     onClick={() => handleThemeChange('light')}
                     className={`p-4 rounded-3xl border-2 transition-all cursor-pointer relative overflow-hidden flex flex-col justify-between gap-3 ${
                       settings.theme === 'light'
-                        ? 'bg-white border-emerald-500 shadow-lg shadow-emerald-500/10'
-                        : 'bg-slate-50/80 border-slate-200/80 hover:border-slate-200'
+                        ? 'bg-white dark:bg-[#1A1E26] border-emerald-500 shadow-lg shadow-emerald-500/10'
+                        : 'bg-slate-50/80 dark:bg-[#101217] border-slate-200/80 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
                     }`}
                   >
                     <div className="flex items-start justify-between">
-                      <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600">
+                      <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400">
                         <Sun className="w-5 h-5" />
                       </div>
                       {settings.theme === 'light' && (
@@ -404,10 +404,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     </div>
 
                     <div>
-                      <h4 className={`text-sm font-bold mb-1 ${settings.theme === 'light' ? 'text-zinc-900' : 'text-slate-800'}`}>
+                      <h4 className="text-sm font-bold text-slate-800 dark:text-white mb-1">
                         {t('lightMode')}
                       </h4>
-                      <p className={`text-xs leading-relaxed ${settings.theme === 'light' ? 'text-slate-400' : 'text-slate-500'}`}>
+                      <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">
                         {t('lightModeDesc')}
                       </p>
                     </div>
@@ -423,10 +423,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               </div>
 
               {/* Language Selection */}
-              <div className="p-4 bg-slate-50/60 rounded-3xl border border-slate-200/60 space-y-3">
+              <div className="p-4 bg-slate-50/60 dark:bg-[#101217] rounded-3xl border border-slate-200/60 dark:border-slate-800 space-y-3">
                 <div className="flex items-center gap-2">
-                  <Globe className="w-4 h-4 text-emerald-400" />
-                  <h4 className="text-xs font-bold text-slate-700 uppercase">{t('language')}</h4>
+                  <Globe className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
+                  <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase">{t('language')}</h4>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
@@ -435,15 +435,15 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     onClick={() => handleLanguageChange('en')}
                     className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all cursor-pointer ${
                       lang === 'en'
-                        ? 'bg-emerald-500/10 border-emerald-500 text-emerald-400'
-                        : 'bg-slate-50 border-slate-200 text-slate-500 hover:text-slate-700'
+                        ? 'bg-emerald-500/10 border-emerald-500 text-emerald-600 dark:text-emerald-400'
+                        : 'bg-slate-50 dark:bg-[#181B22] border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                     }`}
                   >
                     <div>
-                      <div className="font-bold text-xs">English (EN)</div>
-                      <div className="text-[10px] text-slate-400">United States / Global</div>
+                      <div className="font-bold text-xs text-slate-800 dark:text-white">English (EN)</div>
+                      <div className="text-[10px] text-slate-400 dark:text-slate-500">United States / Global</div>
                     </div>
-                    {lang === 'en' && <Check className="w-4 h-4 text-emerald-400" />}
+                    {lang === 'en' && <Check className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />}
                   </button>
 
                   <button
@@ -451,21 +451,21 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     onClick={() => handleLanguageChange('bg')}
                     className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all cursor-pointer ${
                       lang === 'bg'
-                        ? 'bg-emerald-500/10 border-emerald-500 text-emerald-400'
-                        : 'bg-slate-50 border-slate-200 text-slate-500 hover:text-slate-700'
+                        ? 'bg-emerald-500/10 border-emerald-500 text-emerald-600 dark:text-emerald-400'
+                        : 'bg-slate-50 dark:bg-[#181B22] border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                     }`}
                   >
                     <div>
-                      <div className="font-bold text-xs">Български (BG)</div>
-                      <div className="text-[10px] text-slate-400">България (лв.)</div>
+                      <div className="font-bold text-xs text-slate-800 dark:text-white">Български (BG)</div>
+                      <div className="text-[10px] text-slate-400 dark:text-slate-500">България (лв.)</div>
                     </div>
-                    {lang === 'bg' && <Check className="w-4 h-4 text-emerald-400" />}
+                    {lang === 'bg' && <Check className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />}
                   </button>
                 </div>
               </div>
 
               {/* Live Info Banner */}
-              <div className="flex items-center gap-2.5 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs">
+              <div className="flex items-center gap-2.5 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs">
                 <Sparkles className="w-4 h-4 flex-shrink-0" />
                 <span>{t('themeChanged')}</span>
               </div>
@@ -487,13 +487,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             <div className="space-y-4">
               <GithubCloudSync appState={appState} onSyncPull={onSyncPull} lang={lang} />
 
-              <div className="p-4 bg-slate-50/60 rounded-3xl border border-slate-200/60 space-y-3">
-                <h4 className="text-xs font-bold text-slate-700 uppercase">{t('exportImportData')}</h4>
+              <div className="p-4 bg-slate-50/60 dark:bg-[#101217] rounded-3xl border border-slate-200/60 dark:border-slate-800 space-y-3">
+                <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase">{t('exportImportData')}</h4>
 
                 <div className="flex flex-wrap items-center gap-3">
                   <button
                     onClick={onExportCSV}
-                    className="flex items-center gap-2 px-4 py-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-bold text-emerald-400 rounded-xl cursor-pointer transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-slate-50 dark:bg-[#181B22] hover:bg-slate-100 dark:hover:bg-[#202530] border border-slate-200 dark:border-slate-700 text-xs font-bold text-emerald-600 dark:text-emerald-400 rounded-xl cursor-pointer transition-colors"
                   >
                     <Download className="w-4 h-4" />
                     <span>{t('exportCSV')}</span>
@@ -501,13 +501,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
                   <button
                     onClick={onExportJSON}
-                    className="flex items-center gap-2 px-4 py-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-bold text-teal-400 rounded-xl cursor-pointer transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-slate-50 dark:bg-[#181B22] hover:bg-slate-100 dark:hover:bg-[#202530] border border-slate-200 dark:border-slate-700 text-xs font-bold text-teal-600 dark:text-teal-400 rounded-xl cursor-pointer transition-colors"
                   >
                     <Download className="w-4 h-4" />
                     <span>{t('exportJSON')}</span>
                   </button>
 
-                  <label className="flex items-center gap-2 px-4 py-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-bold text-blue-400 rounded-xl cursor-pointer transition-colors">
+                  <label className="flex items-center gap-2 px-4 py-2 bg-slate-50 dark:bg-[#181B22] hover:bg-slate-100 dark:hover:bg-[#202530] border border-slate-200 dark:border-slate-700 text-xs font-bold text-blue-600 dark:text-blue-400 rounded-xl cursor-pointer transition-colors">
                     <Upload className="w-4 h-4" />
                     <span>{t('importJSON')}</span>
                     <input
@@ -523,7 +523,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               {/* Reset Data Danger Zone */}
               <div className="p-4 bg-rose-500/10 border border-rose-500/30 rounded-3xl space-y-3">
                 <h4 className="text-xs font-bold text-rose-400 uppercase">{t('reset')}</h4>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   {t('resetWarning')}
                 </p>
                 <button

@@ -43,28 +43,28 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
 
   return (
     <div id="instructions-modal" className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-      <div className="w-full max-w-4xl max-h-[90vh] bg-white border border-slate-200 rounded-3xl shadow-2xl text-slate-800 flex flex-col relative overflow-hidden">
+      <div className="w-full max-w-4xl max-h-[90vh] bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl text-slate-800 dark:text-slate-100 flex flex-col relative overflow-hidden">
         
         {/* Background glow effects */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
 
         {/* Modal Header */}
-        <div className="relative z-10 flex items-center justify-between px-6 py-5 border-b border-slate-200/80 bg-white/90">
+        <div className="relative z-10 flex items-center justify-between px-6 py-5 border-b border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-[#181B22]/90">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-3xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-bold shadow-sm">
-              <BookOpen className="w-6 h-6 text-emerald-400" />
+            <div className="w-11 h-11 rounded-3xl bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-bold shadow-sm">
+              <BookOpen className="w-6 h-6 text-emerald-500 dark:text-emerald-400" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-xl font-extrabold text-slate-800 font-display">
+                <h2 className="text-xl font-extrabold text-slate-800 dark:text-white font-display">
                   {isBg ? 'Ръководство за употреба' : 'Instructions of Use'}
                 </h2>
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30">
                   {isBg ? 'Първа употреба' : 'First Start'}
                 </span>
               </div>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 {isBg 
                   ? 'Как да организирате и управлявате парите си с Babylon Pro step-by-step' 
                   : 'How to manage and optimize your finances with Babylon Pro step-by-step'}
@@ -74,7 +74,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-2.5 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-50 transition-colors cursor-pointer"
+            className="p-2.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
             title={isBg ? 'Затвори' : 'Close'}
           >
             <X className="w-5 h-5" />
@@ -82,13 +82,13 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
         </div>
 
         {/* Navigation Tabs */}
-        <div className="relative z-10 flex items-center gap-1 sm:gap-2 px-6 py-3 bg-slate-100/60 border-b border-slate-200/80 overflow-x-auto scrollbar-none">
+        <div className="relative z-10 flex items-center gap-1 sm:gap-2 px-6 py-3 bg-slate-50/60 dark:bg-[#14171F] border-b border-slate-200/80 dark:border-slate-800 overflow-x-auto scrollbar-none">
           <button
             onClick={() => setActiveGuideTab('quick')}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
               activeGuideTab === 'quick'
                 ? 'bg-emerald-600 text-white shadow-sm'
-                : 'bg-slate-50/60 text-slate-500 hover:text-slate-700 hover:bg-slate-50'
+                : 'bg-slate-100/60 dark:bg-[#101217] text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
             <Sparkles className="w-4 h-4" />
@@ -100,7 +100,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
               activeGuideTab === 'philosophy'
                 ? 'bg-emerald-600 text-white shadow-sm'
-                : 'bg-slate-50/60 text-slate-500 hover:text-slate-700 hover:bg-slate-50'
+                : 'bg-slate-100/60 dark:bg-[#101217] text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
             <Coins className="w-4 h-4" />
@@ -112,7 +112,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
               activeGuideTab === 'workflow'
                 ? 'bg-emerald-600 text-white shadow-sm'
-                : 'bg-slate-50/60 text-slate-500 hover:text-slate-700 hover:bg-slate-50'
+                : 'bg-slate-100/60 dark:bg-[#101217] text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
             <BarChart3 className="w-4 h-4" />
@@ -124,7 +124,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
               activeGuideTab === 'categories'
                 ? 'bg-emerald-600 text-white shadow-sm'
-                : 'bg-slate-50/60 text-slate-500 hover:text-slate-700 hover:bg-slate-50'
+                : 'bg-slate-100/60 dark:bg-[#101217] text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
             <Sliders className="w-4 h-4" />
@@ -136,7 +136,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
               activeGuideTab === 'faq'
                 ? 'bg-emerald-600 text-white shadow-sm'
-                : 'bg-slate-50/60 text-slate-500 hover:text-slate-700 hover:bg-slate-50'
+                : 'bg-slate-100/60 dark:bg-[#101217] text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
             <HelpCircle className="w-4 h-4" />
@@ -506,12 +506,12 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
                 </p>
               </div>
 
-              <div className="p-4 bg-slate-50/70 border border-slate-200 rounded-3xl space-y-1.5">
-                <h4 className="text-xs font-bold text-emerald-400 flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <div className="p-4 bg-slate-50/70 dark:bg-[#101217] border border-slate-200 dark:border-slate-800 rounded-3xl space-y-1.5">
+                <h4 className="text-xs font-bold text-emerald-500 dark:text-emerald-400 flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
                   <span>{isBg ? 'Къде се съхраняват данните ми?' : 'Is my financial data private?'}</span>
                 </h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                   {isBg 
                     ? 'Всички данни се съхраняват сигурно във вашия браузър (Local Storage). Никаква финансова информация не се изпраща към външни сървъри.' 
                     : '100% private. All your financial records are stored locally in your browser storage (localStorage). Nothing leaves your device.'}
@@ -524,9 +524,9 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="relative z-10 flex items-center justify-between px-6 py-4 border-t border-slate-200 bg-white/90">
-          <div className="flex items-center gap-2 text-xs text-slate-500">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+        <div className="relative z-10 flex items-center justify-between px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-[#181B22]/90">
+          <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+            <CheckCircle2 className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
             <span>{isBg ? 'Babylon Pro Версия 2.0' : 'Babylon Pro Version 2.0'}</span>
           </div>
 

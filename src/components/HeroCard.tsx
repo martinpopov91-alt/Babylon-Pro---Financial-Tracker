@@ -75,26 +75,26 @@ export const HeroCard: React.FC<HeroCardProps> = ({
   const remainingPercent = Math.max(0, 100 - spentPercentage);
 
   return (
-    <div id="hero-financial-card" className="relative overflow-hidden rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-sm space-y-5">
+    <div id="hero-financial-card" className="relative overflow-hidden rounded-3xl bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-sm space-y-5">
       {/* Subtle background glow */}
-      <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#F7B352]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#3F443B]/30 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#F7B352]/10 dark:bg-amber-400/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#3F443B]/30 dark:bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
 
       {/* Non-current period banner (if viewing past or future) */}
       {periodInfo && !periodInfo.isCurrent && (
-        <div className="relative z-10 flex items-center justify-between p-3 rounded-xl bg-[#F7B352]/10 border border-[#F7B352]/30 text-[#174E5B] text-xs">
+        <div className="relative z-10 flex items-center justify-between p-3 rounded-xl bg-[#F7B352]/10 dark:bg-amber-500/10 border border-[#F7B352]/30 dark:border-amber-500/20 text-[#174E5B] dark:text-amber-300 text-xs">
           <div className="flex items-center gap-2">
-            <Info className="w-4 h-4 text-[#F7B352] flex-shrink-0" />
+            <Info className="w-4 h-4 text-[#F7B352] dark:text-amber-400 flex-shrink-0" />
             <span>
               {lang === 'bg' ? 'Преглеждате данни за:' : 'Viewing data for:'}{' '}
-              <strong className="text-slate-800 font-bold">{periodInfo.label}</strong> ({periodInfo.isPast ? t('pastPeriod') : t('futurePeriod')})
+              <strong className="text-slate-800 dark:text-white font-bold">{periodInfo.label}</strong> ({periodInfo.isPast ? t('pastPeriod') : t('futurePeriod')})
             </span>
           </div>
 
           {onUpdateSettings && (
             <button
               onClick={() => onUpdateSettings({ periodMode: 'payday', periodOffset: 0, customStartDate: undefined, customEndDate: undefined })}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#F7B352]/20 hover:bg-[#F7B352]/30 text-[#174E5B] text-xs font-bold transition-colors cursor-pointer"
+              className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#F7B352]/20 dark:bg-amber-400/20 hover:bg-[#F7B352]/30 text-[#174E5B] dark:text-amber-200 text-xs font-bold transition-colors cursor-pointer"
             >
               <RotateCcw className="w-3 h-3" />
               <span>{t('jumpToCurrent')}</span>
@@ -107,24 +107,24 @@ export const HeroCard: React.FC<HeroCardProps> = ({
         {/* Left Column: Disposable Life Money Display */}
         <div className="space-y-3 flex-1">
           <div className="flex items-center gap-2">
-            <span className="p-2 rounded-xl bg-[#F7B352]/15 text-[#174E5B] border border-[#F7B352]/30">
+            <span className="p-2 rounded-xl bg-[#F7B352]/15 dark:bg-amber-400/10 text-[#174E5B] dark:text-amber-300 border border-[#F7B352]/30 dark:border-amber-400/20">
               <Wallet className="w-5 h-5" />
             </span>
             <div>
-              <h2 className="text-xs font-bold tracking-wider text-slate-500 uppercase">
+              <h2 className="text-xs font-bold tracking-wider text-slate-500 dark:text-slate-400 uppercase">
                 {t('lifeMoneyTotal')}
               </h2>
-              <p className="text-xs text-slate-400 hidden sm:block">
+              <p className="text-xs text-slate-400 dark:text-slate-500 hidden sm:block">
                 {t('lifeMoneyDesc')}
               </p>
             </div>
           </div>
 
           <div className="flex items-baseline gap-3">
-            <span className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-800 font-display">
+            <span className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-800 dark:text-white font-display">
               {formatCurrency(remainingLifeMoney, currency)}
             </span>
-            <span className="text-sm text-slate-500 font-medium">
+            <span className="text-sm text-slate-500 dark:text-slate-400 font-medium">
               / {formatCurrency(lifeMoneyTotal, currency)}
             </span>
           </div>
@@ -132,16 +132,16 @@ export const HeroCard: React.FC<HeroCardProps> = ({
           {/* Progress Visual Bar */}
           <div className="space-y-2 pt-1 max-w-xl">
             <div className="flex items-center justify-between text-xs font-semibold">
-              <span className="text-slate-500 flex items-center gap-1">
-                <TrendingDown className="w-3.5 h-3.5 text-slate-400" />
+              <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                <TrendingDown className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
                 {t('spentSoFar')}: {formatCurrency(totalVariableExpenses, currency)}
               </span>
-              <span className="text-slate-600">
+              <span className="text-slate-600 dark:text-slate-300">
                 {remainingPercent.toFixed(0)}% {lang === 'bg' ? 'остават' : 'remaining'}
               </span>
             </div>
             
-            <div className="w-full h-2.5 rounded-full bg-slate-50 p-0.5 border border-slate-200 overflow-hidden">
+            <div className="w-full h-2.5 rounded-full bg-slate-50 dark:bg-[#12141A] p-0.5 border border-slate-200 dark:border-slate-700/80 overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all duration-500 ${barColor}`}
                 style={{ width: `${Math.min(100, Math.max(0, spentPercentage))}%` }}
@@ -151,7 +151,7 @@ export const HeroCard: React.FC<HeroCardProps> = ({
         </div>
 
         {/* Right Column: Pace Pills & Quick Add Action */}
-        <div className="flex flex-col sm:flex-row lg:flex-col items-stretch sm:items-center lg:items-end justify-between gap-4 border-t lg:border-t-0 lg:border-l border-slate-200 pt-5 lg:pt-0 lg:pl-8">
+        <div className="flex flex-col sm:flex-row lg:flex-col items-stretch sm:items-center lg:items-end justify-between gap-4 border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-slate-800 pt-5 lg:pt-0 lg:pl-8">
           {/* Status Badge */}
           <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-semibold ${badgeColor}`}>
             <AlertCircle className="w-4 h-4" />
@@ -159,33 +159,33 @@ export const HeroCard: React.FC<HeroCardProps> = ({
           </div>
 
           {/* Daily & Weekly Budget Metrics Pill */}
-          <div className="grid grid-cols-3 gap-3 bg-slate-50 border border-slate-200 rounded-xl p-3 text-center sm:text-left w-full lg:w-auto shadow-xs">
+          <div className="grid grid-cols-3 gap-3 bg-slate-50 dark:bg-[#13161C] border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-center sm:text-left w-full lg:w-auto shadow-xs">
             <div className="space-y-0.5 px-2">
-              <div className="flex items-center justify-center sm:justify-start gap-1 text-[11px] font-medium text-slate-500">
+              <div className="flex items-center justify-center sm:justify-start gap-1 text-[11px] font-medium text-slate-500 dark:text-slate-400">
                 <Clock className="w-3 h-3 text-[#F7B352]" />
                 <span>{t('dailyBudget')}</span>
               </div>
-              <p className="text-sm sm:text-base font-bold text-slate-800 font-display">
+              <p className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 font-display">
                 {formatCurrency(dailyBudget, currency)}
               </p>
             </div>
 
-            <div className="space-y-0.5 px-2 border-x border-slate-200">
-              <div className="flex items-center justify-center sm:justify-start gap-1 text-[11px] font-medium text-slate-500">
+            <div className="space-y-0.5 px-2 border-x border-slate-200 dark:border-slate-800">
+              <div className="flex items-center justify-center sm:justify-start gap-1 text-[11px] font-medium text-slate-500 dark:text-slate-400">
                 <TrendingUp className="w-3 h-3 text-[#9BB18A]" />
                 <span>{t('weeklyBudget')}</span>
               </div>
-              <p className="text-sm sm:text-base font-bold text-slate-800 font-display">
+              <p className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 font-display">
                 {formatCurrency(weeklyBudget, currency)}
               </p>
             </div>
 
             <div className="space-y-0.5 px-2">
-              <div className="flex items-center justify-center sm:justify-start gap-1 text-[11px] font-medium text-slate-500">
+              <div className="flex items-center justify-center sm:justify-start gap-1 text-[11px] font-medium text-slate-500 dark:text-slate-400">
                 <Calendar className="w-3 h-3 text-[#F7B352]" />
                 <span>{periodInfo?.isPast ? (lang === 'bg' ? 'Приключил' : 'Closed') : `${daysRemaining} ${t('daysLeft')}`}</span>
               </div>
-              <p className="text-xs font-semibold text-[#174E5B] uppercase tracking-wide truncate max-w-[90px]">
+              <p className="text-xs font-semibold text-[#174E5B] dark:text-emerald-400 uppercase tracking-wide truncate max-w-[90px]">
                 {periodInfo?.label || t('payPeriod')}
               </p>
             </div>

@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-zinc-950: #1A1C19;
   --color-zinc-900: #242722;
@@ -29,30 +31,12 @@
 }
 
 @layer base {
-  :root, .dark {
+  :root {
     --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    /* The Premium Wealth (Luxury & Growth) */
-    --color-zinc-950: #1A1C19; /* Very dark forest-slate background */
-    --color-zinc-900: #242722; /* Rich, warm charcoal card surface */
-    --color-zinc-850: #2A2E27; /* Elevated card surface */
-    --color-zinc-800: #31362E; /* Inputs, sub-cards, table headers, hover states */
-    --color-zinc-750: #383E34; /* Hover active state */
-    --color-zinc-700: #3F443B; /* Soft mossy border */
-    --color-zinc-650: #4E5549; /* Medium moss border */
-    --color-zinc-600: #5F6659; /* Secondary borders, muted icons */
-    --color-zinc-500: #818B7B; /* Muted captions, secondary labels */
-    --color-zinc-400: #A6AF9F; /* Clear supporting text */
-    --color-zinc-300: #CBD3C6; /* Body text */
-    --color-zinc-200: #E5ECE0; /* Subheadings, values */
-    --color-zinc-100: #F5F8F2; /* Bright headings, hero numbers */
-    --color-zinc-50: #FFFFFF;
+    color-scheme: light;
+  }
 
-    --color-gold: #D4AF37; /* Matte gold / champagne */
-    --color-gold-hover: #C29F2B;
-    --color-gold-active: #B08F22;
-    --color-gold-muted: rgba(212, 175, 55, 0.14);
-    --color-gold-border: rgba(212, 175, 55, 0.35);
-
+  :root.dark, .dark {
     color-scheme: dark;
   }
 
@@ -62,13 +46,9 @@
     overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
-    background-color: #1A1C19;
-    color: #F5F8F2;
   }
 
   body {
-    background-color: #1A1C19;
-    color: #F5F8F2;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     overflow-x: hidden;
     width: 100%;

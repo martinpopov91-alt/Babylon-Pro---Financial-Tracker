@@ -142,13 +142,13 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
   return (
     <div id="bills-and-debt-manager" className="space-y-6">
       {/* Top Header Card */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
         <div className="space-y-1">
-          <h2 className="text-xl font-bold text-slate-800 font-display flex items-center gap-2">
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white font-display flex items-center gap-2">
             <Receipt className="w-6 h-6 text-[#F7B352]" />
             <span>{t('billsAndDebt')}</span>
           </h2>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             {lang === 'bg' 
               ? 'Управление на фиксирани сметки, повтарящи се задължения и автоматично отчитане.' 
               : 'Track fixed recurring obligations, debt service, and automated monthly entries.'}
@@ -157,13 +157,13 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
 
         {/* Tab Switcher & Add Button */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center bg-slate-50 p-1 rounded-xl border border-slate-200">
+          <div className="flex items-center bg-slate-50 dark:bg-[#13161C] p-1 rounded-xl border border-slate-200 dark:border-slate-800">
             <button
               onClick={() => setActiveTab('bills')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'bills'
                   ? 'bg-[#F7B352] text-slate-900 font-black shadow-sm'
-                  : 'text-slate-500 hover:text-slate-700'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
               }`}
             >
               <Receipt className="w-3.5 h-3.5" />
@@ -174,7 +174,7 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'debts'
                   ? 'bg-[#E07A6C] text-slate-900 font-black shadow-sm'
-                  : 'text-slate-500 hover:text-slate-700'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
               }`}
             >
               <CreditCard className="w-3.5 h-3.5" />
@@ -194,26 +194,26 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
 
       {/* Overview Stat Cards for active tab */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="bg-white border border-slate-200 rounded-3xl p-5 shadow-sm flex items-center justify-between">
+        <div className="bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-sm flex items-center justify-between">
           <div>
-            <p className="text-xs font-semibold text-slate-500">{t('totalDue')}</p>
-            <p className="text-2xl font-black text-slate-800 font-display mt-1">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('totalDue')}</p>
+            <p className="text-2xl font-black text-slate-800 dark:text-white font-display mt-1">
               {formatCurrency(activeTab === 'bills' ? totalBillsSum : totalDebtsSum, currency)}
             </p>
           </div>
-          <span className="p-3 rounded-xl bg-slate-50 text-slate-500 border border-slate-200">
+          <span className="p-3 rounded-xl bg-slate-50 dark:bg-[#1A1E26] text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
             {activeTab === 'bills' ? <Receipt className="w-6 h-6 text-[#F7B352]" /> : <CreditCard className="w-6 h-6 text-[#E07A6C]" />}
           </span>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-3xl p-5 shadow-sm flex items-center justify-between">
+        <div className="bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-sm flex items-center justify-between">
           <div>
-            <p className="text-xs font-semibold text-slate-500">{t('totalPaid')}</p>
-            <p className="text-2xl font-black text-[#9BB18A] font-display mt-1">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t('totalPaid')}</p>
+            <p className="text-2xl font-black text-[#9BB18A] dark:text-emerald-400 font-display mt-1">
               {formatCurrency(activeTab === 'bills' ? totalBillsPaid : totalDebtsPaid, currency)}
             </p>
           </div>
-          <span className="p-3 rounded-xl bg-[#8DA37C]/15 text-[#9BB18A] border border-[#8DA37C]/30">
+          <span className="p-3 rounded-xl bg-[#8DA37C]/15 dark:bg-emerald-500/15 text-[#9BB18A] dark:text-emerald-400 border border-[#8DA37C]/30 dark:border-emerald-500/30">
             <CheckCircle className="w-6 h-6" />
           </span>
         </div>
@@ -221,26 +221,26 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
 
       {/* Recurring Bills Automation Banner (Bills tab only) */}
       {activeTab === 'bills' && (
-        <div className="bg-slate-50 border border-slate-200 rounded-3xl p-5 shadow-sm space-y-4">
+        <div className="bg-slate-50 dark:bg-[#14171E] border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-sm space-y-4">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="flex items-start gap-3">
-              <div className="p-2.5 rounded-xl bg-[#F7B352]/15 text-[#174E5B] border border-[#F7B352]/30 shrink-0 mt-0.5">
+              <div className="p-2.5 rounded-xl bg-[#F7B352]/15 text-[#174E5B] dark:text-[#F7B352] border border-[#F7B352]/30 shrink-0 mt-0.5">
                 <Repeat className="w-5 h-5" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="font-bold text-slate-800 text-sm">{t('autoGenerateSetting')}</h3>
-                  <span className="px-2 py-0.5 rounded-full bg-[#F7B352]/15 text-[#174E5B] border border-[#F7B352]/30 text-[10px] font-bold">
+                  <h3 className="font-bold text-slate-800 dark:text-white text-sm">{t('autoGenerateSetting')}</h3>
+                  <span className="px-2 py-0.5 rounded-full bg-[#F7B352]/15 text-[#174E5B] dark:text-[#F7B352] border border-[#F7B352]/30 text-[10px] font-bold">
                     {recurringBillsCount} {t('recurringBadge')}
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 mt-0.5">{t('autoGenerateSettingSub')}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{t('autoGenerateSettingSub')}</p>
               </div>
             </div>
 
             {/* Toggle Switch & Process Now Button */}
             <div className="flex flex-wrap items-center gap-3">
-              <label className="flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-xl cursor-pointer transition-colors text-xs font-semibold text-slate-700 shadow-sm">
+              <label className="flex items-center gap-2 bg-slate-50 dark:bg-[#1A1E26] hover:bg-slate-100 dark:hover:bg-[#222732] border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-xl cursor-pointer transition-colors text-xs font-semibold text-slate-700 dark:text-slate-200 shadow-sm">
                 <input
                   type="checkbox"
                   checked={autoGenerateRecurringBills}
@@ -261,7 +261,7 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
           </div>
 
           {/* Status summary */}
-          <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 border-t border-slate-200 pt-3">
+          <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800 pt-3">
             <div className="flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-[#F7B352]" />
               <span>
@@ -270,9 +270,9 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
                   : `${autoLogEligibleCount} bills configured for auto-generation.`}
               </span>
             </div>
-            <span className="hidden sm:inline text-slate-300">&bull;</span>
+            <span className="hidden sm:inline text-slate-300 dark:text-slate-700">&bull;</span>
             <div className="flex items-center gap-1.5">
-              <CheckCircle className="w-3.5 h-3.5 text-[#9BB18A]" />
+              <CheckCircle className="w-3.5 h-3.5 text-[#9BB18A] dark:text-emerald-400" />
               <span>
                 {lang === 'bg'
                   ? `${generatedThisMonthCount} генерирани за текущия месец (${currentMonth}).`
@@ -286,7 +286,7 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
       {/* Main List */}
       {activeTab === 'bills' ? (
         bills.length === 0 ? (
-          <div className="p-12 text-center bg-white dark:bg-white/50 border border-slate-200 dark:border-slate-200 rounded-3xl">
+          <div className="p-12 text-center bg-white dark:bg-[#181B22]/60 border border-slate-200 dark:border-slate-800 rounded-3xl">
             <p className="text-slate-400 dark:text-slate-500 text-sm">{lang === 'bg' ? 'Няма добавени фиксирани сметки.' : 'No fixed bills added yet.'}</p>
           </div>
         ) : (
@@ -297,24 +297,24 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
               return (
                 <div
                   key={bill.id}
-                  className={`bg-white border rounded-3xl p-5 space-y-3 shadow-sm transition-all ${
+                  className={`bg-white dark:bg-[#181B22] border rounded-3xl p-5 space-y-3 shadow-sm transition-all ${
                     bill.isPaid 
-                      ? 'border-[#8DA37C]/40 bg-white' 
-                      : 'border-slate-200 hover:border-[#F7B352]/40'
+                      ? 'border-[#8DA37C]/40 dark:border-emerald-500/30' 
+                      : 'border-slate-200 dark:border-slate-800 hover:border-[#F7B352]/40'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="space-y-1.5">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-bold text-slate-800 text-base">{bill.name}</h4>
+                        <h4 className="font-bold text-slate-800 dark:text-white text-base">{bill.name}</h4>
                         {bill.isRecurring && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#F7B352]/15 text-[#174E5B] border border-[#F7B352]/30 text-[10px] font-bold">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#F7B352]/15 text-[#174E5B] dark:text-[#F7B352] border border-[#F7B352]/30 text-[10px] font-bold">
                             <Repeat className="w-3 h-3" />
                             <span>{t('recurringBadge')}</span>
                           </span>
                         )}
                         {bill.isRecurring && (bill.autoGenerateTransaction ?? true) && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#8DA37C]/15 text-[#9BB18A] border border-[#8DA37C]/30 text-[10px] font-bold">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#8DA37C]/15 dark:bg-emerald-500/15 text-[#9BB18A] dark:text-emerald-400 border border-[#8DA37C]/30 dark:border-emerald-500/30 text-[10px] font-bold">
                             <Zap className="w-3 h-3" />
                             <span>{t('autoLoggedBadge')}</span>
                           </span>
@@ -322,14 +322,14 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
                       </div>
 
                       {bill.dueDateDay && (
-                        <p className="text-xs text-slate-500 flex items-center gap-1">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
                           <Calendar className="w-3.5 h-3.5 text-slate-400" />
                           <span>{t('dueDate')}: {bill.dueDateDay}-то число</span>
                         </p>
                       )}
 
                       {isAutoLoggedThisMonth && (
-                        <p className="text-[11px] text-[#9BB18A] flex items-center gap-1 font-semibold">
+                        <p className="text-[11px] text-[#9BB18A] dark:text-emerald-400 flex items-center gap-1 font-semibold">
                           <CheckCircle className="w-3 h-3" />
                           <span>{lang === 'bg' ? 'Генерирана за текущия месец' : 'Auto-logged for this month'}</span>
                         </p>
@@ -339,14 +339,14 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
                     <div className="flex items-center gap-1">
                       <button
                         onClick={() => handleOpenEditBillModal(bill)}
-                        className="text-slate-500 hover:text-[#F7B352] p-1.5 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"
+                        className="text-slate-500 dark:text-slate-400 hover:text-[#F7B352] p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
                         title={t('editBill')}
                       >
                         <Edit3 className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => onDeleteBill(bill.id)}
-                        className="text-slate-500 hover:text-[#E07A6C] p-1.5 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"
+                        className="text-slate-500 dark:text-slate-400 hover:text-[#E07A6C] p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
                         title={t('delete')}
                       >
                         <Trash2 className="w-4 h-4" />
@@ -354,8 +354,8 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between border-t border-slate-200 pt-3">
-                    <span className="text-xl font-black text-slate-800 font-display">
+                  <div className="flex items-center justify-between border-t border-slate-200 dark:border-slate-800 pt-3">
+                    <span className="text-xl font-black text-slate-800 dark:text-white font-display">
                       {formatCurrency(bill.amount, currency)}
                     </span>
 
@@ -364,7 +364,7 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                         bill.isPaid
                           ? 'bg-[#8DA37C]/15 text-[#9BB18A] border border-[#8DA37C]/30 hover:bg-[#8DA37C]/25'
-                          : 'bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100'
+                          : 'bg-slate-50 dark:bg-[#1E232D] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-[#252B37]'
                       }`}
                     >
                       {bill.isPaid ? (
@@ -374,7 +374,7 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
                         </>
                       ) : (
                         <>
-                          <XCircle className="w-4 h-4 text-slate-500" />
+                          <XCircle className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                           <span>{t('markAsPaid')}</span>
                         </>
                       )}
@@ -387,33 +387,33 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
         )
       ) : (
         debts.length === 0 ? (
-          <div className="p-12 text-center bg-white border border-slate-200 rounded-3xl">
-            <p className="text-slate-500 text-sm">{lang === 'bg' ? 'Няма добавени дългове.' : 'No debts added yet.'}</p>
+          <div className="p-12 text-center bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl">
+            <p className="text-slate-500 dark:text-slate-400 text-sm">{lang === 'bg' ? 'Няма добавени дългове.' : 'No debts added yet.'}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {debts.map((debt) => (
               <div
                 key={debt.id}
-                className={`bg-white border rounded-3xl p-5 space-y-3 shadow-sm transition-all ${
+                className={`bg-white dark:bg-[#181B22] border rounded-3xl p-5 space-y-3 shadow-sm transition-all ${
                   debt.isPaid 
-                    ? 'border-[#8DA37C]/40 bg-white' 
-                    : 'border-slate-200 hover:border-[#E07A6C]/40'
+                    ? 'border-[#8DA37C]/40 bg-white dark:bg-[#181B22]' 
+                    : 'border-slate-200 dark:border-slate-800 hover:border-[#E07A6C]/40'
                 }`}
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="space-y-0.5">
-                    <h4 className="font-bold text-slate-800 text-base">{debt.name}</h4>
+                    <h4 className="font-bold text-slate-800 dark:text-white text-base">{debt.name}</h4>
                   </div>
                   <button
                     onClick={() => onDeleteDebt(debt.id)}
-                    className="text-slate-500 hover:text-[#E07A6C] p-1 cursor-pointer"
+                    className="text-slate-400 dark:text-slate-500 hover:text-[#E07A6C] p-1 cursor-pointer"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
 
-                <div className="flex items-center justify-between border-t border-slate-200 pt-3">
+                <div className="flex items-center justify-between border-t border-slate-200 dark:border-slate-800 pt-3">
                   <span className="text-xl font-black text-[#E07A6C] font-display">
                     {formatCurrency(debt.amount, currency)}
                   </span>
@@ -423,7 +423,7 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                       debt.isPaid
                         ? 'bg-[#8DA37C]/15 text-[#9BB18A] border border-[#8DA37C]/30 hover:bg-[#8DA37C]/25'
-                        : 'bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100'
+                        : 'bg-slate-50 dark:bg-[#1E232D] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-[#252B37]'
                     }`}
                   >
                     {debt.isPaid ? (
@@ -433,7 +433,7 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
                       </>
                     ) : (
                       <>
-                        <XCircle className="w-4 h-4 text-slate-500" />
+                        <XCircle className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                         <span>{t('markAsPaid')}</span>
                       </>
                     )}
@@ -448,9 +448,9 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
       {/* Modal Add/Edit Item */}
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-6 space-y-4 text-slate-800 shadow-2xl relative">
-            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-              <h3 className="font-bold text-base text-slate-800">
+          <div className="w-full max-w-md bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 space-y-4 text-slate-800 dark:text-slate-100 shadow-2xl relative">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+              <h3 className="font-bold text-base text-slate-800 dark:text-white">
                 {activeTab === 'bills' 
                   ? (editingBill ? t('editBill') : t('addBill')) 
                   : t('addDebt')}
@@ -460,7 +460,7 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
                   setIsAddModalOpen(false);
                   setEditingBill(null);
                 }}
-                className="text-slate-500 hover:text-slate-800 cursor-pointer"
+                className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -468,19 +468,19 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
 
             <form onSubmit={handleSaveItem} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1">Име / Name *</label>
+                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">Име / Name *</label>
                 <input
                   type="text"
                   required
                   placeholder={activeTab === 'bills' ? 'e.g. Electricity, Internet, Rent' : 'e.g. Car Loan'}
                   value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 focus:ring-2 focus:ring-[#F7B352] focus:outline-none"
+                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:ring-2 focus:ring-[#F7B352] focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1">Сума / Amount ({currency}) *</label>
+                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">Сума / Amount ({currency}) *</label>
                 <input
                   type="number"
                   step="0.01"
@@ -488,33 +488,33 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
                   placeholder="150"
                   value={itemAmount}
                   onChange={(e) => setItemAmount(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-800 focus:ring-2 focus:ring-[#F7B352] focus:outline-none"
+                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-bold text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:ring-2 focus:ring-[#F7B352] focus:outline-none"
                 />
               </div>
 
               {activeTab === 'bills' && (
                 <>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-500 mb-1">{t('dueDate')} (1-31)</label>
+                    <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">{t('dueDate')} (1-31)</label>
                     <input
                       type="number"
                       min="1"
                       max="31"
                       value={dueDateDay}
                       onChange={(e) => setDueDateDay(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 focus:ring-2 focus:ring-[#F7B352] focus:outline-none"
+                      className="w-full px-4 py-2.5 bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:ring-2 focus:ring-[#F7B352] focus:outline-none"
                     />
                   </div>
 
                   {/* Recurring Bill Switch */}
-                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
+                  <div className="p-3 bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-slate-800 rounded-xl space-y-3">
                     <label className="flex items-center justify-between cursor-pointer">
                       <div>
-                        <span className="font-bold text-xs text-slate-800 flex items-center gap-1.5">
+                        <span className="font-bold text-xs text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
                           <Repeat className="w-3.5 h-3.5 text-[#F7B352]" />
                           <span>{t('recurringBill')}</span>
                         </span>
-                        <p className="text-[11px] text-slate-500">{t('recurringSub')}</p>
+                        <p className="text-[11px] text-slate-500 dark:text-slate-400">{t('recurringSub')}</p>
                       </div>
                       <input
                         type="checkbox"
@@ -526,13 +526,13 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
 
                     {/* Auto Generate Switch */}
                     {isRecurring && (
-                      <label className="flex items-center justify-between cursor-pointer pt-2 border-t border-slate-200">
+                      <label className="flex items-center justify-between cursor-pointer pt-2 border-t border-slate-200 dark:border-slate-800">
                         <div>
-                          <span className="font-bold text-xs text-[#174E5B] flex items-center gap-1.5">
+                          <span className="font-bold text-xs text-[#174E5B] dark:text-teal-400 flex items-center gap-1.5">
                             <Zap className="w-3.5 h-3.5" />
                             <span>{t('autoGenerateTx')}</span>
                           </span>
-                          <p className="text-[11px] text-slate-500">{t('autoGenerateTxSub')}</p>
+                          <p className="text-[11px] text-slate-500 dark:text-slate-400">{t('autoGenerateTxSub')}</p>
                         </div>
                         <input
                           type="checkbox"
@@ -546,14 +546,14 @@ export const BillsAndDebtManager: React.FC<BillsAndDebtManagerProps> = ({
                 </>
               )}
 
-              <div className="flex justify-end gap-3 pt-3 border-t border-slate-200">
+              <div className="flex justify-end gap-3 pt-3 border-t border-slate-200 dark:border-slate-800">
                 <button
                   type="button"
                   onClick={() => {
                     setIsAddModalOpen(false);
                     setEditingBill(null);
                   }}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-500 hover:text-slate-700 cursor-pointer"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer"
                 >
                   {t('cancel')}
                 </button>

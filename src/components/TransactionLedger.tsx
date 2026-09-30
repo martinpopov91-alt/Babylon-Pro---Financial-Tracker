@@ -267,10 +267,10 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
   return (
     <div id="transaction-ledger" className="space-y-6">
       {/* Top Action Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-white border border-slate-200/90 dark:border-slate-200 rounded-3xl p-4 sm:p-6 shadow-sm">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-[#181B22] border border-slate-200/90 dark:border-slate-800 rounded-3xl p-4 sm:p-6 shadow-sm">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-800 font-display flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white font-display flex items-center gap-2">
               <span>{isDashboardSnapshot ? (lang === 'bg' ? 'Последни Транзакции' : 'Recent Transactions') : t('transactionHistory')}</span>
               <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20">
                 {filteredTransactions.length}
@@ -285,21 +285,21 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               </button>
             )}
           </div>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500 dark:text-slate-500">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
             <span>
-              {t('total')}: <strong className="text-slate-800 dark:text-slate-700">{formatCurrency(totalFilteredSum, currency)}</strong>
+              {t('total')}: <strong className="text-slate-800 dark:text-slate-200">{formatCurrency(totalFilteredSum, currency)}</strong>
             </span>
-            <span className="text-slate-300 dark:text-slate-300">•</span>
+            <span className="text-slate-300 dark:text-slate-600">•</span>
             <span className="text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
               <ArrowDownRight className="w-3 h-3" />
               <span>{t('income')}: +{formatCurrency(filteredIncomeSum, currency)}</span>
             </span>
-            <span className="text-slate-300 dark:text-slate-300">•</span>
+            <span className="text-slate-300 dark:text-slate-600">•</span>
             <span className="text-rose-600 dark:text-rose-400 font-semibold flex items-center gap-1">
               <ArrowUpRight className="w-3 h-3" />
               <span>{t('totalExpenses')}: -{formatCurrency(filteredExpenseSum, currency)}</span>
             </span>
-            <span className="text-slate-300 dark:text-slate-300">•</span>
+            <span className="text-slate-300 dark:text-slate-600">•</span>
             <span className={`font-semibold flex items-center gap-1 ${filteredNet >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
               <Scale className="w-3 h-3" />
               <span>{t('netCashFlow')}: {filteredNet >= 0 ? '+' : ''}{formatCurrency(filteredNet, currency)}</span>
@@ -310,13 +310,13 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
         {/* View Mode Toggle & Action Buttons */}
         <div className="flex flex-wrap items-center gap-2">
           {/* List vs Summary view toggle */}
-          <div className="flex items-center bg-slate-100 dark:bg-slate-50/80 p-1 rounded-xl border border-slate-200 dark:border-slate-200/60">
+          <div className="flex items-center bg-slate-100 dark:bg-[#1A1E26] p-1 rounded-xl border border-slate-200 dark:border-slate-700">
             <button
               onClick={() => setViewMode('list')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === 'list'
                   ? 'bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-700'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <List className="w-3.5 h-3.5" />
@@ -327,7 +327,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === 'summary'
                   ? 'bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-700'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <BarChart3 className="w-3.5 h-3.5" />
@@ -339,7 +339,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
           {onImportCSV && (
             <button
               onClick={() => setIsImportModalOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-50 dark:hover:bg-slate-100/80 border border-slate-200 dark:border-slate-200 text-xs font-semibold text-slate-700 dark:text-slate-700 transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-[#1A1E26] dark:hover:bg-[#222732] border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 transition-colors cursor-pointer"
               title={lang === 'bg' ? 'Импортиране на XML или CSV файл' : 'Import XML or CSV file'}
             >
               <Upload className="w-3.5 h-3.5 text-blue-500 dark:text-indigo-400" />
@@ -350,7 +350,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
           {/* Export CSV button */}
           <button
             onClick={onExportCSV}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-50 dark:hover:bg-slate-100/80 border border-slate-200 dark:border-slate-200 text-xs font-semibold text-slate-700 dark:text-slate-700 transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-[#1A1E26] dark:hover:bg-[#222732] border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 transition-colors cursor-pointer"
             title="Export CSV"
           >
             <Download className="w-3.5 h-3.5 text-teal-600 dark:text-emerald-400" />
@@ -361,7 +361,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
           {onExportXML && (
             <button
               onClick={onExportXML}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-50 dark:hover:bg-slate-100/80 border border-slate-200 dark:border-slate-200 text-xs font-semibold text-slate-700 dark:text-slate-700 transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-[#1A1E26] dark:hover:bg-[#222732] border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 transition-colors cursor-pointer"
               title="Export XML"
             >
               <Download className="w-3.5 h-3.5 text-indigo-500 dark:text-purple-400" />
@@ -390,23 +390,23 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
             placeholder={t('searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white dark:bg-white border border-slate-200 dark:border-slate-200 rounded-xl text-xs font-medium text-slate-900 dark:text-slate-800 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-teal-500 shadow-2xs"
+            className="w-full pl-10 pr-4 py-2 bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-medium text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 shadow-2xs"
           />
         </div>
 
         {/* Filter by Pay Period Scope */}
         <div className="relative">
-          <Calendar className="w-4 h-4 text-teal-600 dark:text-teal-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Calendar className="w-4 h-4 text-teal-600 dark:text-emerald-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <select
             value={selectedPeriodScope}
             onChange={(e) => setSelectedPeriodScope(e.target.value as 'all' | 'period')}
-            className="w-full pl-10 pr-4 py-2 bg-white dark:bg-white border border-slate-200 dark:border-slate-200 rounded-xl text-xs font-medium text-slate-800 dark:text-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer shadow-2xs"
+            className="w-full pl-10 pr-4 py-2 bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer shadow-2xs"
           >
-            <option value="all">
+            <option value="all" className="dark:bg-[#181B22]">
               {lang === 'bg' ? 'Всички периоди' : 'All Transactions'}
             </option>
             {activePeriodInfo && (
-              <option value="period">
+              <option value="period" className="dark:bg-[#181B22]">
                 {lang === 'bg' ? `Само ${activePeriodInfo.label}` : `Selected: ${activePeriodInfo.label}`}
               </option>
             )}
@@ -419,15 +419,15 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
           <select
             value={selectedTypeFilter}
             onChange={(e) => setSelectedTypeFilter(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white dark:bg-white border border-slate-200 dark:border-slate-200 rounded-xl text-xs font-medium text-slate-800 dark:text-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer shadow-2xs"
+            className="w-full pl-10 pr-4 py-2 bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer shadow-2xs"
           >
-            <option value="all">{t('all')} {t('type')}</option>
-            <option value="needs">{t('needs')}</option>
-            <option value="wants">{t('wants')}</option>
-            <option value="savings">{t('savings')}</option>
-            <option value="income">{t('income')}</option>
-            <option value="bills">{t('bills')}</option>
-            <option value="debt">{t('debt')}</option>
+            <option value="all" className="dark:bg-[#181B22]">{t('all')} {t('type')}</option>
+            <option value="needs" className="dark:bg-[#181B22]">{t('needs')}</option>
+            <option value="wants" className="dark:bg-[#181B22]">{t('wants')}</option>
+            <option value="savings" className="dark:bg-[#181B22]">{t('savings')}</option>
+            <option value="income" className="dark:bg-[#181B22]">{t('income')}</option>
+            <option value="bills" className="dark:bg-[#181B22]">{t('bills')}</option>
+            <option value="debt" className="dark:bg-[#181B22]">{t('debt')}</option>
           </select>
         </div>
 
@@ -437,9 +437,9 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
           <select
             value={selectedCategoryFilter}
             onChange={(e) => setSelectedCategoryFilter(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white dark:bg-white border border-slate-200 dark:border-slate-200 rounded-xl text-xs font-medium text-slate-800 dark:text-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer shadow-2xs"
+            className="w-full pl-10 pr-4 py-2 bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer shadow-2xs"
           >
-            <option value="all">{t('all')} {t('category')}</option>
+            <option value="all" className="dark:bg-[#181B22]">{t('all')} {t('category')}</option>
             {(() => {
               const mainCategories = categories.filter(c => !c.parentId);
               const renderedIds = new Set<string>();
@@ -451,12 +451,12 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                 subCats.forEach(s => renderedIds.add(s.id));
 
                 return (
-                  <optgroup key={mainCat.id} label={mainName}>
-                    <option value={mainCat.id}>
+                  <optgroup key={mainCat.id} label={mainName} className="dark:bg-[#181B22]">
+                    <option value={mainCat.id} className="dark:bg-[#181B22]">
                       {mainName} ({lang === 'bg' ? 'Всички в ' : 'All '}{mainName})
                     </option>
                     {subCats.map(sub => (
-                      <option key={sub.id} value={sub.id}>
+                      <option key={sub.id} value={sub.id} className="dark:bg-[#181B22]">
                         {lang === 'bg' ? sub.nameBg : sub.nameEn}
                       </option>
                     ))}
@@ -467,9 +467,9 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               const remaining = categories.filter(c => !renderedIds.has(c.id));
               if (remaining.length > 0) {
                 groups.push(
-                  <optgroup key="other_cats" label={lang === 'bg' ? 'Други' : 'Others'}>
+                  <optgroup key="other_cats" label={lang === 'bg' ? 'Други' : 'Others'} className="dark:bg-[#181B22]">
                     {remaining.map(c => (
-                      <option key={c.id} value={c.id}>
+                      <option key={c.id} value={c.id} className="dark:bg-[#181B22]">
                         {lang === 'bg' ? c.nameBg : c.nameEn}
                       </option>
                     ))}
@@ -485,24 +485,24 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
 
       {/* Bulk Selection Action Toolbar */}
       {selectedTxIds.length > 0 && viewMode === 'list' && (
-        <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 sm:p-4 bg-teal-50 dark:bg-teal-950/40 border border-teal-200 dark:border-teal-700/50 rounded-3xl animate-fadeIn shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 sm:p-4 bg-teal-50 dark:bg-emerald-950/30 border border-teal-200 dark:border-emerald-800/50 rounded-3xl animate-fadeIn shadow-sm">
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-teal-500 to-emerald-500 text-white rounded-xl text-xs font-bold shadow-sm">
               <CheckSquare className="w-4 h-4" />
               <span>{selectedTxIds.length} {t('selected')}</span>
             </div>
-            <div className="text-xs text-slate-700 dark:text-slate-600">
-              <span className="text-slate-500 dark:text-slate-500">{t('selectedTotal')}: </span>
-              <span className="font-bold text-teal-600 dark:text-teal-400 font-display">
+            <div className="text-xs text-slate-700 dark:text-slate-300">
+              <span className="text-slate-500 dark:text-slate-400">{t('selectedTotal')}: </span>
+              <span className="font-bold text-teal-600 dark:text-emerald-400 font-display">
                 {formatCurrency(selectedTotalSum, currency)}
               </span>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <div className="relative flex items-center bg-white dark:bg-slate-50 border border-teal-300 dark:border-slate-200 rounded-xl transition-all shadow-2xs">
+            <div className="relative flex items-center bg-white dark:bg-[#1A1E26] border border-teal-300 dark:border-slate-700 rounded-xl transition-all shadow-2xs">
               <div className="pl-3 pr-1 py-1.5 pointer-events-none flex items-center">
-                <Tag className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+                <Tag className="w-3.5 h-3.5 text-teal-600 dark:text-emerald-400" />
               </div>
               <select
                 value=""
@@ -527,7 +527,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                 className="bg-transparent text-teal-700 dark:text-teal-300 text-xs font-bold focus:outline-none cursor-pointer appearance-none py-1.5 pr-8 pl-1 w-full"
                 title={t('changeCategory')}
               >
-                <option value="" disabled>{t('changeCategory')}</option>
+                <option value="" disabled className="dark:bg-[#1A1E26]">{t('changeCategory')}</option>
                 {(() => {
                   const mainCategories = categories.filter(c => !c.parentId);
                   const renderedIds = new Set<string>();
@@ -537,12 +537,12 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                     const subCats = categories.filter(c => c.parentId === mainCat.id);
                     subCats.forEach(s => renderedIds.add(s.id));
                     return (
-                      <optgroup key={mainCat.id} label={`${mainName} (${getTypeLabel(mainCat.type, lang)})`}>
-                        <option value={mainCat.id}>
+                      <optgroup key={mainCat.id} label={`${mainName} (${getTypeLabel(mainCat.type, lang)})`} className="dark:bg-[#1A1E26]">
+                        <option value={mainCat.id} className="dark:bg-[#1A1E26]">
                           {mainName}
                         </option>
                         {subCats.map(sub => (
-                          <option key={sub.id} value={sub.id}>
+                          <option key={sub.id} value={sub.id} className="dark:bg-[#1A1E26]">
                             {lang === 'bg' ? sub.nameBg : sub.nameEn}
                           </option>
                         ))}
@@ -552,9 +552,9 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                   const standalone = categories.filter(c => !renderedIds.has(c.id));
                   if (standalone.length > 0) {
                     groups.push(
-                      <optgroup key="other_group" label={lang === 'bg' ? 'Други' : 'Other'}>
+                      <optgroup key="other_group" label={lang === 'bg' ? 'Други' : 'Other'} className="dark:bg-[#1A1E26]">
                         {standalone.map(cat => (
-                          <option key={cat.id} value={cat.id}>
+                          <option key={cat.id} value={cat.id} className="dark:bg-[#1A1E26]">
                             {lang === 'bg' ? cat.nameBg : cat.nameEn}
                           </option>
                         ))}
@@ -571,7 +571,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
 
             <button
               onClick={handleClearSelection}
-              className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-50 dark:hover:bg-slate-100 text-slate-700 dark:text-slate-600 text-xs font-semibold transition-colors cursor-pointer border border-slate-200 dark:border-slate-200/60"
+              className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-[#1A1E26] dark:hover:bg-[#222732] text-slate-700 dark:text-slate-300 text-xs font-semibold transition-colors cursor-pointer border border-slate-200 dark:border-slate-700"
             >
               <X className="w-3.5 h-3.5" />
               <span>{t('deselectAll')}</span>
@@ -592,8 +592,8 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
       {viewMode === 'list' ? (
         /* List View Table / Cards */
         filteredTransactions.length === 0 ? (
-          <div className="p-12 text-center bg-white dark:bg-white/50 border border-slate-200/90 dark:border-slate-200/80 rounded-3xl space-y-3 shadow-xs">
-            <p className="text-slate-500 dark:text-slate-500 text-sm font-medium">
+          <div className="p-12 text-center bg-white dark:bg-[#181B22] border border-slate-200/90 dark:border-slate-800 rounded-3xl space-y-3 shadow-xs">
+            <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">
               {t('noTransactions')}
             </p>
             <button
@@ -604,10 +604,135 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
             </button>
           </div>
         ) : (
-          <div className="bg-white dark:bg-white border border-slate-200/90 dark:border-slate-200 rounded-3xl overflow-hidden shadow-sm">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-slate-700 dark:text-slate-600 min-w-[750px]">
-                <thead className="bg-slate-50 dark:bg-slate-50/60 text-slate-500 dark:text-slate-500 font-semibold uppercase tracking-wider border-b border-slate-200/80 dark:border-slate-200">
+          <div className="bg-white dark:bg-[#181B22] border border-slate-200/90 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm">
+            {/* Mobile Card-Based Row Layout (Phones & small screens) */}
+            <div className="md:hidden">
+              {/* Mobile Select All & Count Bar */}
+              <div className="p-3 bg-slate-50 dark:bg-[#15171E] border-b border-slate-200/80 dark:border-slate-800 flex items-center justify-between text-xs">
+                <label className="flex items-center gap-2 font-semibold text-slate-600 dark:text-slate-300 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={isAllSelected}
+                    onChange={handleToggleSelectAll}
+                    aria-label={t('selectAll')}
+                    className="w-4 h-4 rounded bg-white dark:bg-[#1A1E26] border-slate-300 dark:border-slate-700 text-teal-600 focus:ring-teal-500 cursor-pointer accent-teal-600"
+                  />
+                  <span>{t('selectAll')}</span>
+                </label>
+                <span className="text-[11px] font-medium text-slate-400 dark:text-slate-500">
+                  {filteredTransactions.length} {lang === 'bg' ? 'транзакции' : 'items'}
+                </span>
+              </div>
+
+              {/* Mobile Transaction Cards */}
+              <div className="p-3 space-y-2.5 bg-slate-50/40 dark:bg-[#12141A]/50">
+                {filteredTransactions.map((item) => {
+                  const isIncome = item.type === 'income';
+                  const isSelected = selectedTxIds.includes(item.id);
+                  const catObj = categories.find(c => c.id === item.category);
+                  const catColor = catObj?.color || '#0d9488';
+
+                  return (
+                    <div
+                      key={item.id}
+                      onClick={() => setEditingTransaction(item)}
+                      className={`p-3.5 rounded-2xl border transition-all cursor-pointer ${
+                        isSelected
+                          ? 'bg-teal-50/90 dark:bg-emerald-950/30 border-teal-300 dark:border-emerald-800/60 shadow-xs'
+                          : 'bg-white dark:bg-[#181B22] hover:bg-slate-50/80 dark:hover:bg-[#1E222B] border-slate-200/90 dark:border-slate-800 shadow-2xs'
+                      }`}
+                    >
+                      {/* Top Row: Checkbox, Category Badge, Type Tag, Amount */}
+                      <div className="flex items-center justify-between gap-2 mb-2">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <div
+                            className="flex-shrink-0"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleToggleSelectRow(item.id);
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={isSelected}
+                              onChange={() => handleToggleSelectRow(item.id)}
+                              onClick={(e) => e.stopPropagation()}
+                              aria-label={`Select transaction ${item.id}`}
+                              className="w-4 h-4 rounded bg-white dark:bg-[#1A1E26] border-slate-300 dark:border-slate-700 text-teal-600 focus:ring-teal-500 cursor-pointer accent-teal-600"
+                            />
+                          </div>
+
+                          <span
+                            className="inline-flex items-center px-2.5 py-0.5 rounded-lg text-[11px] font-semibold border truncate max-w-[130px]"
+                            style={{
+                              backgroundColor: `${catColor}14`,
+                              color: catColor,
+                              borderColor: `${catColor}28`
+                            }}
+                          >
+                            {getCategoryName(item.category, categories, lang)}
+                          </span>
+
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium border ${getTypeBadgeColor(item.type)}`}>
+                            {getTypeLabel(item.type, lang)}
+                          </span>
+                        </div>
+
+                        <div className={`font-bold font-display text-sm sm:text-base whitespace-nowrap ${
+                          isIncome ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-white'
+                        }`}>
+                          {isIncome ? '+' : '-'}{formatCurrency(item.amount, currency)}
+                        </div>
+                      </div>
+
+                      {/* Middle Row: Note / Description */}
+                      <div className="text-xs font-medium text-slate-800 dark:text-slate-200 line-clamp-1 mb-2">
+                        {item.note || getCategoryName(item.category, categories, lang)}
+                      </div>
+
+                      {/* Bottom Row: Date & Action Icons */}
+                      <div className="flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 pt-2 border-t border-slate-100 dark:border-slate-800">
+                        <div className="flex items-center gap-1.5 font-mono text-slate-500 dark:text-slate-400">
+                          <Calendar className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
+                          <span>{item.date}</span>
+                        </div>
+
+                        <div className="flex items-center gap-1">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setEditingTransaction(item);
+                            }}
+                            className="p-1.5 rounded-lg text-slate-400 hover:text-teal-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                            title={t('edit')}
+                          >
+                            <Edit3 className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onDeleteTransaction(item.id);
+                              setSelectedTxIds(prev => prev.filter(id => id !== item.id));
+                            }}
+                            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
+                            title={t('delete')}
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Desktop View Table (Tablets & Desktop) */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300 min-w-[750px]">
+                <thead className="bg-slate-50 dark:bg-[#15171E] text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider border-b border-slate-200/80 dark:border-slate-800">
                   <tr>
                     <th className="py-3.5 px-4 w-10 text-center">
                       <input
@@ -616,7 +741,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                         checked={isAllSelected}
                         onChange={handleToggleSelectAll}
                         aria-label={t('selectAll')}
-                        className="w-4 h-4 rounded bg-white dark:bg-slate-50 border-slate-300 dark:border-slate-200 text-teal-600 focus:ring-teal-500 cursor-pointer accent-teal-600"
+                        className="w-4 h-4 rounded bg-white dark:bg-[#1A1E26] border-slate-300 dark:border-slate-700 text-teal-600 focus:ring-teal-500 cursor-pointer accent-teal-600"
                       />
                     </th>
                     <th className="py-3.5 px-4">{t('date')}</th>
@@ -627,7 +752,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                     <th className="py-3.5 px-4 text-center">{t('actions')}</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-zinc-800">
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                   {filteredTransactions.map((item) => {
                     const isIncome = item.type === 'income';
                     const isSelected = selectedTxIds.includes(item.id);
@@ -637,8 +762,8 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                         key={item.id} 
                         className={`transition-colors group cursor-pointer ${
                           isSelected 
-                            ? 'bg-teal-50/80 dark:bg-teal-500/10 hover:bg-teal-100/70 dark:hover:bg-teal-500/15' 
-                            : 'hover:bg-slate-50/80 dark:hover:bg-slate-50/60'
+                            ? 'bg-teal-50/80 dark:bg-emerald-950/30 hover:bg-teal-100/70 dark:hover:bg-emerald-950/50' 
+                            : 'hover:bg-slate-50/80 dark:hover:bg-[#1E222B]'
                         }`}
                         onClick={() => setEditingTransaction(item)}
                       >
@@ -652,10 +777,10 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                             onChange={() => handleToggleSelectRow(item.id)}
                             onClick={(e) => e.stopPropagation()}
                             aria-label={`Select transaction ${item.id}`}
-                            className="w-4 h-4 rounded bg-white dark:bg-slate-50 border-slate-300 dark:border-slate-200 text-teal-600 focus:ring-teal-500 cursor-pointer accent-teal-600"
+                            className="w-4 h-4 rounded bg-white dark:bg-[#1A1E26] border-slate-300 dark:border-slate-700 text-teal-600 focus:ring-teal-500 cursor-pointer accent-teal-600"
                           />
                         </td>
-                        <td className="py-3 px-4 font-mono text-slate-500 dark:text-slate-500">
+                        <td className="py-3 px-4 font-mono text-slate-500 dark:text-slate-400">
                           {item.date}
                         </td>
                         <td className="py-3 px-4">
@@ -684,10 +809,10 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                             })()}
                           </div>
                         </td>
-                        <td className="py-3 px-4 text-slate-500 dark:text-slate-500 max-w-xs truncate">
+                        <td className="py-3 px-4 text-slate-500 dark:text-slate-400 max-w-xs truncate">
                           {item.note || '-'}
                         </td>
-                        <td className={`py-3 px-4 text-right font-bold font-display ${isIncome ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-slate-800'}`}>
+                        <td className={`py-3 px-4 text-right font-bold font-display ${isIncome ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-white'}`}>
                           {isIncome ? '+' : '-'}{formatCurrency(item.amount, currency)}
                         </td>
                         <td className="py-3 px-4 text-center">
@@ -697,7 +822,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                                 e.stopPropagation();
                                 setEditingTransaction(item);
                               }}
-                              className="p-1.5 rounded-lg text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-500/10 transition-colors cursor-pointer"
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-teal-600 dark:hover:text-emerald-400 hover:bg-teal-50 dark:hover:bg-emerald-500/10 transition-colors cursor-pointer"
                               title={t('edit')}
                             >
                               <Edit3 className="w-4 h-4" />
@@ -708,7 +833,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                                 onDeleteTransaction(item.id);
                                 setSelectedTxIds(prev => prev.filter(id => id !== item.id));
                               }}
-                              className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors cursor-pointer"
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
                               title={t('delete')}
                             >
                               <Trash2 className="w-4 h-4" />
@@ -719,14 +844,14 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                     );
                   })}
                 </tbody>
-                <tfoot className="bg-slate-50/90 dark:bg-slate-100/90 border-t-2 border-slate-200 dark:border-slate-200 text-xs font-semibold">
+                <tfoot className="bg-slate-50/90 dark:bg-[#15171E] border-t-2 border-slate-200 dark:border-slate-800 text-xs font-semibold">
                   <tr>
-                    <td colSpan={2} className="py-4 px-4 text-slate-700 dark:text-slate-600">
+                    <td colSpan={2} className="py-4 px-4 text-slate-700 dark:text-slate-300">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold uppercase tracking-wider font-display text-slate-800 dark:text-slate-700 text-[11px]">
+                        <span className="font-bold uppercase tracking-wider font-display text-slate-800 dark:text-white text-[11px]">
                           {t('total')}
                         </span>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200/80 dark:bg-slate-50 text-slate-600 dark:text-slate-500 border border-slate-300 dark:border-slate-200">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200/80 dark:bg-[#1A1E26] text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-700">
                           {filteredTransactions.length} {lang === 'bg' ? 'транзакции' : 'txs'}
                         </span>
                       </div>
@@ -765,16 +890,16 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
             </div>
 
             {/* Bottom Summary Bar for Filtered Totals */}
-            <div className="p-4 bg-slate-50/90 dark:bg-slate-100/80 border-t border-slate-200 dark:border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="p-4 bg-slate-50/90 dark:bg-[#15171E] border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex flex-wrap items-center gap-3 sm:gap-6">
                 <div className="flex items-center gap-2.5">
                   <div className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20">
                     <ArrowDownRight className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-500 tracking-wider flex items-center gap-1">
+                    <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider flex items-center gap-1">
                       <span>{t('incomeTotal')}</span>
-                      <span className="text-[9px] text-slate-400 dark:text-slate-400 font-normal">({incomeCount})</span>
+                      <span className="text-[9px] text-slate-400 dark:text-slate-500 font-normal">({incomeCount})</span>
                     </div>
                     <div className="text-sm font-bold font-mono text-emerald-600 dark:text-emerald-400 font-display">
                       +{formatCurrency(filteredIncomeSum, currency)}
@@ -782,16 +907,16 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                   </div>
                 </div>
 
-                <div className="h-8 w-px bg-slate-200 dark:bg-slate-50 hidden sm:block"></div>
+                <div className="h-8 w-px bg-slate-200 dark:bg-slate-800 hidden sm:block"></div>
 
                 <div className="flex items-center gap-2.5">
                   <div className="p-2 rounded-xl bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-500/20">
                     <ArrowUpRight className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-500 tracking-wider flex items-center gap-1">
+                    <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider flex items-center gap-1">
                       <span>{t('expenseTotal')}</span>
-                      <span className="text-[9px] text-slate-400 dark:text-slate-400 font-normal">({expenseCount})</span>
+                      <span className="text-[9px] text-slate-400 dark:text-slate-500 font-normal">({expenseCount})</span>
                     </div>
                     <div className="text-sm font-bold font-mono text-rose-600 dark:text-rose-400 font-display">
                       -{formatCurrency(filteredExpenseSum, currency)}
@@ -799,14 +924,14 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                   </div>
                 </div>
 
-                <div className="h-8 w-px bg-slate-200 dark:bg-slate-50 hidden sm:block"></div>
+                <div className="h-8 w-px bg-slate-200 dark:bg-slate-800 hidden sm:block"></div>
 
                 <div className="flex items-center gap-2.5">
                   <div className={`p-2 rounded-xl border ${filteredNet >= 0 ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/20' : 'bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-500/20'}`}>
                     <Scale className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-500 tracking-wider">{t('netCashFlow')}</div>
+                    <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider">{t('netCashFlow')}</div>
                     <div className={`text-sm font-bold font-mono font-display ${filteredNet >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                       {filteredNet >= 0 ? '+' : ''}{formatCurrency(filteredNet, currency)}
                     </div>
@@ -824,7 +949,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               ) : (
                 <div className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5 self-start md:self-auto">
                   <span>{t('displayedTransactions')}:</span>
-                  <span className="font-bold text-slate-700 dark:text-slate-600 font-mono">{filteredTransactions.length}</span>
+                  <span className="font-bold text-slate-700 dark:text-slate-300 font-mono">{filteredTransactions.length}</span>
                 </div>
               )}
             </div>
@@ -839,12 +964,12 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               const percentage = totalFilteredSum > 0 ? (stat.totalAmount / totalFilteredSum) * 100 : 0;
 
               return (
-                <div key={stat.categoryId} className="bg-white dark:bg-white border border-slate-200/90 dark:border-slate-200 rounded-3xl p-5 space-y-3 shadow-sm">
+                <div key={stat.categoryId} className="bg-white dark:bg-[#181B22] border border-slate-200/90 dark:border-slate-800 rounded-3xl p-5 space-y-3 shadow-sm">
                   <div className="flex items-center justify-between">
                     <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-wide border ${getTypeBadgeColor(stat.type)}`}>
                       {getTypeLabel(stat.type, lang)}
                     </span>
-                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-500">
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
                       {stat.count} {lang === 'bg' ? 'записа' : 'items'}
                     </span>
                   </div>
@@ -868,18 +993,18 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                         )
                       })()}
                     </div>
-                    <p className="text-2xl font-black text-slate-900 dark:text-slate-800 font-display mt-1">
+                    <p className="text-2xl font-black text-slate-900 dark:text-white font-display mt-1">
                       {formatCurrency(stat.totalAmount, currency)}
                     </p>
                   </div>
 
                   {/* Progress bar relative to total filtered expenses */}
                   <div className="space-y-1">
-                    <div className="flex justify-between text-[11px] text-slate-500 dark:text-slate-500 font-medium">
+                    <div className="flex justify-between text-[11px] text-slate-500 dark:text-slate-400 font-medium">
                       <span>{lang === 'bg' ? 'Дял от общите' : 'Share of total'}</span>
                       <span>{percentage.toFixed(1)}%</span>
                     </div>
-                    <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-50 overflow-hidden">
+                    <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                       <div
                         className="h-full rounded-full bg-gradient-to-r from-teal-500 to-emerald-500"
                         style={{ width: `${Math.min(100, percentage)}%` }}
@@ -893,16 +1018,16 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
 
           {/* Bottom Summary Bar for Summary View */}
           {filteredTransactions.length > 0 && (
-            <div className="p-4 bg-white dark:bg-white border border-slate-200/90 dark:border-slate-200 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
+            <div className="p-4 bg-white dark:bg-[#181B22] border border-slate-200/90 dark:border-slate-800 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
               <div className="flex flex-wrap items-center gap-3 sm:gap-6">
                 <div className="flex items-center gap-2.5">
                   <div className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20">
                     <ArrowDownRight className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-500 tracking-wider flex items-center gap-1">
+                    <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider flex items-center gap-1">
                       <span>{t('incomeTotal')}</span>
-                      <span className="text-[9px] text-slate-400 dark:text-slate-400 font-normal">({incomeCount})</span>
+                      <span className="text-[9px] text-slate-400 dark:text-slate-500 font-normal">({incomeCount})</span>
                     </div>
                     <div className="text-sm font-bold font-mono text-emerald-600 dark:text-emerald-400 font-display">
                       +{formatCurrency(filteredIncomeSum, currency)}
@@ -910,16 +1035,16 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                   </div>
                 </div>
 
-                <div className="h-8 w-px bg-slate-200 dark:bg-slate-50 hidden sm:block"></div>
+                <div className="h-8 w-px bg-slate-200 dark:bg-slate-800 hidden sm:block"></div>
 
                 <div className="flex items-center gap-2.5">
                   <div className="p-2 rounded-xl bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-500/20">
                     <ArrowUpRight className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-500 tracking-wider flex items-center gap-1">
+                    <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider flex items-center gap-1">
                       <span>{t('expenseTotal')}</span>
-                      <span className="text-[9px] text-slate-400 dark:text-slate-400 font-normal">({expenseCount})</span>
+                      <span className="text-[9px] text-slate-400 dark:text-slate-500 font-normal">({expenseCount})</span>
                     </div>
                     <div className="text-sm font-bold font-mono text-rose-600 dark:text-rose-400 font-display">
                       -{formatCurrency(filteredExpenseSum, currency)}
@@ -927,14 +1052,14 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                   </div>
                 </div>
 
-                <div className="h-8 w-px bg-slate-200 dark:bg-slate-50 hidden sm:block"></div>
+                <div className="h-8 w-px bg-slate-200 dark:bg-slate-800 hidden sm:block"></div>
 
                 <div className="flex items-center gap-2.5">
                   <div className={`p-2 rounded-xl border ${filteredNet >= 0 ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/20' : 'bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-500/20'}`}>
                     <Scale className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-500 tracking-wider">{t('netCashFlow')}</div>
+                    <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider">{t('netCashFlow')}</div>
                     <div className={`text-sm font-bold font-mono font-display ${filteredNet >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                       {filteredNet >= 0 ? '+' : ''}{formatCurrency(filteredNet, currency)}
                     </div>
@@ -944,7 +1069,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
 
               <div className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5 self-start md:self-auto">
                 <span>{t('displayedTransactions')}:</span>
-                <span className="font-bold text-slate-700 dark:text-slate-600 font-mono">{filteredTransactions.length}</span>
+                <span className="font-bold text-slate-700 dark:text-slate-300 font-mono">{filteredTransactions.length}</span>
               </div>
             </div>
           )}
@@ -985,36 +1110,36 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
       {/* Bulk Delete Confirmation Modal */}
       {isBulkDeleteModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-xs animate-fadeIn">
-          <div className="w-full max-w-md bg-white dark:bg-white border border-slate-200 dark:border-slate-200 rounded-3xl p-6 shadow-2xl space-y-5 text-slate-900 dark:text-slate-800">
+          <div className="w-full max-w-md bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl space-y-5 text-slate-900 dark:text-white">
             <div className="flex items-center gap-3">
               <span className="p-2.5 rounded-xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 text-rose-600 dark:text-rose-400">
                 <AlertTriangle className="w-6 h-6" />
               </span>
               <div>
-                <h3 className="font-bold text-base text-slate-900 dark:text-slate-800 font-display">
+                <h3 className="font-bold text-base text-slate-900 dark:text-white font-display">
                   {lang === 'bg' ? 'Изтриване на множество транзакции' : 'Delete Multiple Transactions'}
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-500 mt-0.5">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                   {t('confirmDeleteMultiple').replace('{count}', selectedTxIds.length.toString())}
                 </p>
               </div>
             </div>
 
-            <div className="max-h-48 overflow-y-auto space-y-1.5 p-3 bg-slate-50 dark:bg-slate-100/60 rounded-xl border border-slate-200 dark:border-slate-200/80 text-xs divide-y divide-slate-200/60 dark:divide-zinc-800/40">
+            <div className="max-h-48 overflow-y-auto space-y-1.5 p-3 bg-slate-50 dark:bg-[#15171E] rounded-xl border border-slate-200 dark:border-slate-800 text-xs divide-y divide-slate-200/60 dark:divide-slate-800/80">
               {selectedTransactions.map((tx) => (
-                <div key={tx.id} className="flex items-center justify-between text-slate-700 dark:text-slate-600 py-1.5 first:pt-0 last:pb-0">
+                <div key={tx.id} className="flex items-center justify-between text-slate-700 dark:text-slate-300 py-1.5 first:pt-0 last:pb-0">
                   <div className="flex items-center gap-2 truncate pr-2">
-                    <span className="font-mono text-slate-400 dark:text-slate-400 text-[10px]">{tx.date}</span>
-                    <span className="truncate text-slate-800 dark:text-slate-700">{tx.note || getCategoryName(tx.category, categories, lang)}</span>
+                    <span className="font-mono text-slate-400 dark:text-slate-500 text-[10px]">{tx.date}</span>
+                    <span className="truncate text-slate-800 dark:text-slate-200">{tx.note || getCategoryName(tx.category, categories, lang)}</span>
                   </div>
-                  <span className="font-bold font-mono text-slate-900 dark:text-slate-700 flex-shrink-0">
+                  <span className="font-bold font-mono text-slate-900 dark:text-white flex-shrink-0">
                     {formatCurrency(tx.amount, currency)}
                   </span>
                 </div>
               ))}
             </div>
 
-            <div className="flex items-center justify-between text-xs pt-1 border-t border-slate-200 dark:border-slate-200 text-slate-500 dark:text-slate-500">
+            <div className="flex items-center justify-between text-xs pt-1 border-t border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400">
               <span>{t('total')}:</span>
               <span className="font-bold font-display text-teal-600 dark:text-emerald-400 text-sm">{formatCurrency(selectedTotalSum, currency)}</span>
             </div>
@@ -1022,7 +1147,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
             <div className="flex items-center justify-end gap-3 pt-2">
               <button
                 onClick={() => setIsBulkDeleteModalOpen(false)}
-                className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-50 dark:hover:bg-slate-100 text-slate-700 dark:text-slate-600 text-xs font-semibold transition-colors cursor-pointer border border-slate-200 dark:border-slate-200"
+                className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-[#1A1E26] dark:hover:bg-[#222732] text-slate-700 dark:text-slate-300 text-xs font-semibold transition-colors cursor-pointer border border-slate-200 dark:border-slate-700"
               >
                 {t('cancel')}
               </button>
@@ -1041,25 +1166,25 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
       {/* Batch Update Category Modal */}
       {isBatchCategoryModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-xs animate-fadeIn">
-          <div className="w-full max-w-lg bg-white dark:bg-white border border-slate-200 dark:border-slate-200 rounded-3xl shadow-2xl overflow-hidden flex flex-col my-8 animate-in fade-in zoom-in-95 duration-200 text-slate-900 dark:text-slate-800">
+          <div className="w-full max-w-lg bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden flex flex-col my-8 animate-in fade-in zoom-in-95 duration-200 text-slate-900 dark:text-white">
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-200 p-5 bg-slate-50 dark:bg-slate-100/50">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 p-5 bg-slate-50 dark:bg-[#15171E]">
               <div className="flex items-center gap-3">
                 <span className="p-2 rounded-xl bg-teal-50 dark:bg-emerald-500/10 text-teal-600 dark:text-emerald-400 border border-teal-200 dark:border-emerald-500/20">
                   <Tag className="w-5 h-5" />
                 </span>
                 <div>
-                  <h3 className="font-bold text-base text-slate-900 dark:text-slate-800 font-display">
+                  <h3 className="font-bold text-base text-slate-900 dark:text-white font-display">
                     {t('batchCategoryModalTitle')}
                   </h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-500 mt-0.5">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                     {t('batchCategoryModalSub').replace('{count}', selectedTxIds.length.toString())}
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setIsBatchCategoryModalOpen(false)}
-                className="text-slate-400 hover:text-slate-700 dark:text-slate-500 dark:hover:text-slate-800 p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-50 transition-colors cursor-pointer"
+                className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1069,7 +1194,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
             <div className="p-6 space-y-5">
               {/* Category Selector */}
               <div>
-                <label className="block text-xs font-bold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                   <Tag className="w-3.5 h-3.5 text-teal-600 dark:text-emerald-400" />
                   <span>{t('selectTargetCategory')}</span>
                 </label>
@@ -1077,7 +1202,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                 <select
                   value={batchTargetCategory}
                   onChange={(e) => setBatchTargetCategory(e.target.value)}
-                  className="w-full bg-white dark:bg-slate-100 border border-slate-300 dark:border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 dark:text-slate-800 focus:outline-none focus:border-teal-500 transition-colors cursor-pointer shadow-2xs"
+                  className="w-full bg-white dark:bg-[#1A1E26] border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-teal-500 dark:focus:border-emerald-500 transition-colors cursor-pointer shadow-2xs"
                 >
                   {(() => {
                     const mainCategories = categories.filter(c => !c.parentId);
@@ -1090,12 +1215,12 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                       subCats.forEach(s => renderedIds.add(s.id));
 
                       return (
-                        <optgroup key={mainCat.id} label={`${mainName} (${getTypeLabel(mainCat.type, lang)})`}>
-                          <option value={mainCat.id}>
+                        <optgroup key={mainCat.id} label={`${mainName} (${getTypeLabel(mainCat.type, lang)})`} className="dark:bg-[#1A1E26]">
+                          <option value={mainCat.id} className="dark:bg-[#1A1E26]">
                             {mainName}
                           </option>
                           {subCats.map(sub => (
-                            <option key={sub.id} value={sub.id}>
+                            <option key={sub.id} value={sub.id} className="dark:bg-[#1A1E26]">
                               {lang === 'bg' ? sub.nameBg : sub.nameEn}
                             </option>
                           ))}
@@ -1106,9 +1231,9 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
                     const standalone = categories.filter(c => !renderedIds.has(c.id));
                     if (standalone.length > 0) {
                       groups.push(
-                        <optgroup key="other_group" label={lang === 'bg' ? 'Други' : 'Other'}>
+                        <optgroup key="other_group" label={lang === 'bg' ? 'Други' : 'Other'} className="dark:bg-[#1A1E26]">
                           {standalone.map(cat => (
-                            <option key={cat.id} value={cat.id}>
+                            <option key={cat.id} value={cat.id} className="dark:bg-[#1A1E26]">
                               {lang === 'bg' ? cat.nameBg : cat.nameEn}
                             </option>
                           ))}
@@ -1122,13 +1247,13 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               </div>
 
               {/* Auto sync type checkbox */}
-              <div className="p-3 bg-slate-50 dark:bg-slate-100/60 rounded-xl border border-slate-200 dark:border-slate-200/80">
-                <label className="flex items-center gap-2.5 text-xs text-slate-700 dark:text-slate-600 cursor-pointer select-none">
+              <div className="p-3 bg-slate-50 dark:bg-[#15171E] rounded-xl border border-slate-200 dark:border-slate-800">
+                <label className="flex items-center gap-2.5 text-xs text-slate-700 dark:text-slate-300 cursor-pointer select-none">
                   <input
                     type="checkbox"
                     checked={syncTransactionType}
                     onChange={(e) => setSyncTransactionType(e.target.checked)}
-                    className="w-4 h-4 rounded bg-white dark:bg-white border-slate-300 dark:border-slate-200 text-teal-600 focus:ring-teal-500 cursor-pointer accent-teal-600"
+                    className="w-4 h-4 rounded bg-white dark:bg-[#1A1E26] border-slate-300 dark:border-slate-700 text-teal-600 focus:ring-teal-500 cursor-pointer accent-teal-600"
                   />
                   <span>{t('updateTypeToMatch')}</span>
                 </label>
@@ -1136,28 +1261,28 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
 
               {/* Preview of items */}
               <div>
-                <div className="text-xs font-bold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-between">
+                <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2 flex items-center justify-between">
                   <span>{lang === 'bg' ? 'Преглед на избраните транзакции' : 'Preview Selected Transactions'}</span>
                   <span className="text-teal-600 dark:text-emerald-400 font-mono font-bold">
                     {formatCurrency(selectedTotalSum, currency)}
                   </span>
                 </div>
-                <div className="max-h-48 overflow-y-auto space-y-1 p-3 bg-slate-50 dark:bg-slate-100/80 rounded-xl border border-slate-200 dark:border-slate-200/80 text-xs divide-y divide-slate-200/60 dark:divide-zinc-800/40">
+                <div className="max-h-48 overflow-y-auto space-y-1 p-3 bg-slate-50 dark:bg-[#15171E] rounded-xl border border-slate-200 dark:border-slate-800 text-xs divide-y divide-slate-200/60 dark:divide-slate-800/80">
                   {selectedTransactions.map((tx) => {
                     const currentCatName = getCategoryName(tx.category, categories, lang);
                     const targetCatName = getCategoryName(batchTargetCategory, categories, lang);
 
                     return (
-                      <div key={tx.id} className="flex items-center justify-between text-slate-700 dark:text-slate-600 py-2 first:pt-0 last:pb-0 gap-2">
+                      <div key={tx.id} className="flex items-center justify-between text-slate-700 dark:text-slate-300 py-2 first:pt-0 last:pb-0 gap-2">
                         <div className="flex items-center gap-2 truncate min-w-0">
-                          <span className="font-mono text-slate-400 dark:text-slate-400 text-[10px] flex-shrink-0">{tx.date}</span>
-                          <span className="truncate text-slate-800 dark:text-slate-700 text-xs">{tx.note || currentCatName}</span>
+                          <span className="font-mono text-slate-400 dark:text-slate-500 text-[10px] flex-shrink-0">{tx.date}</span>
+                          <span className="truncate text-slate-800 dark:text-slate-200 text-xs">{tx.note || currentCatName}</span>
                         </div>
                         <div className="flex items-center gap-1.5 flex-shrink-0 text-xs">
-                          <span className="text-slate-400 max-w-[80px] truncate text-[11px]">{currentCatName}</span>
+                          <span className="text-slate-400 dark:text-slate-500 max-w-[80px] truncate text-[11px]">{currentCatName}</span>
                           <ArrowRight className="w-3 h-3 text-[#F7B352]" />
-                          <span className="text-[#174E5B] font-semibold max-w-[90px] truncate text-[11px]">{targetCatName}</span>
-                          <span className="font-bold font-mono text-slate-600 ml-1 text-[11px]">
+                          <span className="text-teal-600 dark:text-emerald-400 font-semibold max-w-[90px] truncate text-[11px]">{targetCatName}</span>
+                          <span className="font-bold font-mono text-slate-700 dark:text-slate-300 ml-1 text-[11px]">
                             {formatCurrency(tx.amount, currency)}
                           </span>
                         </div>
@@ -1169,16 +1294,16 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
             </div>
 
             {/* Footer */}
-            <div className="flex items-center justify-end gap-3 p-5 border-t border-slate-200 bg-slate-100">
+            <div className="flex items-center justify-end gap-3 p-5 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#15171E]">
               <button
                 onClick={() => setIsBatchCategoryModalOpen(false)}
-                className="px-4 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-600 text-xs font-semibold transition-colors cursor-pointer border border-slate-200"
+                className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-[#1A1E26] dark:hover:bg-[#222732] text-slate-600 dark:text-slate-300 text-xs font-semibold transition-colors cursor-pointer border border-slate-200 dark:border-slate-700"
               >
                 {t('cancel')}
               </button>
               <button
                 onClick={handleExecuteBatchCategoryUpdate}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#F7B352] hover:bg-[#E59F2A] active:scale-[0.98] text-slate-900 text-xs font-black transition-all cursor-pointer shadow-sm shadow-[#F7B352]/20"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-white text-xs font-bold transition-all cursor-pointer shadow-sm"
               >
                 <CheckSquare className="w-4 h-4" />
                 <span>{t('applyCategory')} ({selectedTxIds.length})</span>

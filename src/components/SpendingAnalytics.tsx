@@ -299,15 +299,15 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-white border border-slate-200 p-3 rounded-xl shadow-xl text-xs space-y-1">
-          <div className="flex items-center gap-2 font-bold text-slate-800">
+        <div className="bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-700 p-3 rounded-xl shadow-xl text-xs space-y-1">
+          <div className="flex items-center gap-2 font-bold text-slate-800 dark:text-white">
             <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: data.color }} />
             <span>{data.name}</span>
           </div>
           <div className="text-[#F7B352] font-extrabold text-sm">
             {formatCurrency(data.value, currency)}
           </div>
-          <div className="text-slate-500">
+          <div className="text-slate-500 dark:text-slate-400">
             {data.percent.toFixed(1)}% {lang === 'bg' ? 'от общо' : 'of total'} ({data.count} {lang === 'bg' ? 'транзакции' : 'txs'})
           </div>
         </div>
@@ -319,28 +319,28 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
   return (
     <div className="space-y-6 animate-fadeIn">
       {/* Header & Controls Bar */}
-      <div className="bg-white border border-slate-200 rounded-3xl p-4 sm:p-6 shadow-sm space-y-4">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+      <div className="bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl p-4 sm:p-6 shadow-sm space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
           <div>
-            <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2.5">
+            <h2 className="text-xl font-bold text-slate-800 dark:text-white flex items-center gap-2.5">
               <PieIcon className="w-6 h-6 text-[#F7B352]" />
               <span>{lang === 'bg' ? 'Анализ на Разходите' : 'Spending Analytics'}</span>
             </h2>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
               {lang === 'bg' 
-                ? 'Визуализация на разходите по категории с интерактивна графика.'
+                ? 'Визуализация на разходите по категории с интерактивна графика.' 
                 : 'Interactive pie chart breakdown of monthly expense distribution.'}
             </p>
           </div>
 
           {/* Chart Type Toggle Button */}
-          <div className="flex items-center gap-1 bg-slate-100 border border-slate-200 p-1 rounded-xl self-start md:self-auto">
+          <div className="flex items-center gap-1 bg-slate-100 dark:bg-[#101217] border border-slate-200 dark:border-slate-800 p-1 rounded-xl self-start md:self-auto">
             <button
               onClick={() => setChartType('pie')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 chartType === 'pie'
                   ? 'bg-[#F7B352] text-slate-900 shadow-sm shadow-[#F7B352]/20 font-black'
-                  : 'text-slate-500 hover:text-slate-700'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
               }`}
             >
               <PieIcon className="w-3.5 h-3.5" />
@@ -351,7 +351,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 chartType === 'bar'
                   ? 'bg-[#F7B352] text-slate-900 shadow-sm shadow-[#F7B352]/20 font-black'
-                  : 'text-slate-500 hover:text-slate-700'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
               }`}
             >
               <BarChart3 className="w-3.5 h-3.5" />
@@ -364,55 +364,55 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {/* Time Period Filter */}
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1">
+            <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1">
               <Calendar className="w-3 h-3 text-[#F7B352]" />
               <span>{lang === 'bg' ? 'Период' : 'Time Period'}</span>
             </label>
             <select
               value={period}
               onChange={(e) => setPeriod(e.target.value as PeriodFilter)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#F7B352] cursor-pointer"
+              className="w-full px-3 py-2 bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-medium text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#F7B352] cursor-pointer"
             >
-              <option value="period">
+              <option value="period" className="dark:bg-[#181B22]">
                 {lang === 'bg' ? `Бюджетен период (${activePeriodInfo.label})` : `Selected Period (${activePeriodInfo.label})`}
               </option>
-              <option value="thisMonth">{lang === 'bg' ? 'Този месец' : 'This Calendar Month'}</option>
-              <option value="last30">{lang === 'bg' ? 'Последните 30 дни' : 'Last 30 Days'}</option>
-              <option value="allTime">{lang === 'bg' ? 'Всички времена' : 'All Time'}</option>
+              <option value="thisMonth" className="dark:bg-[#181B22]">{lang === 'bg' ? 'Този месец' : 'This Calendar Month'}</option>
+              <option value="last30" className="dark:bg-[#181B22]">{lang === 'bg' ? 'Последните 30 дни' : 'Last 30 Days'}</option>
+              <option value="allTime" className="dark:bg-[#181B22]">{lang === 'bg' ? 'Всички времена' : 'All Time'}</option>
             </select>
           </div>
 
           {/* View Level Filter */}
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1">
+            <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1">
               <Layers className="w-3 h-3 text-[#F7B352]" />
               <span>{lang === 'bg' ? 'Ниво на детайлност' : 'Category Level'}</span>
             </label>
             <select
               value={viewLevel}
               onChange={(e) => setViewLevel(e.target.value as ViewLevel)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#F7B352] cursor-pointer"
+              className="w-full px-3 py-2 bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-medium text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#F7B352] cursor-pointer"
             >
-              <option value="main">{lang === 'bg' ? 'Основни Категории' : 'Main Categories'}</option>
-              <option value="detailed">{lang === 'bg' ? 'Подробни Подкатегории' : 'Detailed Subcategories'}</option>
+              <option value="main" className="dark:bg-[#181B22]">{lang === 'bg' ? 'Основни Категории' : 'Main Categories'}</option>
+              <option value="detailed" className="dark:bg-[#181B22]">{lang === 'bg' ? 'Подробни Подкатегории' : 'Detailed Subcategories'}</option>
             </select>
           </div>
 
           {/* Expense Type Filter */}
           <div className="space-y-1 sm:col-span-2 lg:col-span-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1">
+            <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1">
               <Filter className="w-3 h-3 text-[#F7B352]" />
               <span>{lang === 'bg' ? 'Тип разход' : 'Expense Type'}</span>
             </label>
             <select
               value={expenseType}
               onChange={(e) => setExpenseType(e.target.value as ExpenseTypeFilter)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#F7B352] cursor-pointer"
+              className="w-full px-3 py-2 bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-medium text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#F7B352] cursor-pointer"
             >
-              <option value="all">{lang === 'bg' ? 'Всички разходи' : 'All Expense Types'}</option>
-              <option value="needs">{lang === 'bg' ? 'Нужди (Задължителни)' : 'Needs (Essential)'}</option>
-              <option value="wants">{lang === 'bg' ? 'Желания (Начин на живот)' : 'Wants (Lifestyle)'}</option>
-              <option value="savings">{lang === 'bg' ? 'Спестявания и Цели' : 'Savings & Goals'}</option>
+              <option value="all" className="dark:bg-[#181B22]">{lang === 'bg' ? 'Всички разходи' : 'All Expense Types'}</option>
+              <option value="needs" className="dark:bg-[#181B22]">{lang === 'bg' ? 'Нужди (Задължителни)' : 'Needs (Essential)'}</option>
+              <option value="wants" className="dark:bg-[#181B22]">{lang === 'bg' ? 'Желания (Начин на живот)' : 'Wants (Lifestyle)'}</option>
+              <option value="savings" className="dark:bg-[#181B22]">{lang === 'bg' ? 'Спестявания и Цели' : 'Savings & Goals'}</option>
             </select>
           </div>
         </div>
@@ -421,24 +421,24 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
       {/* Metric Cards Summary Row (Stacks to single column on mobile) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {/* Total Expense */}
-        <div className="bg-white border border-slate-200 p-4 rounded-3xl shadow-sm space-y-1">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+        <div className="bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 p-4 rounded-3xl shadow-sm space-y-1">
+          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
             {lang === 'bg' ? 'Общо Разходи' : 'Total Expenses'}
           </span>
-          <div className="text-xl sm:text-2xl font-extrabold text-slate-800">
+          <div className="text-xl sm:text-2xl font-extrabold text-slate-800 dark:text-white">
             {formatCurrency(totalSpent, currency)}
           </div>
-          <p className="text-[10px] text-slate-400">
+          <p className="text-[10px] text-slate-400 dark:text-slate-500">
             {filteredTransactions.length} {lang === 'bg' ? 'транзакции' : 'transactions'}
           </p>
         </div>
 
         {/* Top Expense Category */}
-        <div className="bg-white border border-slate-200 p-4 rounded-3xl shadow-sm space-y-1">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+        <div className="bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 p-4 rounded-3xl shadow-sm space-y-1">
+          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
             {lang === 'bg' ? 'Топ Категория' : 'Top Category'}
           </span>
-          <div className="text-base sm:text-lg font-bold text-slate-800 truncate">
+          <div className="text-base sm:text-lg font-bold text-slate-800 dark:text-white truncate">
             {topCategory ? topCategory.name : '—'}
           </div>
           <p className="text-[10px] text-[#9BB18A] font-semibold">
@@ -447,27 +447,27 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
         </div>
 
         {/* Active Categories Count */}
-        <div className="bg-white border border-slate-200 p-4 rounded-3xl shadow-sm space-y-1">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+        <div className="bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 p-4 rounded-3xl shadow-sm space-y-1">
+          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
             {lang === 'bg' ? 'Активни Категории' : 'Active Categories'}
           </span>
-          <div className="text-xl sm:text-2xl font-extrabold text-slate-800">
+          <div className="text-xl sm:text-2xl font-extrabold text-slate-800 dark:text-white">
             {categoryBreakdown.length}
           </div>
-          <p className="text-[10px] text-slate-400">
+          <p className="text-[10px] text-slate-400 dark:text-slate-500">
             {lang === 'bg' ? 'категории с разходи' : 'categories with spending'}
           </p>
         </div>
 
         {/* Average Expense Transaction */}
-        <div className="bg-white border border-slate-200 p-4 rounded-3xl shadow-sm space-y-1">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+        <div className="bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 p-4 rounded-3xl shadow-sm space-y-1">
+          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
             {lang === 'bg' ? 'Средна Транзакция' : 'Average Transaction'}
           </span>
-          <div className="text-xl sm:text-2xl font-extrabold text-slate-800">
+          <div className="text-xl sm:text-2xl font-extrabold text-slate-800 dark:text-white">
             {formatCurrency(avgTx, currency)}
           </div>
-          <p className="text-[10px] text-slate-400">
+          <p className="text-[10px] text-slate-400 dark:text-slate-500">
             {lang === 'bg' ? 'за единичен разход' : 'per expense record'}
           </p>
         </div>
@@ -476,9 +476,9 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
       {/* Chart Section & Legend Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Visual Chart Card */}
-        <div className="lg:col-span-7 bg-white border border-slate-200 rounded-3xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
+        <div className="lg:col-span-7 bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
+            <h3 className="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2">
               <TrendingUp className="w-4 h-4 text-[#F7B352]" />
               <span>{lang === 'bg' ? 'Разпределение на разходите' : 'Expense Distribution'}</span>
             </h3>
@@ -524,7 +524,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                         <Cell
                           key={entry.id}
                           fill={entry.color}
-                          stroke="#1A1C19"
+                          stroke="#181B22"
                           strokeWidth={2}
                           opacity={selectedCatId && selectedCatId !== entry.id ? 0.35 : 1}
                         />
@@ -538,9 +538,9 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                     layout="vertical"
                     margin={{ top: 5, right: 20, left: 20, bottom: 5 }}
                   >
-                    <CartesianGrid strokeDasharray="3 3" stroke="#3F443B" vertical={false} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#333A48" vertical={false} />
                     <XAxis type="number" stroke="#94a3b8" fontSize={11} tickFormatter={(v) => formatCurrency(v, currency)} />
-                    <YAxis type="category" dataKey="name" stroke="#a1a1aa" fontSize={11} width={110} tickLine={false} />
+                    <YAxis type="category" dataKey="name" stroke="#94a3b8" fontSize={11} width={110} tickLine={false} />
                     <Tooltip content={<CustomTooltip />} />
                     <Bar dataKey="value" radius={[0, 6, 6, 0]}>
                       {chartData.map((entry) => (
@@ -554,10 +554,10 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
               {/* Center Donut Stats Label */}
               {chartType === 'pie' && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                  <span className="text-[10px] font-medium text-slate-500 uppercase tracking-wider">
+                  <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                     {lang === 'bg' ? 'Общо' : 'Total'}
                   </span>
-                  <span className="text-lg font-extrabold text-slate-800">
+                  <span className="text-lg font-extrabold text-slate-800 dark:text-white">
                     {formatCurrency(totalSpent, currency)}
                   </span>
                 </div>
@@ -567,10 +567,10 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
         </div>
 
         {/* Legend / Category List Breakdown */}
-        <div className="lg:col-span-5 bg-white border border-slate-200 rounded-3xl p-4 sm:p-6 shadow-sm space-y-4 max-h-[480px] overflow-y-auto">
-          <h3 className="text-sm font-bold text-slate-800 flex items-center justify-between border-b border-slate-200 pb-3">
+        <div className="lg:col-span-5 bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl p-4 sm:p-6 shadow-sm space-y-4 max-h-[480px] overflow-y-auto">
+          <h3 className="text-sm font-bold text-slate-800 dark:text-white flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
             <span>{lang === 'bg' ? 'Детайлен преглед' : 'Category Breakdown'}</span>
-            <span className="text-xs text-slate-500 font-normal">
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-normal">
               {categoryBreakdown.length} {lang === 'bg' ? 'категории' : 'items'}
             </span>
           </h3>
@@ -589,7 +589,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                   className={`p-3 rounded-xl border transition-all ${
                     isSelected
                       ? 'bg-[#F7B352]/10 border-[#F7B352]/50'
-                      : 'bg-slate-50 border-slate-200 hover:border-slate-200'
+                      : 'bg-slate-50 dark:bg-[#101217] border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2">
@@ -601,17 +601,17 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                         className="w-3 h-3 rounded-full flex-shrink-0"
                         style={{ backgroundColor: item.color }}
                       />
-                      <span className="text-xs font-bold text-slate-700 truncate">
+                      <span className="text-xs font-bold text-slate-700 dark:text-slate-200 truncate">
                         {item.name}
                       </span>
                     </div>
 
                     <div className="flex items-center gap-2 text-right">
                       <div>
-                        <div className="text-xs font-extrabold text-slate-800">
+                        <div className="text-xs font-extrabold text-slate-800 dark:text-white">
                           {formatCurrency(item.value, currency)}
                         </div>
-                        <div className="text-[10px] text-slate-500 font-medium">
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
                           {item.percent.toFixed(1)}%
                         </div>
                       </div>
@@ -619,7 +619,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                       {hasSubcategories && (
                         <button
                           onClick={() => toggleExpandMainCat(item.id)}
-                          className="p-1 text-slate-500 hover:text-slate-700 cursor-pointer"
+                          className="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer"
                         >
                           {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
                         </button>
@@ -628,7 +628,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                   </div>
 
                   {/* Progress Bar */}
-                  <div className="mt-2 h-1.5 bg-slate-50 rounded-full overflow-hidden">
+                  <div className="mt-2 h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all duration-500"
                       style={{
@@ -640,7 +640,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
 
                   {/* Budget warning indicator if limit set */}
                   {limit && (
-                    <div className="mt-2 flex items-center justify-between text-[10px] text-slate-500">
+                    <div className="mt-2 flex items-center justify-between text-[10px] text-slate-500 dark:text-slate-400">
                       <span>
                         {lang === 'bg' ? 'Лимит:' : 'Limit:'} {formatCurrency(limit, currency)}
                       </span>
@@ -654,15 +654,15 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
 
                   {/* Expandable Subcategories */}
                   {hasSubcategories && isExpanded && (
-                    <div className="mt-3 pt-2 border-t border-slate-200 space-y-2 pl-2">
+                    <div className="mt-3 pt-2 border-t border-slate-200 dark:border-slate-800 space-y-2 pl-2">
                       {(item as any).subcategories.map((sub: any) => (
-                        <div key={sub.id} className="flex items-center justify-between text-[11px] text-slate-600">
-                          <span className="truncate flex items-center pl-2 text-slate-600">
+                        <div key={sub.id} className="flex items-center justify-between text-[11px] text-slate-600 dark:text-slate-300">
+                          <span className="truncate flex items-center pl-2 text-slate-600 dark:text-slate-400">
                             <span>{sub.name}</span>
                           </span>
-                          <div className="font-medium text-slate-700">
+                          <div className="font-medium text-slate-700 dark:text-slate-200">
                             {formatCurrency(sub.value, currency)}
-                            <span className="text-slate-500 text-[10px] ml-1">
+                            <span className="text-slate-400 text-[10px] ml-1">
                               ({sub.percent.toFixed(0)}%)
                             </span>
                           </div>
@@ -678,10 +678,10 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
       </div>
 
       {/* 6-Month Trend Line Chart */}
-      <div className="bg-white border border-slate-200 rounded-3xl p-4 sm:p-6 shadow-sm mt-6">
+      <div className="bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl p-4 sm:p-6 shadow-sm mt-6">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
+            <h3 className="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2">
               <Activity className="w-4 h-4 text-[#F7B352]" />
               <span>{lang === 'bg' ? 'Тенденция на разходите (Последните 6 месеца)' : 'Expense Trend (Last 6 Months)'}</span>
             </h3>
@@ -694,10 +694,10 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
               data={sixMonthTrendData}
               margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="#3F443B" vertical={false} />
-              <XAxis dataKey="name" stroke="#a1a1aa" fontSize={11} tickLine={false} axisLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#333A48" vertical={false} />
+              <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} />
               <YAxis 
-                stroke="#a1a1aa" 
+                stroke="#94a3b8" 
                 fontSize={11} 
                 tickLine={false} 
                 axisLine={false}
@@ -708,8 +708,8 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                 content={({ active, payload, label }) => {
                   if (active && payload && payload.length) {
                     return (
-                      <div className="bg-white border border-slate-200 p-3 rounded-xl shadow-xl text-xs space-y-1">
-                        <div className="font-bold text-slate-800 mb-1">{label}</div>
+                      <div className="bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-700 p-3 rounded-xl shadow-xl text-xs space-y-1">
+                        <div className="font-bold text-slate-800 dark:text-white mb-1">{label}</div>
                         <div className="text-[#F7B352] font-extrabold text-sm">
                           {formatCurrency(payload[0].value as number, currency)}
                         </div>
@@ -725,7 +725,7 @@ export const SpendingAnalytics: React.FC<SpendingAnalyticsProps> = ({ appState }
                 stroke="#F7B352" 
                 strokeWidth={3}
                 dot={{ r: 4, fill: '#F7B352', strokeWidth: 0 }}
-                activeDot={{ r: 6, fill: '#F7B352', stroke: '#1A1C19', strokeWidth: 2 }}
+                activeDot={{ r: 6, fill: '#F7B352', stroke: '#181B22', strokeWidth: 2 }}
               />
             </LineChart>
           </ResponsiveContainer>

@@ -79,14 +79,14 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
   };
 
   return (
-    <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
-      <div className="p-4 sm:p-6 border-b border-slate-200 flex items-center justify-between">
+    <div className="bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm">
+      <div className="p-4 sm:p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
         <div>
-          <h3 className="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
+          <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
             <Target className="w-5 h-5 text-[#F7B352]" />
             <span>{lang === 'bg' ? 'Бюджетни Лимити' : 'Budget Limits'}</span>
           </h3>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             {lang === 'bg' ? 'Проследявайте разходите си по категории.' : 'Track your spending against set category limits.'}
           </p>
         </div>
@@ -94,8 +94,8 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
           onClick={() => setIsEditing(!isEditing)}
           className={`p-2 rounded-xl transition-colors cursor-pointer ${
             isEditing 
-              ? 'bg-[#F7B352]/15 text-[#174E5B] border border-[#F7B352]/30' 
-              : 'bg-slate-50 text-slate-500 hover:text-slate-700 hover:bg-slate-100 border border-slate-200'
+              ? 'bg-[#F7B352]/15 text-[#174E5B] dark:text-[#F7B352] border border-[#F7B352]/30' 
+              : 'bg-slate-50 dark:bg-[#1A1E26] text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#222732] border border-slate-200 dark:border-slate-700'
           }`}
         >
           <Settings2 className="w-4 h-4" />
@@ -104,8 +104,8 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
 
       <div className="p-4 sm:p-6 space-y-6">
         {budgetedCategoryIds.length === 0 && !isEditing ? (
-          <div className="text-center py-6 text-slate-400">
-            <Target className="w-8 h-8 mx-auto mb-3 text-slate-400 opacity-50" />
+          <div className="text-center py-6 text-slate-400 dark:text-slate-500">
+            <Target className="w-8 h-8 mx-auto mb-3 text-slate-400 dark:text-slate-500 opacity-50" />
             <p className="text-sm font-medium">{lang === 'bg' ? 'Нямате зададени лимити.' : 'No budget limits set.'}</p>
             <p className="text-xs mt-1">{lang === 'bg' ? 'Натиснете иконката за настройки, за да добавите.' : 'Click the settings icon to add some.'}</p>
           </div>
@@ -127,7 +127,7 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
               return (
                 <div key={catId} className="space-y-2">
                   <div className="flex items-center justify-between text-sm">
-                    <div className="flex items-center gap-2 text-slate-700 font-semibold">
+                    <div className="flex items-center gap-2 text-slate-700 dark:text-slate-200 font-semibold">
                       <span className="p-1.5 rounded-lg" style={{ backgroundColor: `${cat.color || '#a1a1aa'}15`, color: cat.color || '#a1a1aa' }}>
                         {renderIcon(cat.icon)}
                       </span>
@@ -139,7 +139,7 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
                           type="number"
                           value={limit}
                           onChange={(e) => handleUpdateLimit(catId, e.target.value)}
-                          className="w-24 px-2 py-1 bg-slate-50 border border-slate-200 rounded-lg text-xs text-right text-slate-700 focus:outline-none focus:border-[#F7B352]"
+                          className="w-24 px-2 py-1 bg-slate-50 dark:bg-[#1A1E26] border border-slate-200 dark:border-slate-700 rounded-lg text-xs text-right text-slate-700 dark:text-slate-200 focus:outline-none focus:border-[#F7B352]"
                         />
                         <button
                           onClick={() => handleRemoveLimit(catId)}
@@ -150,13 +150,13 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
                       </div>
                     ) : (
                       <div className="text-right">
-                        <span className="font-bold text-slate-800">{formatCurrency(spent, currency)}</span>
-                        <span className="text-slate-400 text-xs ml-1">/ {formatCurrency(limit, currency)}</span>
+                        <span className="font-bold text-slate-800 dark:text-white">{formatCurrency(spent, currency)}</span>
+                        <span className="text-slate-400 dark:text-slate-500 text-xs ml-1">/ {formatCurrency(limit, currency)}</span>
                       </div>
                     )}
                   </div>
                   
-                  <div className="h-2 bg-slate-50 rounded-full overflow-hidden flex">
+                  <div className="h-2 bg-slate-100 dark:bg-[#12141A] rounded-full overflow-hidden flex border border-slate-200/50 dark:border-slate-700/60">
                     <div 
                       className={`h-full ${statusColor.split(' ')[0]} transition-all duration-500`} 
                       style={{ width: `${percentage}%` }}
@@ -165,10 +165,10 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
                   
                   {!isEditing && (
                     <div className="flex items-center justify-between text-[11px] font-medium">
-                      <span className="text-slate-400">
+                      <span className="text-slate-400 dark:text-slate-400">
                         {percentage.toFixed(0)}% {lang === 'bg' ? 'изразходвани' : 'spent'}
                       </span>
-                      <span className={remaining < 0 ? 'text-[#E07A6C] font-bold' : remaining < (limit * 0.2) ? 'text-[#174E5B] font-bold' : 'text-[#9BB18A] font-bold'}>
+                      <span className={remaining < 0 ? 'text-[#E07A6C] font-bold' : remaining < (limit * 0.2) ? 'text-[#F7B352] dark:text-amber-400 font-bold' : 'text-[#9BB18A] dark:text-emerald-400 font-bold'}>
                         {remaining < 0 
                           ? `${lang === 'bg' ? 'Надхвърлен с' : 'Over by'} ${formatCurrency(Math.abs(remaining), currency)}` 
                           : `${formatCurrency(remaining, currency)} ${lang === 'bg' ? 'оставащи' : 'left'}`}
@@ -182,19 +182,19 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
         )}
 
         {isEditing && (
-          <div className="pt-4 border-t border-slate-200/60 mt-4">
-            <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">
+          <div className="pt-4 border-t border-slate-200/60 dark:border-slate-800 mt-4">
+            <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">
               {lang === 'bg' ? 'Добави лимит' : 'Add New Limit'}
             </h4>
             <div className="flex gap-2 items-center">
               <select
                 value={newCategoryId}
                 onChange={(e) => setNewCategoryId(e.target.value)}
-                className="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 focus:outline-none focus:border-[#F7B352]"
+                className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[#1A1E26] border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:border-[#F7B352]"
               >
-                <option value="">{lang === 'bg' ? 'Избери категория' : 'Select category'}</option>
+                <option value="" className="dark:bg-[#1A1E26]">{lang === 'bg' ? 'Избери категория' : 'Select category'}</option>
                 {availableCategories.map(c => (
-                  <option key={c.id} value={c.id}>
+                  <option key={c.id} value={c.id} className="dark:bg-[#1A1E26]">
                     {getCategoryName(c.id, categories, lang)}
                   </option>
                 ))}
@@ -204,7 +204,7 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
                 placeholder="0.00"
                 value={newLimit}
                 onChange={(e) => setNewLimit(e.target.value)}
-                className="w-24 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 focus:outline-none focus:border-[#F7B352]"
+                className="w-24 px-3 py-2 bg-slate-50 dark:bg-[#1A1E26] border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:border-[#F7B352]"
               />
               <button
                 onClick={handleSaveNewLimit}

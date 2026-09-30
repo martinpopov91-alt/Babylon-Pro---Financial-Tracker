@@ -56,27 +56,27 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
 
   return (
     <div className="space-y-4">
-      <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
-        <Tag className="w-4 h-4 text-emerald-400" />
+      <h3 className="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2">
+        <Tag className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
         <span>{t('categoryManagement')}</span>
       </h3>
 
       {/* Add new category form */}
-      <form onSubmit={handleAdd} className="grid grid-cols-1 sm:grid-cols-5 gap-2 bg-slate-50/60 p-3 rounded-xl border border-slate-200/60">
+      <form onSubmit={handleAdd} className="grid grid-cols-1 sm:grid-cols-5 gap-2 bg-slate-50/60 dark:bg-[#101217] p-3 rounded-xl border border-slate-200/60 dark:border-slate-800">
         <input
           type="text"
           required
           placeholder="Name (EN)"
           value={nameEn}
           onChange={(e) => setNameEn(e.target.value)}
-          className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium text-slate-800"
+          className="px-3 py-2 bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-emerald-500"
         />
         <input
           type="text"
           placeholder="Име (BG)"
           value={nameBg}
           onChange={(e) => setNameBg(e.target.value)}
-          className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium text-slate-800"
+          className="px-3 py-2 bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-emerald-500"
         />
         <select
           value={selectedType}
@@ -84,10 +84,10 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
             setSelectedType(e.target.value as CategoryType);
             setParentId('');
           }}
-          className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium text-slate-700 cursor-pointer"
+          className="px-3 py-2 bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-200 cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-500"
         >
           {typesList.map((t) => (
-            <option key={t.type} value={t.type}>
+            <option key={t.type} value={t.type} className="dark:bg-[#181B22]">
               {t.label}
             </option>
           ))}
@@ -95,11 +95,11 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
         <select
           value={parentId}
           onChange={(e) => setParentId(e.target.value)}
-          className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium text-slate-700 cursor-pointer"
+          className="px-3 py-2 bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-200 cursor-pointer focus:outline-none focus:ring-1 focus:ring-emerald-500"
         >
-          <option value="">{lang === 'bg' ? 'Основна категория' : 'Main Category'}</option>
+          <option value="" className="dark:bg-[#181B22]">{lang === 'bg' ? 'Основна категория' : 'Main Category'}</option>
           {mainCategoriesForSelectedType.map((cat) => (
-            <option key={cat.id} value={cat.id}>
+            <option key={cat.id} value={cat.id} className="dark:bg-[#181B22]">
               {lang === 'bg' ? cat.nameBg : cat.nameEn}
             </option>
           ))}
@@ -122,15 +122,15 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
 
           return (
             <div key={type} className="space-y-2">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-500 dark:text-emerald-400">
                 {label} ({catGroup.length})
               </span>
               <div className="space-y-2">
                 {mainCats.map((main) => {
                   const subCats = catGroup.filter(c => c.parentId === main.id);
                   return (
-                    <div key={main.id} className="bg-slate-50/80 border border-slate-200/50 rounded-xl p-2.5 space-y-1.5">
-                      <div className="flex items-center justify-between text-xs font-bold text-slate-800">
+                    <div key={main.id} className="bg-slate-50/80 dark:bg-[#101217] border border-slate-200/50 dark:border-slate-800 rounded-xl p-2.5 space-y-1.5">
+                      <div className="flex items-center justify-between text-xs font-bold text-slate-800 dark:text-white">
                         <span 
                           className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold border transition-colors" 
                           style={{ 
@@ -145,18 +145,18 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
                           <button
                             type="button"
                             onClick={() => onDeleteCategory(main.id)}
-                            className="text-slate-400 hover:text-rose-400 transition-colors p-1 cursor-pointer"
+                            className="text-slate-400 hover:text-rose-500 transition-colors p-1 cursor-pointer"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         )}
                       </div>
                       {subCats.length > 0 && (
-                        <div className="pl-3 border-l-2 border-slate-200/60 grid grid-cols-1 sm:grid-cols-2 gap-1 text-[11px]">
+                        <div className="pl-3 border-l-2 border-slate-200/60 dark:border-slate-700/60 grid grid-cols-1 sm:grid-cols-2 gap-1 text-[11px]">
                           {subCats.map((sub) => (
                             <div
                               key={sub.id}
-                              className="flex items-center justify-between p-1.5 rounded-md bg-white/60 text-slate-600"
+                              className="flex items-center justify-between p-1.5 rounded-md bg-white/60 dark:bg-[#181B22]/60 text-slate-600 dark:text-slate-300"
                             >
                               <div className="flex items-center gap-1.5">
                                 <span 
@@ -174,7 +174,7 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
                                 <button
                                   type="button"
                                   onClick={() => onDeleteCategory(sub.id)}
-                                  className="text-slate-400 hover:text-rose-400 transition-colors p-0.5"
+                                  className="text-slate-400 hover:text-rose-500 transition-colors p-0.5 cursor-pointer"
                                 >
                                   <Trash2 className="w-3 h-3" />
                                 </button>

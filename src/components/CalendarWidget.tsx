@@ -112,18 +112,18 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ transactions, cu
   const selectedDayTotals = selectedDay ? dailyTotals[selectedDay] || { income: 0, expense: 0 } : null;
 
   return (
-    <div id="calendar-widget" className="bg-white border border-slate-200 rounded-3xl p-4 sm:p-6 shadow-sm space-y-5">
+    <div id="calendar-widget" className="bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl p-4 sm:p-6 shadow-sm space-y-5">
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-3xl bg-[#F7B352]/15 text-[#174E5B] border border-[#F7B352]/30">
+          <div className="p-2.5 rounded-3xl bg-[#F7B352]/15 text-[#174E5B] dark:text-[#F7B352] border border-[#F7B352]/30">
             <CalendarIcon className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-slate-800 font-display">
+            <h3 className="text-base font-bold text-slate-800 dark:text-white font-display">
               {lang === 'bg' ? 'Календар на транзакциите' : 'Transaction Calendar'}
             </h3>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               {lang === 'bg' 
                 ? 'Преглед на получените и изхарчени суми по дни за месеца' 
                 : 'Daily breakdown of amounts received and spent this month'}
@@ -136,27 +136,27 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ transactions, cu
           {!isCurrentMonth && (
             <button
               onClick={handleJumpToToday}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-xs font-semibold text-slate-600 transition-colors cursor-pointer"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#1A1E26] dark:hover:bg-[#222732] text-xs font-semibold text-slate-600 dark:text-slate-300 transition-colors cursor-pointer border border-slate-200 dark:border-slate-700"
             >
               <RotateCcw className="w-3.5 h-3.5 text-[#F7B352]" />
               <span>{lang === 'bg' ? 'Днес' : 'Today'}</span>
             </button>
           )}
 
-          <div className="flex items-center bg-slate-50 rounded-xl p-1 border border-slate-200">
+          <div className="flex items-center bg-slate-50 dark:bg-[#1A1E26] rounded-xl p-1 border border-slate-200 dark:border-slate-700">
             <button 
               onClick={handlePrevMonth} 
-              className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600 transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-[#222732] text-slate-600 dark:text-slate-300 transition-colors cursor-pointer"
               title={lang === 'bg' ? 'Предишен месец' : 'Previous month'}
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <span className="font-bold text-xs sm:text-sm w-32 text-center text-slate-700">
+            <span className="font-bold text-xs sm:text-sm w-32 text-center text-slate-700 dark:text-slate-200">
               {monthNames[currentMonth]} {currentYear}
             </span>
             <button 
               onClick={handleNextMonth} 
-              className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600 transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-[#222732] text-slate-600 dark:text-slate-300 transition-colors cursor-pointer"
               title={lang === 'bg' ? 'Следващ месец' : 'Next month'}
             >
               <ChevronRight className="w-4 h-4" />
@@ -166,14 +166,14 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ transactions, cu
       </div>
 
       {/* Month Metrics Summary Pill Strip */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3 bg-slate-50 border border-slate-200 rounded-3xl">
-        <div className="flex items-center justify-between px-3 py-2 bg-white rounded-xl border border-slate-200">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3 bg-slate-50 dark:bg-[#14161D] border border-slate-200 dark:border-slate-800 rounded-3xl">
+        <div className="flex items-center justify-between px-3 py-2 bg-white dark:bg-[#181B22] rounded-xl border border-slate-200 dark:border-slate-700/80">
           <div className="flex items-center gap-2">
             <span className="p-1.5 rounded-lg bg-[#8DA37C]/15 text-[#9BB18A]">
               <ArrowDownLeft className="w-4 h-4" />
             </span>
             <div>
-              <p className="text-[10px] uppercase font-bold text-slate-500">
+              <p className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">
                 {lang === 'bg' ? 'Получени (Приходи)' : 'Total Received'}
               </p>
               <p className="text-sm font-black text-[#9BB18A] font-display">
@@ -183,13 +183,13 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ transactions, cu
           </div>
         </div>
 
-        <div className="flex items-center justify-between px-3 py-2 bg-white rounded-xl border border-slate-200">
+        <div className="flex items-center justify-between px-3 py-2 bg-white dark:bg-[#181B22] rounded-xl border border-slate-200 dark:border-slate-700/80">
           <div className="flex items-center gap-2">
             <span className="p-1.5 rounded-lg bg-[#E07A6C]/15 text-[#E07A6C]">
               <ArrowUpRight className="w-4 h-4" />
             </span>
             <div>
-              <p className="text-[10px] uppercase font-bold text-slate-500">
+              <p className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">
                 {lang === 'bg' ? 'Изхарчени (Разходи)' : 'Total Spent'}
               </p>
               <p className="text-sm font-black text-[#E07A6C] font-display">
@@ -199,13 +199,13 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ transactions, cu
           </div>
         </div>
 
-        <div className="flex items-center justify-between px-3 py-2 bg-white rounded-xl border border-slate-200">
+        <div className="flex items-center justify-between px-3 py-2 bg-white dark:bg-[#181B22] rounded-xl border border-slate-200 dark:border-slate-700/80">
           <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded-lg bg-[#F7B352]/15 text-[#174E5B]">
+            <span className="p-1.5 rounded-lg bg-[#F7B352]/15 text-[#174E5B] dark:text-[#F7B352]">
               <Wallet className="w-4 h-4" />
             </span>
             <div>
-              <p className="text-[10px] uppercase font-bold text-slate-500">
+              <p className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">
                 {lang === 'bg' ? 'Нетен Паричен Поток' : 'Net Cash Flow'}
               </p>
               <p className={`text-sm font-black font-display ${
@@ -224,7 +224,7 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ transactions, cu
           <div 
             key={day} 
             className={`text-center text-[11px] font-bold uppercase tracking-wider py-1 ${
-              idx >= 5 ? 'text-[#174E5B]' : 'text-slate-500'
+              idx >= 5 ? 'text-[#174E5B] dark:text-[#F7B352]' : 'text-slate-500 dark:text-slate-400'
             }`}
           >
             {day}
@@ -239,7 +239,7 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ transactions, cu
             return (
               <div 
                 key={`empty-${index}`} 
-                className="min-h-16 sm:min-h-20 bg-slate-100/30 rounded-3xl border border-transparent" 
+                className="min-h-16 sm:min-h-20 bg-slate-100/30 dark:bg-slate-800/20 rounded-3xl border border-transparent" 
               />
             );
           }
@@ -256,21 +256,21 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ transactions, cu
               onClick={() => setSelectedDay(selectedDay === day ? null : day)}
               className={`min-h-16 sm:min-h-20 p-1.5 sm:p-2.5 rounded-3xl flex flex-col justify-between border transition-all text-left cursor-pointer ${
                 isSelected
-                  ? 'ring-2 ring-[#F7B352] bg-[#F7B352]/15 border-[#F7B352]'
+                  ? 'ring-2 ring-[#F7B352] bg-[#F7B352]/15 dark:bg-[#F7B352]/20 border-[#F7B352]'
                   : isToday
-                  ? 'bg-[#3F443B]/40 border-[#3F443B]'
+                  ? 'bg-amber-500/10 dark:bg-amber-500/20 border-amber-500/40'
                   : hasTransactions
-                  ? 'bg-slate-50 border-slate-200 hover:border-[#F7B352]/60 hover:shadow-xs'
-                  : 'bg-white/50 border-slate-200 hover:bg-slate-50'
+                  ? 'bg-slate-50 dark:bg-[#1A1E26] border-slate-200 dark:border-slate-800 hover:border-[#F7B352]/60 hover:shadow-xs'
+                  : 'bg-white/50 dark:bg-[#181B22]/40 border-slate-200 dark:border-slate-800/80 hover:bg-slate-50 dark:hover:bg-[#1A1E26]'
               }`}
             >
               <div className="flex items-center justify-between w-full">
                 <span className={`text-xs font-bold w-6 h-6 flex items-center justify-center rounded-xl transition-colors ${
                   isToday 
-                    ? 'bg-[#3F443B] text-slate-800 shadow-xs' 
+                    ? 'bg-[#F7B352] text-slate-900 font-bold shadow-xs' 
                     : isSelected
                     ? 'bg-[#F7B352] text-slate-900 font-black shadow-xs'
-                    : 'text-slate-600'
+                    : 'text-slate-600 dark:text-slate-300'
                 }`}>
                   {day}
                 </span>
@@ -300,11 +300,11 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ transactions, cu
 
       {/* Selected Day Transaction Breakdown Drawer/Panel */}
       {selectedDay !== null && (
-        <div className="p-4 sm:p-5 bg-slate-50 rounded-3xl border border-slate-200 space-y-3 animate-fadeIn">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+        <div className="p-4 sm:p-5 bg-slate-50 dark:bg-[#14161D] rounded-3xl border border-slate-200 dark:border-slate-800 space-y-3 animate-fadeIn">
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-2">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#F7B352]" />
-              <h4 className="font-bold text-sm text-slate-800">
+              <h4 className="font-bold text-sm text-slate-800 dark:text-white">
                 {lang === 'bg' 
                   ? `Транзакции на ${selectedDay} ${monthNames[currentMonth]} ${currentYear}`
                   : `Transactions on ${selectedDay} ${monthNames[currentMonth]} ${currentYear}`}
@@ -328,7 +328,7 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ transactions, cu
               )}
               <button
                 onClick={() => setSelectedDay(null)}
-                className="p-1 rounded-lg text-slate-500 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+                className="p-1 rounded-lg text-slate-500 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#1A1E26] transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -336,16 +336,16 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ transactions, cu
           </div>
 
           {selectedDayTransactions.length === 0 ? (
-            <p className="text-xs text-slate-400 italic py-2">
+            <p className="text-xs text-slate-400 dark:text-slate-500 italic py-2">
               {lang === 'bg' ? 'Няма записани транзакции за този ден.' : 'No transactions recorded for this day.'}
             </p>
           ) : (
-            <div className="divide-y divide-zinc-700/60 max-h-56 overflow-y-auto">
+            <div className="divide-y divide-slate-200/80 dark:divide-slate-800 max-h-56 overflow-y-auto">
               {selectedDayTransactions.map(tx => (
                 <div key={tx.id} className="py-2.5 flex items-center justify-between gap-3 text-xs">
                   <div className="space-y-0.5">
-                    <p className="font-semibold text-slate-800">{tx.description}</p>
-                    <p className="text-[11px] text-slate-500 capitalize">
+                    <p className="font-semibold text-slate-800 dark:text-slate-200">{tx.description}</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 capitalize">
                       {tx.category} • {tx.type}
                     </p>
                   </div>
