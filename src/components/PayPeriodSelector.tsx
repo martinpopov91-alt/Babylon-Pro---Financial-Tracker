@@ -247,9 +247,9 @@ export const PayPeriodSelector: React.FC<PayPeriodSelectorProps> = ({
 
             {/* Status indicator badge */}
             {activePeriodInfo.isCurrent ? (
-              <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.2 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 whitespace-nowrap">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span>{activePeriodInfo.daysRemaining} {t('daysLeft')}</span>
+              <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.2 rounded-full bg-black/5 dark:bg-black/10 text-black dark:text-black border border-black/15 whitespace-nowrap">
+                <span className="w-1.5 h-1.5 rounded-full bg-black dark:bg-black animate-pulse" />
+                <span className="text-black dark:text-black">{activePeriodInfo.daysRemaining} {t('daysLeft')}</span>
               </span>
             ) : activePeriodInfo.isPast ? (
               <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.2 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 whitespace-nowrap">

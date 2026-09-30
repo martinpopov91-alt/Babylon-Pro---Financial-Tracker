@@ -146,7 +146,7 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-white border border-slate-200/90 dark:border-slate-200 rounded-3xl p-6 shadow-sm">
         <div className="space-y-1">
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-800 font-display flex items-center gap-2">
-            <PiggyBank className="w-6 h-6 text-teal-500 dark:text-teal-400" />
+            <PiggyBank className="w-6 h-6 text-black dark:text-black" />
             <span>{t('goalTrackerTitle')}</span>
           </h2>
           <p className="text-xs text-slate-500 dark:text-slate-500">
@@ -167,7 +167,7 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-white dark:bg-white border border-slate-200/90 dark:border-slate-200 rounded-3xl p-4 shadow-sm">
           <p className="text-xs font-semibold text-slate-500 dark:text-slate-500">{lang === 'bg' ? 'Общо Спестено' : 'Total Saved'}</p>
-          <p className="text-2xl font-black text-teal-600 dark:text-teal-400 font-display mt-1">
+          <p className="text-2xl font-black text-black dark:text-black font-display mt-1">
             {formatCurrency(totalSavedSum, currency)}
           </p>
         </div>
@@ -179,7 +179,7 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
         </div>
         <div className="bg-white dark:bg-white border border-slate-200/90 dark:border-slate-200 rounded-3xl p-4 shadow-sm">
           <p className="text-xs font-semibold text-slate-500 dark:text-slate-500">{t('monthlyTarget')}</p>
-          <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400 font-display mt-1">
+          <p className="text-2xl font-black text-black dark:text-black font-display mt-1">
             {formatCurrency(totalMonthlySum, currency)}
           </p>
         </div>
@@ -193,7 +193,7 @@ export const SinkingFundsTracker: React.FC<SinkingFundsTrackerProps> = ({
           </p>
           <button
             onClick={handleOpenAddModal}
-            className="px-4 py-2 rounded-xl bg-teal-50 dark:bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-500/20 text-xs font-bold hover:bg-teal-100 dark:hover:bg-teal-500/20 transition-colors cursor-pointer"
+            className="px-4 py-2 rounded-xl bg-black text-white hover:bg-neutral-800 border border-black text-xs font-bold transition-colors cursor-pointer"
           >
             + {t('addGoal')}
           </button>

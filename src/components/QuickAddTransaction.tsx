@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { X, Plus, Calendar, Tag, FileText, DollarSign, PiggyBank } from 'lucide-react';
 import { Category, CategoryType, Goal, Language, Transaction } from '../types';
 import { getTranslation } from '../constants/translations';
@@ -29,6 +29,27 @@ export const QuickAddTransaction: React.FC<QuickAddTransactionProps> = ({
   const [selectedType, setSelectedType] = useState<CategoryType>('needs');
   const [date, setDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [selectedGoalId, setSelectedGoalId] = useState<string>('');
+  const dateInputRef = useRef<HTMLInputElement>(null);
+
+  const handleShiftDate = (days: number) => {
+    const current = new Date(date || new Date());
+    current.setDate(current.getDate() + days);
+    const yyyy = current.getFullYear();
+    const mm = String(current.getMonth() + 1).padStart(2, '0');
+    const dd = String(current.getDate()).padStart(2, '0');
+    setDate(`${yyyy}-${mm}-${dd}`);
+  };
+
+  const setQuickDate = (type: 'today' | 'yesterday') => {
+    const d = new Date();
+    if (type === 'yesterday') {
+      d.setDate(d.getDate() - 1);
+    }
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    setDate(`${yyyy}-${mm}-${dd}`);
+  };
 
   // Handle category change -> auto update type if matching
   const handleCategoryChange = (catId: string) => {
@@ -255,18 +276,70 @@ export const QuickAddTransaction: React.FC<QuickAddTransactionProps> = ({
 
           {/* Date Picker */}
           <div>
-            <label className="block text-xs font-semibold text-slate-500 mb-1">
-              {t('date')} *
-            </label>
-            <div className="relative">
-              <Calendar className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <div className="flex items-center justify-between mb-1">
+              <label className="block text-xs font-semibold text-slate-500">
+                {t('date')} *
+              </label>
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => setQuickDate('today')}
+                  className="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium transition-colors cursor-pointer"
+                >
+                  {lang === 'bg' ? 'Днес' : 'Today'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setQuickDate('yesterday')}
+                  className="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium transition-colors cursor-pointer"
+                >
+                  {lang === 'bg' ? 'Вчера' : 'Yesterday'}
+                </button>
+              </div>
+            </div>
+            <div 
+              className="relative flex items-center cursor-pointer"
+              onClick={() => {
+                try {
+                  dateInputRef.current?.showPicker?.();
+                } catch (_) {}
+              }}
+            >
+              <Calendar className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none z-10" />
               <input
+                ref={dateInputRef}
                 type="date"
                 required
                 value={date}
+                onClick={(e) => {
+                  try {
+                    (e.target as HTMLInputElement).showPicker?.();
+                  } catch (_) {}
+                }}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full pl-10 pr-16 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer [color-scheme:light]"
               />
+              <div 
+                className="absolute right-2 flex items-center gap-1 z-10"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  type="button"
+                  title={lang === 'bg' ? 'Предишен ден' : 'Previous day'}
+                  onClick={() => handleShiftDate(-1)}
+                  className="w-6 h-6 flex items-center justify-center rounded-lg hover:bg-slate-200 text-slate-600 text-xs font-bold transition-colors cursor-pointer"
+                >
+                  &larr;
+                </button>
+                <button
+                  type="button"
+                  title={lang === 'bg' ? 'Следващ ден' : 'Next day'}
+                  onClick={() => handleShiftDate(1)}
+                  className="w-6 h-6 flex items-center justify-center rounded-lg hover:bg-slate-200 text-slate-600 text-xs font-bold transition-colors cursor-pointer"
+                >
+                  &rarr;
+                </button>
+              </div>
             </div>
           </div>
 

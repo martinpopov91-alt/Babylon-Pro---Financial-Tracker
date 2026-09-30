@@ -42,7 +42,6 @@ import { SpendingAnalytics } from './components/SpendingAnalytics';
 import { KeyboardShortcutsModal } from './components/KeyboardShortcutsModal';
 import { ConfirmModal } from './components/ConfirmModal';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
-import { CalendarWidget } from './components/CalendarWidget';
 
 export default function App() {
   const [appState, setAppState] = useState<AppState>(() => loadAppState());
@@ -664,57 +663,35 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Grid layout for middle sections */}
-              <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-                <div className="xl:col-span-2 space-y-6">
-                  {/* Hero Disposable Life Money Card adapted */}
-                  <HeroCard
-                    summary={summary}
-                    currency={currency}
-                    lang={lang}
-                    settings={appState.settings}
-                    onOpenQuickAdd={() => setIsQuickAddOpen(true)}
-                    onUpdateSettings={handleUpdateSettings}
-                  />
+              {/* Main dashboard widgets */}
+              <div className="space-y-6">
+                {/* Hero Disposable Life Money Card adapted */}
+                <HeroCard
+                  summary={summary}
+                  currency={currency}
+                  lang={lang}
+                  settings={appState.settings}
+                  onOpenQuickAdd={() => setIsQuickAddOpen(true)}
+                  onUpdateSettings={handleUpdateSettings}
+                />
 
-                  {/* Monthly Spending & Income Calendar */}
-                  <CalendarWidget 
-                    transactions={appState.transactions}
-                    currency={currency}
-                    lang={lang}
-                  />
+                {/* Monthly Budget Tracker (Budget Limits) */}
+                <MonthlyBudgetTracker
+                  appState={appState}
+                  summary={summary}
+                  onUpdateSettings={handleUpdateSettings}
+                />
 
-                  {/* Monthly Budget Tracker (Budget Limits) */}
-                  <MonthlyBudgetTracker
-                    appState={appState}
-                    summary={summary}
-                    onUpdateSettings={handleUpdateSettings}
-                  />
-
-                  {/* Babylon Rules Allocations Overview (Pay Yourself First) */}
-                  <AllocationsOverview
-                    summary={summary}
-                    currency={currency}
-                    lang={lang}
-                    tithePercent={appState.settings.tithePercent}
-                    wealthPercent={appState.settings.wealthPercent}
-                    onOpenSettings={() => setIsSettingsOpen(true)}
-                    onSelectTab={(tab) => setActiveTab(tab)}
-                  />
-                </div>
-
-                <div className="space-y-6">
-                  {/* Goal Vaults & Sinking Funds */}
-                  <SinkingFundsTracker
-                    goals={appState.goals}
-                    currency={currency}
-                    lang={lang}
-                    onAddGoal={handleAddGoal}
-                    onUpdateGoal={handleUpdateGoal}
-                    onDeleteGoal={handleDeleteGoal}
-                    onDepositToGoal={handleDepositToGoal}
-                  />
-                </div>
+                {/* Babylon Rules Allocations Overview (Pay Yourself First) */}
+                <AllocationsOverview
+                  summary={summary}
+                  currency={currency}
+                  lang={lang}
+                  tithePercent={appState.settings.tithePercent}
+                  wealthPercent={appState.settings.wealthPercent}
+                  onOpenSettings={() => setIsSettingsOpen(true)}
+                  onSelectTab={(tab) => setActiveTab(tab)}
+                />
               </div>
 
               {/* Recent Transactions Snapshot */}
