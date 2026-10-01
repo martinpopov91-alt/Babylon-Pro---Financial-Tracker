@@ -9,6 +9,8 @@ interface QuickAddTransactionProps {
   goals: Goal[];
   currency: string;
   lang: Language;
+  initialDate?: string;
+  initialType?: CategoryType;
   onClose: () => void;
   onAddTransaction: (transaction: Omit<Transaction, 'id'>, goalDepositId?: string) => void;
 }
@@ -18,6 +20,8 @@ export const QuickAddTransaction: React.FC<QuickAddTransactionProps> = ({
   goals,
   currency,
   lang,
+  initialDate,
+  initialType,
   onClose,
   onAddTransaction
 }) => {
@@ -25,9 +29,12 @@ export const QuickAddTransaction: React.FC<QuickAddTransactionProps> = ({
 
   const [amount, setAmount] = useState<string>('');
   const [note, setNote] = useState<string>('');
-  const [categoryId, setCategoryId] = useState<string>(categories[0]?.id || '');
-  const [selectedType, setSelectedType] = useState<CategoryType>('needs');
-  const [date, setDate] = useState<string>(new Date().toISOString().split('T')[0]);
+  const [selectedType, setSelectedType] = useState<CategoryType>(initialType || 'needs');
+  const initialMatchingCategory = initialType 
+    ? categories.find(c => c.type === initialType) 
+    : categories[0];
+  const [categoryId, setCategoryId] = useState<string>(initialMatchingCategory?.id || categories[0]?.id || '');
+  const [date, setDate] = useState<string>(initialDate || new Date().toISOString().split('T')[0]);
   const [selectedGoalId, setSelectedGoalId] = useState<string>('');
   const dateInputRef = useRef<HTMLInputElement>(null);
 

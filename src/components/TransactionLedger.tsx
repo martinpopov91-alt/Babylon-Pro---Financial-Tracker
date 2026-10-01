@@ -33,6 +33,7 @@ interface TransactionLedgerProps {
   lang: Language;
   settings?: AppSettings;
   isDashboardSnapshot?: boolean;
+  initialSearchQuery?: string;
   onViewAllLedger?: () => void;
   onDeleteTransaction: (id: string) => void;
   onDeleteTransactions?: (ids: string[]) => void;
@@ -51,6 +52,7 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
   lang,
   settings,
   isDashboardSnapshot = false,
+  initialSearchQuery = '',
   onViewAllLedger,
   onDeleteTransaction,
   onDeleteTransactions,
@@ -64,12 +66,19 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
   const t = (key: Parameters<typeof getTranslation>[1]) => getTranslation(lang, key);
 
   const [viewMode, setViewMode] = useState<'list' | 'summary'>('list');
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>(initialSearchQuery);
   const [selectedTypeFilter, setSelectedTypeFilter] = useState<string>('all');
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('all');
   const [selectedPeriodScope, setSelectedPeriodScope] = useState<'all' | 'period'>('all');
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
+
+  // Sync initialSearchQuery if passed dynamically
+  useEffect(() => {
+    if (initialSearchQuery !== undefined) {
+      setSearchQuery(initialSearchQuery);
+    }
+  }, [initialSearchQuery]);
 
   // Multi-select state
   const [selectedTxIds, setSelectedTxIds] = useState<string[]>([]);
@@ -131,7 +140,8 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
         const catName = getCategoryName(item.category, categories, lang).toLowerCase();
         const catMatch = catName.includes(query);
         const amountMatch = item.amount.toString().includes(query);
-        return noteMatch || catMatch || amountMatch;
+        const dateMatch = (item.date || '').toLowerCase().includes(query);
+        return noteMatch || catMatch || amountMatch || dateMatch;
       }
       return true;
     }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
