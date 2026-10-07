@@ -484,38 +484,38 @@ export default function App() {
   }, [summary.totalIncome, wealthAndGoals]);
 
   return (
-    <div className="min-h-screen w-full bg-[#EFF3F8] dark:bg-[#0B0F17] flex font-sans antialiased text-slate-800 dark:text-slate-100 overflow-x-hidden selection:bg-[#174E5B] selection:text-white">
+    <div className="min-h-screen w-full bg-[#EFF3F8] dark:bg-[#0B0F17] flex font-sans antialiased text-slate-800 dark:text-slate-100 selection:bg-[#174E5B] selection:text-white">
       {/* =========================================================================
-          LEFT SIDEBAR: Persistent Desktop Navigation & Interactive Activity Calendar
+          LEFT SIDEBAR: Fixed Full-Height Persistent Navigation & Interactive Activity Hub
           ========================================================================= */}
-      <aside className="hidden md:flex flex-col w-64 lg:w-72 bg-[#121622] dark:bg-[#0A0D14] text-slate-200 border-r border-slate-800/80 shrink-0 p-4 h-screen sticky top-0 overflow-y-auto custom-scrollbar select-none z-30">
+      <aside className="hidden md:flex flex-col fixed inset-y-0 left-0 w-64 lg:w-72 bg-[#121622] dark:bg-[#0A0D14] text-slate-200 border-r border-slate-800/80 z-30 overflow-y-auto custom-scrollbar select-none p-3.5">
         {/* Brand Header */}
-        <div className="flex items-center gap-3 px-2 py-2.5 mb-5 border-b border-white/10 dark:border-slate-800/80 pb-4">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#174E5B] via-teal-600 to-emerald-500 flex items-center justify-center text-white shadow-lg shadow-teal-900/30">
-            <Sparkles className="w-5 h-5 text-amber-300 animate-pulse" />
+        <div className="flex items-center gap-2.5 px-1 py-1.5 mb-3 border-b border-white/10 dark:border-slate-800/80 pb-3 shrink-0">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#174E5B] via-teal-600 to-emerald-500 flex items-center justify-center text-white shadow-lg shadow-teal-900/30 shrink-0">
+            <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
           </div>
-          <div>
-            <h1 className="font-extrabold text-base tracking-tight text-white flex items-center gap-1.5 font-display">
+          <div className="min-w-0">
+            <h1 className="font-extrabold text-sm tracking-tight text-white flex items-center gap-1.5 font-display truncate">
               {t('appTitle')}
             </h1>
-            <p className="text-[10px] text-slate-400 font-medium">
+            <p className="text-[10px] text-slate-400 font-medium truncate">
               {lang === 'bg' ? 'Финансов панел & Навици' : 'Executive Wealth Dashboard'}
             </p>
           </div>
         </div>
 
         {/* Primary Navigation Menu */}
-        <nav className="space-y-1 mb-6">
+        <nav className="space-y-1 mb-3 shrink-0">
           <button
             type="button"
             onClick={() => setActiveTab('dashboard')}
-            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
+            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
               activeTab === 'dashboard'
                 ? 'bg-gradient-to-r from-teal-600/90 to-emerald-600/90 text-white shadow-md shadow-teal-900/40 font-bold'
                 : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <LayoutDashboard className={`w-4 h-4 ${activeTab === 'dashboard' ? 'text-white' : 'text-slate-400'}`} />
               <span>{t('dashboard')}</span>
             </div>
@@ -528,13 +528,13 @@ export default function App() {
               setLedgerSearchFilter('');
               setActiveTab('ledger');
             }}
-            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
+            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
               activeTab === 'ledger'
                 ? 'bg-gradient-to-r from-teal-600/90 to-emerald-600/90 text-white shadow-md shadow-teal-900/40 font-bold'
                 : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <ListOrdered className={`w-4 h-4 ${activeTab === 'ledger' ? 'text-white' : 'text-slate-400'}`} />
               <span>{t('ledger')}</span>
             </div>
@@ -546,13 +546,13 @@ export default function App() {
           <button
             type="button"
             onClick={() => setActiveTab('analytics')}
-            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
+            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
               activeTab === 'analytics'
                 ? 'bg-gradient-to-r from-teal-600/90 to-emerald-600/90 text-white shadow-md shadow-teal-900/40 font-bold'
                 : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <PieChart className={`w-4 h-4 ${activeTab === 'analytics' ? 'text-white' : 'text-slate-400'}`} />
               <span>{t('analytics')}</span>
             </div>
@@ -561,13 +561,13 @@ export default function App() {
           <button
             type="button"
             onClick={() => setActiveTab('vaults')}
-            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
+            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
               activeTab === 'vaults'
                 ? 'bg-gradient-to-r from-teal-600/90 to-emerald-600/90 text-white shadow-md shadow-teal-900/40 font-bold'
                 : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <PiggyBank className={`w-4 h-4 ${activeTab === 'vaults' ? 'text-white' : 'text-slate-400'}`} />
               <span>{t('vaults')}</span>
             </div>
@@ -579,13 +579,13 @@ export default function App() {
           <button
             type="button"
             onClick={() => setActiveTab('bills')}
-            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
+            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
               activeTab === 'bills'
                 ? 'bg-gradient-to-r from-teal-600/90 to-emerald-600/90 text-white shadow-md shadow-teal-900/40 font-bold'
                 : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <Receipt className={`w-4 h-4 ${activeTab === 'bills' ? 'text-white' : 'text-slate-400'}`} />
               <span>{t('billsAndDebt')}</span>
             </div>
@@ -596,13 +596,13 @@ export default function App() {
         </nav>
 
         {/* Real Interactive Sidebar Activity Calendar with Spending vs Income Dots */}
-        <div className="mt-2 mb-4">
-          <div className="flex items-center justify-between mb-2 px-1">
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+        <div className="my-1 shrink-0">
+          <div className="flex items-center justify-between mb-1.5 px-1">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
               <CalendarCheck className="w-3.5 h-3.5 text-teal-400" />
               {lang === 'bg' ? 'Календар на активността' : 'Activity Calendar'}
             </span>
-            <div className="flex items-center gap-2 text-[10px] font-semibold text-slate-400">
+            <div className="flex items-center gap-2 text-[9px] font-semibold text-slate-400">
               <span className="flex items-center gap-1" title="Income recorded">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
                 {lang === 'bg' ? 'Приход' : 'In'}
@@ -630,8 +630,51 @@ export default function App() {
           />
         </div>
 
+        {/* Financial Pulse & Cycle Snapshot Card - Uses screen height purposefully */}
+        <div className="my-2.5 p-3 rounded-xl bg-white/[0.04] border border-white/5 space-y-2 shrink-0">
+          <div className="flex items-center justify-between text-[11px]">
+            <span className="text-slate-400 font-medium">{lang === 'bg' ? 'Свободен баланс' : 'Safe-to-Spend'}</span>
+            <span className={`font-bold font-mono text-xs ${summary.remainingLifeMoney >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+              {formatCurrency(summary.remainingLifeMoney, currency)}
+            </span>
+          </div>
+
+          {/* Income vs Expenses Progress */}
+          <div className="space-y-1">
+            <div className="flex items-center justify-between text-[10px] text-slate-400">
+              <span>{lang === 'bg' ? 'Усвоен доход' : 'Budget Spent'}</span>
+              <span className="font-semibold text-slate-300">
+                {summary.totalIncome > 0 ? Math.min(Math.round((totalExpenses / summary.totalIncome) * 100), 100) : 0}%
+              </span>
+            </div>
+            <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+              <div
+                className={`h-full rounded-full transition-all duration-500 ${
+                  summary.totalIncome > 0 && (totalExpenses / summary.totalIncome) > 0.85
+                    ? 'bg-rose-500'
+                    : 'bg-gradient-to-r from-teal-400 to-emerald-400'
+                }`}
+                style={{
+                  width: `${summary.totalIncome > 0 ? Math.min(Math.round((totalExpenses / summary.totalIncome) * 100), 100) : 0}%`
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Cycle Stats Footer */}
+          <div className="flex items-center justify-between text-[10px] text-slate-400 pt-1.5 border-t border-white/5">
+            <span>
+              {lang === 'bg' ? `Остават ${summary.daysRemaining} дни` : `${summary.daysRemaining}d left in cycle`}
+            </span>
+            <span className="text-teal-300 font-semibold flex items-center gap-1">
+              <span>{savingsRate}%</span>
+              <span className="text-[9px] text-slate-400">{lang === 'bg' ? 'спестени' : 'saved'}</span>
+            </span>
+          </div>
+        </div>
+
         {/* Sidebar Bottom Quick Add Transaction CTA */}
-        <div className="mt-auto pt-3 border-t border-white/10 dark:border-slate-800/80">
+        <div className="mt-auto pt-2.5 border-t border-white/10 dark:border-slate-800/80 shrink-0">
           <button
             type="button"
             onClick={() => {
@@ -639,7 +682,7 @@ export default function App() {
               setQuickAddInitialDate(undefined);
               setIsQuickAddOpen(true);
             }}
-            className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold text-xs shadow-lg shadow-teal-950/40 hover:shadow-teal-900/60 active:scale-[0.98] transition-all cursor-pointer font-display"
+            className="w-full flex items-center justify-center gap-2 py-2.5 px-3.5 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold text-xs shadow-lg shadow-teal-950/40 hover:shadow-teal-900/60 active:scale-[0.98] transition-all cursor-pointer font-display"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
             <span>{lang === 'bg' ? 'Нов запис' : 'Quick Transaction'}</span>
@@ -648,9 +691,9 @@ export default function App() {
       </aside>
 
       {/* =========================================================================
-          RIGHT MAIN WRAPPER: Top Header + Dynamic Views Content
+          RIGHT MAIN WRAPPER: Top Header + Dynamic Views Content (Offset by Sidebar Width)
           ========================================================================= */}
-      <div className="flex-1 flex flex-col min-w-0 min-h-screen overflow-x-hidden">
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen md:pl-64 lg:pl-72">
         {/* Top Utility Header Bar with Pay Period, Currency, Language, Theme and Modals controls */}
         <Header
           state={appState}
@@ -661,8 +704,8 @@ export default function App() {
           onOpenShortcuts={() => setIsShortcutsOpen(true)}
         />
 
-        {/* Main Content Area */}
-        <main className="w-full flex-1 px-3 sm:px-6 py-4 sm:py-6 pb-28 md:pb-12 max-w-7xl mx-auto">
+        {/* Main Content Area - Expands gracefully across the screen */}
+        <main className="w-full flex-1 px-3 sm:px-6 lg:px-8 py-4 sm:py-6 pb-28 md:pb-12 max-w-[1600px] mx-auto">
           {/* =========================================================================
               VIEW 1: High-Converting Executive SaaS Finance Dashboard
               ========================================================================= */}

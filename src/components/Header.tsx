@@ -40,17 +40,6 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header id="app-header" className="sticky top-0 z-40 w-full bg-white/85 dark:bg-[#15181E]/90 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800 text-slate-800 dark:text-slate-100 transition-colors duration-200 shadow-2xs">
       <div className="w-full px-2 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-1.5 sm:gap-3">
-        {/* Logo & Brand Name */}
-        <div className="flex items-center gap-2 flex-shrink-0">
-          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-gradient-to-br from-[#1A2846] to-[#2563EB] text-white flex items-center justify-center font-black shadow-xs">
-            <Coins className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
-          </div>
-          <div className="hidden min-[480px]:flex flex-col leading-none">
-            <span className="font-extrabold text-xs sm:text-sm text-[#1B2943] dark:text-white tracking-tight font-display">My Finances</span>
-            <span className="text-[9px] text-[#2563EB] dark:text-blue-400 font-bold uppercase tracking-wider">Dashboard</span>
-          </div>
-        </div>
-
         {/* Desktop Search Bar */}
         <div className="hidden lg:block flex-1 max-w-xs relative">
           <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
