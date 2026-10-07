@@ -16,7 +16,8 @@ import {
   Wallet,
   Target,
   Download,
-  CalendarCheck
+  CalendarCheck,
+  SlidersHorizontal
 } from 'lucide-react';
 import { 
   AppState, 
@@ -56,7 +57,6 @@ import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 export default function App() {
   const [appState, setAppState] = useState<AppState>(() => loadAppState());
   const [activeTab, setActiveTab] = useState<'dashboard' | 'ledger' | 'analytics' | 'vaults' | 'bills'>('dashboard');
-
 
   // Modals visibility
   const [isQuickAddOpen, setIsQuickAddOpen] = useState(false);
@@ -469,132 +469,189 @@ export default function App() {
     }));
   };
 
+  const totalExpenses = useMemo(() => {
+    return (summary.totalVariableExpenses || 0) + (summary.billsPaidTotal || 0) + (summary.debtsPaidTotal || 0);
+  }, [summary]);
+
+  const wealthAndGoals = useMemo(() => {
+    return (summary.wealthAmount || 0) + (summary.totalSavingsAllocated || 0);
+  }, [summary]);
+
+  const savingsRate = useMemo(() => {
+    return summary.totalIncome > 0
+      ? Math.round((wealthAndGoals / summary.totalIncome) * 100)
+      : 0;
+  }, [summary.totalIncome, wealthAndGoals]);
+
   return (
-    <div className="flex h-screen w-full bg-[#8E8B85] dark:bg-[#0B0D11] p-2 sm:p-6 text-slate-800 dark:text-slate-100 font-sans antialiased overflow-hidden">
-      {/* Main App Container */}
-      <div className="flex w-full h-full bg-[#EFF3F8] dark:bg-[#13161C] rounded-[2rem] sm:rounded-[3rem] overflow-hidden shadow-2xl relative border border-transparent dark:border-slate-800/80">
-        {/* Sidebar */}
-        <aside className="w-64 bg-[#282A3A] dark:bg-[#181B22] border-r border-transparent dark:border-slate-800/80 flex flex-col flex-shrink-0 hidden lg:flex z-50">
-          {/* Top Teal Section - App Logo */}
-          <div className="bg-[#174E5B] pt-10 pb-8 px-6 rounded-br-[3rem] flex flex-col items-center text-center relative z-10 select-none shadow-md">
-            <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 p-2 mb-3 shadow-lg flex items-center justify-center backdrop-blur-sm">
-              <div className="w-full h-full rounded-xl bg-gradient-to-tr from-amber-400 via-amber-300 to-amber-200 text-[#174E5B] flex items-center justify-center shadow-inner">
-                <Coins className="w-8 h-8 stroke-[2.5]" />
-              </div>
-            </div>
-            <h2 className="text-white font-extrabold text-xl tracking-tight leading-tight">
+    <div className="min-h-screen w-full bg-[#EFF3F8] dark:bg-[#0B0F17] flex font-sans antialiased text-slate-800 dark:text-slate-100 overflow-x-hidden selection:bg-[#174E5B] selection:text-white">
+      {/* =========================================================================
+          LEFT SIDEBAR: Persistent Desktop Navigation & Interactive Activity Calendar
+          ========================================================================= */}
+      <aside className="hidden md:flex flex-col w-64 lg:w-72 bg-[#121622] dark:bg-[#0A0D14] text-slate-200 border-r border-slate-800/80 shrink-0 p-4 h-screen sticky top-0 overflow-y-auto custom-scrollbar select-none z-30">
+        {/* Brand Header */}
+        <div className="flex items-center gap-3 px-2 py-2.5 mb-5 border-b border-white/10 dark:border-slate-800/80 pb-4">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#174E5B] via-teal-600 to-emerald-500 flex items-center justify-center text-white shadow-lg shadow-teal-900/30">
+            <Sparkles className="w-5 h-5 text-amber-300 animate-pulse" />
+          </div>
+          <div>
+            <h1 className="font-extrabold text-base tracking-tight text-white flex items-center gap-1.5 font-display">
               {t('appTitle')}
-            </h2>
-            <div className="inline-flex items-center gap-1.5 text-teal-200/90 text-[11px] font-semibold tracking-wider uppercase mt-1 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/10">
-              <Sparkles className="w-3 h-3 text-amber-300" />
-              <span>Financial Tracker</span>
+            </h1>
+            <p className="text-[10px] text-slate-400 font-medium">
+              {lang === 'bg' ? 'Финансов панел & Навици' : 'Executive Wealth Dashboard'}
+            </p>
+          </div>
+        </div>
+
+        {/* Primary Navigation Menu */}
+        <nav className="space-y-1 mb-6">
+          <button
+            type="button"
+            onClick={() => setActiveTab('dashboard')}
+            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
+              activeTab === 'dashboard'
+                ? 'bg-gradient-to-r from-teal-600/90 to-emerald-600/90 text-white shadow-md shadow-teal-900/40 font-bold'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <LayoutDashboard className={`w-4 h-4 ${activeTab === 'dashboard' ? 'text-white' : 'text-slate-400'}`} />
+              <span>{t('dashboard')}</span>
+            </div>
+            {activeTab === 'dashboard' && <span className="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setLedgerSearchFilter('');
+              setActiveTab('ledger');
+            }}
+            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
+              activeTab === 'ledger'
+                ? 'bg-gradient-to-r from-teal-600/90 to-emerald-600/90 text-white shadow-md shadow-teal-900/40 font-bold'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <ListOrdered className={`w-4 h-4 ${activeTab === 'ledger' ? 'text-white' : 'text-slate-400'}`} />
+              <span>{t('ledger')}</span>
+            </div>
+            <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-white/10 text-slate-300">
+              {appState.transactions.length}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('analytics')}
+            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
+              activeTab === 'analytics'
+                ? 'bg-gradient-to-r from-teal-600/90 to-emerald-600/90 text-white shadow-md shadow-teal-900/40 font-bold'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <PieChart className={`w-4 h-4 ${activeTab === 'analytics' ? 'text-white' : 'text-slate-400'}`} />
+              <span>{t('analytics')}</span>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('vaults')}
+            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
+              activeTab === 'vaults'
+                ? 'bg-gradient-to-r from-teal-600/90 to-emerald-600/90 text-white shadow-md shadow-teal-900/40 font-bold'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <PiggyBank className={`w-4 h-4 ${activeTab === 'vaults' ? 'text-white' : 'text-slate-400'}`} />
+              <span>{t('vaults')}</span>
+            </div>
+            <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-white/10 text-slate-300">
+              {appState.goals.length}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('bills')}
+            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
+              activeTab === 'bills'
+                ? 'bg-gradient-to-r from-teal-600/90 to-emerald-600/90 text-white shadow-md shadow-teal-900/40 font-bold'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <Receipt className={`w-4 h-4 ${activeTab === 'bills' ? 'text-white' : 'text-slate-400'}`} />
+              <span>{t('billsAndDebt')}</span>
+            </div>
+            <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-white/10 text-slate-300">
+              {appState.bills.length + appState.debts.length}
+            </span>
+          </button>
+        </nav>
+
+        {/* Real Interactive Sidebar Activity Calendar with Spending vs Income Dots */}
+        <div className="mt-2 mb-4">
+          <div className="flex items-center justify-between mb-2 px-1">
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+              <CalendarCheck className="w-3.5 h-3.5 text-teal-400" />
+              {lang === 'bg' ? 'Календар на активността' : 'Activity Calendar'}
+            </span>
+            <div className="flex items-center gap-2 text-[10px] font-semibold text-slate-400">
+              <span className="flex items-center gap-1" title="Income recorded">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
+                {lang === 'bg' ? 'Приход' : 'In'}
+              </span>
+              <span className="flex items-center gap-1" title="Expenses recorded">
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block"></span>
+                {lang === 'bg' ? 'Разход' : 'Out'}
+              </span>
             </div>
           </div>
-          
-          {/* Bottom Navy Section */}
-          <div className="flex-1 flex flex-col -mt-8 pt-16 px-4 pb-6 overflow-y-auto">
-            <nav className="space-y-2 flex-1">
-              <button
-                onClick={() => setActiveTab('dashboard')}
-                className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer ${
-                  activeTab === 'dashboard'
-                    ? 'bg-[#EFF3F8] dark:bg-[#13161C] text-[#174E5B] dark:text-emerald-400 font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
-                    : 'text-slate-400 hover:text-white font-medium'
-                }`}
-              >
-                <LayoutDashboard className={`w-5 h-5 ${activeTab === 'dashboard' ? 'text-[#174E5B] dark:text-emerald-400' : 'text-slate-400'}`} />
-                <span>{t('dashboard')}</span>
-              </button>
 
-              <button
-                onClick={() => setActiveTab('ledger')}
-                className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer ${
-                  activeTab === 'ledger'
-                    ? 'bg-[#EFF3F8] dark:bg-[#13161C] text-[#174E5B] dark:text-emerald-400 font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
-                    : 'text-slate-400 hover:text-white font-medium'
-                }`}
-              >
-                <ListOrdered className={`w-5 h-5 ${activeTab === 'ledger' ? 'text-[#174E5B] dark:text-emerald-400' : 'text-slate-400'}`} />
-                <span>{t('ledger')}</span>
-              </button>
+          <SidebarCalendar
+            transactions={appState.transactions}
+            currency={currency}
+            lang={lang}
+            onSelectDate={(dateStr) => {
+              setLedgerSearchFilter(dateStr);
+              setActiveTab('ledger');
+            }}
+            onOpenQuickAddWithDate={(dateStr) => {
+              setQuickAddInitialDate(dateStr);
+              setQuickAddInitialType('needs');
+              setIsQuickAddOpen(true);
+            }}
+          />
+        </div>
 
-              <button
-                onClick={() => setActiveTab('analytics')}
-                className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer ${
-                  activeTab === 'analytics'
-                    ? 'bg-[#EFF3F8] dark:bg-[#13161C] text-[#174E5B] dark:text-emerald-400 font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
-                    : 'text-slate-400 hover:text-white font-medium'
-                }`}
-              >
-                <PieChart className={`w-5 h-5 ${activeTab === 'analytics' ? 'text-[#174E5B] dark:text-emerald-400' : 'text-slate-400'}`} />
-                <span>{t('analytics')}</span>
-              </button>
+        {/* Sidebar Bottom Quick Add Transaction CTA */}
+        <div className="mt-auto pt-3 border-t border-white/10 dark:border-slate-800/80">
+          <button
+            type="button"
+            onClick={() => {
+              setQuickAddInitialType('needs');
+              setQuickAddInitialDate(undefined);
+              setIsQuickAddOpen(true);
+            }}
+            className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold text-xs shadow-lg shadow-teal-950/40 hover:shadow-teal-900/60 active:scale-[0.98] transition-all cursor-pointer font-display"
+          >
+            <Plus className="w-4 h-4 stroke-[2.5]" />
+            <span>{lang === 'bg' ? 'Нов запис' : 'Quick Transaction'}</span>
+          </button>
+        </div>
+      </aside>
 
-              <button
-                onClick={() => setActiveTab('vaults')}
-                className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer ${
-                  activeTab === 'vaults'
-                    ? 'bg-[#EFF3F8] dark:bg-[#13161C] text-[#174E5B] dark:text-emerald-400 font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
-                    : 'text-slate-400 hover:text-white font-medium'
-                }`}
-              >
-                <PiggyBank className={`w-5 h-5 ${activeTab === 'vaults' ? 'text-[#174E5B] dark:text-emerald-400' : 'text-slate-400'}`} />
-                <span>{t('vaults')}</span>
-              </button>
-
-              <button
-                onClick={() => setActiveTab('bills')}
-                className={`w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer ${
-                  activeTab === 'bills'
-                    ? 'bg-[#EFF3F8] dark:bg-[#13161C] text-[#174E5B] dark:text-emerald-400 font-bold shadow-sm relative z-20 -mr-8 pr-12 rounded-r-none'
-                    : 'text-slate-400 hover:text-white font-medium'
-                }`}
-              >
-                <Receipt className={`w-5 h-5 ${activeTab === 'bills' ? 'text-[#174E5B] dark:text-emerald-400' : 'text-slate-400'}`} />
-                <span>{t('billsAndDebt')}</span>
-              </button>
-            </nav>
-
-            <div className="mt-8">
-              <button
-                onClick={() => setIsSettingsOpen(true)}
-                className="w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all cursor-pointer text-slate-400 hover:text-white font-medium"
-              >
-                <SettingsIcon className="w-5 h-5 text-slate-400" />
-                <span>{t('settings')}</span>
-              </button>
-            </div>
-            
-            {/* Real Interactive Sidebar Calendar with Spending vs Income Dots */}
-            <div className="mt-6">
-              <div className="flex items-center justify-between mb-2 px-1">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                  {lang === 'bg' ? 'Календар на разходите' : 'Activity Calendar'}
-                </span>
-                <span className="text-[10px] text-teal-400 font-semibold">
-                  {appState.transactions.length} {lang === 'bg' ? 'записа' : 'txs'}
-                </span>
-              </div>
-              <SidebarCalendar
-                transactions={appState.transactions}
-                currency={currency}
-                lang={lang}
-                onSelectDate={(dateStr) => {
-                  setLedgerSearchFilter(dateStr);
-                  setActiveTab('ledger');
-                }}
-                onOpenQuickAddWithDate={(dateStr) => {
-                  setQuickAddInitialDate(dateStr);
-                  setQuickAddInitialType('needs');
-                  setIsQuickAddOpen(true);
-                }}
-              />
-            </div>
-          </div>
-        </aside>
-
-        {/* Main Content Area */}
-        <div className="flex-1 flex flex-col h-full overflow-hidden relative">
+      {/* =========================================================================
+          RIGHT MAIN WRAPPER: Top Header + Dynamic Views Content
+          ========================================================================= */}
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen overflow-x-hidden">
+        {/* Top Utility Header Bar with Pay Period, Currency, Language, Theme and Modals controls */}
         <Header
           state={appState}
           onUpdateSettings={handleUpdateSettings}
@@ -604,274 +661,288 @@ export default function App() {
           onOpenShortcuts={() => setIsShortcutsOpen(true)}
         />
 
-        <main className="flex-1 overflow-y-auto w-full p-3.5 sm:p-6 lg:p-8 space-y-6 pb-28 md:pb-8">
+        {/* Main Content Area */}
+        <main className="w-full flex-1 px-3 sm:px-6 py-4 sm:py-6 pb-28 md:pb-12 max-w-7xl mx-auto">
+          {/* =========================================================================
+              VIEW 1: High-Converting Executive SaaS Finance Dashboard
+              ========================================================================= */}
           {activeTab === 'dashboard' && (
             <div className="space-y-6 animate-fadeIn">
               {/* Top Stat Cards Grid - High-Converting Executive SaaS Design */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
                 {/* 1. Safe-to-Spend Disposable Balance */}
-                <div 
-                  onClick={() => setActiveTab('ledger')}
-                  className="group bg-gradient-to-br from-[#133F4A] via-[#174E5B] to-[#1F6272] dark:from-[#0E1F24] dark:via-[#14343D] dark:to-[#19424D] rounded-2xl p-5 shadow-sm text-white flex flex-col justify-between relative overflow-hidden border border-teal-500/20 hover:border-teal-400/50 hover:shadow-md transition-all cursor-pointer"
-                >
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-teal-200/90">
-                        {lang === 'bg' ? 'Свободен бюджет' : 'Safe-to-Spend'}
-                      </span>
-                      <h3 className="text-white text-xs font-semibold mt-0.5">
-                        {lang === 'bg' ? 'Чист остатък (Life Money)' : 'Disposable Liquidity'}
-                      </h3>
-                    </div>
-                    <div className="w-8 h-8 rounded-xl bg-white/10 group-hover:bg-white/20 flex items-center justify-center transition-colors">
-                      <Coins className="w-4 h-4 text-teal-200" />
-                    </div>
+                <div className="relative overflow-hidden bg-gradient-to-br from-[#174E5B] via-[#1A5968] to-[#123E49] rounded-2xl p-5 text-white shadow-md shadow-teal-950/20 border border-teal-500/20 group hover:shadow-xl transition-all duration-300">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-teal-400/10 rounded-full blur-2xl pointer-events-none transform translate-x-8 -translate-y-8"></div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[11px] font-bold text-teal-200/90 uppercase tracking-wider font-display">
+                      {lang === 'bg' ? 'Разполагаеми средства' : 'Safe-to-Spend Balance'}
+                    </span>
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                      {lang === 'bg' ? 'Чист остатък' : 'Available Capital'}
+                    </span>
                   </div>
-                  <div>
-                    <div className="text-2xl sm:text-3xl font-extrabold font-mono tracking-tight text-white mb-1 tabular-nums">
+                  <div className="flex items-baseline gap-2 mb-2">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-white">
                       {formatCurrency(summary.remainingLifeMoney, currency)}
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] pt-1 border-t border-white/10">
-                      <span className={`inline-flex items-center gap-1 font-medium ${summary.remainingLifeMoney >= 0 ? 'text-teal-200' : 'text-rose-300'}`}>
-                        {summary.remainingLifeMoney >= 0 ? (
-                          <>
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                            {lang === 'bg' ? 'В рамките на бюджета' : 'Budget on track'}
-                          </>
-                        ) : (
-                          <>
-                            <span className="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
-                            {lang === 'bg' ? 'Надвишен бюджет' : 'Budget exceeded'}
-                          </>
-                        )}
-                      </span>
-                      <span className="text-teal-300/80 group-hover:text-white flex items-center gap-0.5 text-[10px] font-semibold transition-colors">
-                        {lang === 'bg' ? 'Дневник' : 'Ledger'} <ArrowRight className="w-2.5 h-2.5" />
-                      </span>
-                    </div>
+                    </h2>
+                  </div>
+                  <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs">
+                    <span className="text-teal-200/80 text-[11px]">
+                      {lang === 'bg' ? `Остават ${summary.daysRemaining} дни от периода` : `${summary.daysRemaining} days left in cycle`}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab('ledger')}
+                      className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-300 hover:text-amber-200 transition-colors cursor-pointer"
+                    >
+                      <span>{lang === 'bg' ? 'Към дневника' : 'View Ledger'}</span>
+                      <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                    </button>
                   </div>
                 </div>
 
-                {/* 2. Total Inflow / Income */}
-                <div className="bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-amber-600/10 dark:from-[#262013] dark:via-[#1E1A11] dark:to-[#17140E] border border-amber-500/25 dark:border-amber-500/20 rounded-2xl p-5 shadow-sm text-slate-900 dark:text-amber-50 flex flex-col justify-between relative overflow-hidden">
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-300">
-                        {lang === 'bg' ? 'Общ приход' : 'Total Inflow'}
-                      </span>
-                      <h3 className="text-slate-800 dark:text-slate-200 text-xs font-semibold mt-0.5">
-                        {lang === 'bg' ? 'Постъпления за периода' : 'Monthly Income'}
-                      </h3>
+                {/* 2. Total Inflows (Revenue/Income) */}
+                <div className="relative overflow-hidden bg-white dark:bg-[#161B22] rounded-2xl p-5 shadow-xs border border-slate-200/80 dark:border-slate-800 hover:shadow-md transition-all duration-300">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-display">
+                      {lang === 'bg' ? 'Общи приходи' : 'Total Inflows'}
+                    </span>
+                    <div className="w-8 h-8 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                      <TrendingUp className="w-4 h-4" />
                     </div>
+                  </div>
+                  <div className="flex items-baseline gap-2 mb-2">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-slate-900 dark:text-slate-100">
+                      {formatCurrency(summary.totalIncome, currency)}
+                    </h2>
+                  </div>
+                  <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800/80 text-xs">
+                    <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-semibold flex items-center gap-1">
+                      <ArrowUpRight className="w-3 h-3" />
+                      {lang === 'bg' ? 'Активен период' : 'Active Cycle'}
+                    </span>
                     <button
+                      type="button"
                       onClick={() => {
                         setQuickAddInitialType('income');
                         setQuickAddInitialDate(undefined);
                         setIsQuickAddOpen(true);
                       }}
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-800 dark:text-amber-200 text-[10px] font-bold transition-all cursor-pointer"
-                      title={lang === 'bg' ? 'Добави приход' : 'Add income'}
+                      className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
                     >
-                      <Plus className="w-3 h-3" />
-                      <span>{lang === 'bg' ? 'Приход' : 'Add'}</span>
+                      {lang === 'bg' ? '+ Приход' : '+ Log Income'}
                     </button>
-                  </div>
-                  <div>
-                    <div className="text-2xl sm:text-3xl font-extrabold font-mono tracking-tight text-emerald-600 dark:text-emerald-400 mb-1 tabular-nums">
-                      +{formatCurrency(summary.totalIncome, currency)}
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] pt-1 border-t border-amber-500/15 dark:border-amber-500/10 text-slate-600 dark:text-slate-400">
-                      <span>{lang === 'bg' ? 'Стабилен паричен поток' : 'Recorded Cash Inflows'}</span>
-                      <span className="text-emerald-600 dark:text-emerald-400 font-bold text-[10px]">
-                        100% {lang === 'bg' ? 'база' : 'base'}
-                      </span>
-                    </div>
                   </div>
                 </div>
 
-                {/* 3. Total Outflows (Expenses & Commitments) */}
-                <div className="bg-white dark:bg-[#151922] border border-slate-200/90 dark:border-slate-800 rounded-2xl p-5 shadow-sm text-slate-900 dark:text-slate-100 flex flex-col justify-between relative overflow-hidden">
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400">
-                        {lang === 'bg' ? 'Общи разходи' : 'Total Outflows'}
-                      </span>
-                      <h3 className="text-slate-800 dark:text-slate-200 text-xs font-semibold mt-0.5">
-                        {lang === 'bg' ? 'Разходи, сметки и дълг' : 'Expenses & Bills'}
-                      </h3>
+                {/* 3. Total Outflows (Expenses & Bills) */}
+                <div className="relative overflow-hidden bg-white dark:bg-[#161B22] rounded-2xl p-5 shadow-xs border border-slate-200/80 dark:border-slate-800 hover:shadow-md transition-all duration-300">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-display">
+                      {lang === 'bg' ? 'Общи разходи' : 'Total Outflows'}
+                    </span>
+                    <div className="w-8 h-8 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center">
+                      <ArrowDownLeft className="w-4 h-4" />
                     </div>
+                  </div>
+                  <div className="flex items-baseline gap-2 mb-2">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-slate-900 dark:text-slate-100">
+                      {formatCurrency(totalExpenses, currency)}
+                    </h2>
+                  </div>
+                  <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800/80 text-xs">
+                    <span className="text-slate-500 dark:text-slate-400 text-[11px]">
+                      {summary.totalIncome > 0
+                        ? `${Math.round((totalExpenses / summary.totalIncome) * 100)}% ${lang === 'bg' ? 'от приходите' : 'of income'}`
+                        : `${lang === 'bg' ? 'Разходен поток' : 'Expense flow'}`}
+                    </span>
                     <button
+                      type="button"
                       onClick={() => {
                         setQuickAddInitialType('needs');
                         setQuickAddInitialDate(undefined);
                         setIsQuickAddOpen(true);
                       }}
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-rose-50 dark:bg-rose-950/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 text-rose-700 dark:text-rose-300 text-[10px] font-bold border border-rose-200 dark:border-rose-900/40 transition-all cursor-pointer"
-                      title={lang === 'bg' ? 'Добави разход' : 'Record expense'}
+                      className="text-[11px] font-bold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer"
                     >
-                      <Plus className="w-3 h-3" />
-                      <span>{lang === 'bg' ? 'Разход' : 'Add'}</span>
+                      {lang === 'bg' ? '+ Разход' : '+ Log Expense'}
                     </button>
-                  </div>
-                  <div>
-                    <div className="text-2xl sm:text-3xl font-extrabold font-mono tracking-tight text-slate-900 dark:text-white mb-1 tabular-nums">
-                      -{formatCurrency(summary.totalVariableExpenses + summary.totalBills + summary.totalDebts + summary.totalSavingsAllocated, currency)}
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] pt-1 border-t border-slate-100 dark:border-slate-800 text-slate-500 dark:text-slate-400">
-                      <span className="truncate">
-                        {lang === 'bg' ? 'Сметки' : 'Bills'}: {formatCurrency(summary.totalBills, currency)}
-                      </span>
-                      <span className="text-rose-500 font-semibold text-[10px]">
-                        {summary.totalIncome > 0 
-                          ? `${Math.round(((summary.totalVariableExpenses + summary.totalBills + summary.totalDebts) / summary.totalIncome) * 100)}% burn`
-                          : '—'}
-                      </span>
-                    </div>
                   </div>
                 </div>
 
-                {/* 4. Savings & Wealth Rate */}
-                <div 
-                  onClick={() => setActiveTab('vaults')}
-                  className="group bg-gradient-to-br from-[#1E2235] via-[#24273E] to-[#2E314F] dark:from-[#12141F] dark:via-[#181B2B] dark:to-[#1E2238] border border-indigo-500/25 dark:border-indigo-500/20 rounded-2xl p-5 shadow-sm text-white flex flex-col justify-between relative overflow-hidden hover:border-indigo-400/50 hover:shadow-md transition-all cursor-pointer"
-                >
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-300">
-                        {lang === 'bg' ? 'Спестявания & Богатство' : 'Savings & Wealth'}
-                      </span>
-                      <h3 className="text-white text-xs font-semibold mt-0.5">
-                        {lang === 'bg' ? 'Процент заделени средства' : 'Generation Velocity'}
-                      </h3>
-                    </div>
-                    <div className="w-8 h-8 rounded-xl bg-white/10 group-hover:bg-white/20 flex items-center justify-center transition-colors">
-                      <PieChart className="w-4 h-4 text-indigo-300" />
+                {/* 4. Wealth & Sinking Accumulation */}
+                <div className="relative overflow-hidden bg-white dark:bg-[#161B22] rounded-2xl p-5 shadow-xs border border-slate-200/80 dark:border-slate-800 hover:shadow-md transition-all duration-300">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-display">
+                      {lang === 'bg' ? 'Спестявания & Фондове' : 'Wealth & Goals Accumulation'}
+                    </span>
+                    <div className="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+                      <Target className="w-4 h-4" />
                     </div>
                   </div>
-                  <div>
-                    <div className="flex items-baseline gap-2 mb-1">
-                      <span className="text-2xl sm:text-3xl font-extrabold font-mono tracking-tight text-indigo-200 tabular-nums">
-                        {summary.totalIncome > 0 ? Math.round(((summary.totalSavingsAllocated + summary.wealthAmount) / summary.totalIncome) * 100) : 0}%
-                      </span>
-                      <span className="text-xs text-indigo-300/80 font-medium">
-                        ({formatCurrency(summary.totalSavingsAllocated + summary.wealthAmount, currency)})
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] pt-1 border-t border-white/10">
-                      <span className="text-slate-300 text-[10px]">
-                        {lang === 'bg' ? 'Вавилон (10%) + Цели' : 'Babylon 10% + Goals'}
-                      </span>
-                      <span className="text-indigo-300 group-hover:text-white flex items-center gap-0.5 text-[10px] font-semibold transition-colors">
-                        {lang === 'bg' ? 'Фондове' : 'Vaults'} <ArrowRight className="w-2.5 h-2.5" />
-                      </span>
-                    </div>
+                  <div className="flex items-baseline gap-2 mb-2">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-slate-900 dark:text-slate-100">
+                      {formatCurrency(wealthAndGoals, currency)}
+                    </h2>
+                  </div>
+                  <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800/80 text-xs">
+                    <span className="inline-flex items-center gap-1 text-indigo-600 dark:text-indigo-400 text-[11px] font-bold">
+                      <Coins className="w-3.5 h-3.5" />
+                      {savingsRate}% {lang === 'bg' ? 'коефициент спестявания' : 'savings rate'}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab('vaults')}
+                      className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer"
+                    >
+                      {lang === 'bg' ? 'Към цели →' : 'View Vaults →'}
+                    </button>
                   </div>
                 </div>
               </div>
 
-              {/* Conversion-Focused Quick Action Command Hub */}
-              <div className="bg-white dark:bg-[#161922] border border-slate-200/90 dark:border-slate-800/90 rounded-2xl p-3.5 sm:p-4 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-3">
-                <div className="flex items-center gap-2.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-                  <div>
-                    <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                      <span>{lang === 'bg' ? 'Бързи финансови операции' : 'Instant Financial Operations'}</span>
-                      <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 font-medium">
-                        {lang === 'bg' ? 'Управление' : 'Shortcuts'}
-                      </span>
-                    </h4>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">
-                      {lang === 'bg' 
-                        ? 'Записвайте приходи и разходи за секунди или експортирайте отчет.' 
-                        : 'Capture daily cashflows with one click or review period allocations.'}
-                    </p>
-                  </div>
+              {/* Quick Financial Actions Command Hub */}
+              <div className="bg-white dark:bg-[#161B22] rounded-2xl p-4 sm:p-5 border border-slate-200/80 dark:border-slate-800 shadow-xs">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5 font-display">
+                    <Sparkles className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+                    {lang === 'bg' ? 'Бързи финансови команди' : 'Quick Financial Actions'}
+                  </h3>
+                  <span className="text-[11px] text-slate-400 font-medium hidden sm:inline">
+                    {lang === 'bg' ? 'Едно кликване за пълен контрол' : 'One-click transaction commands'}
+                  </span>
                 </div>
-
-                <div className="flex flex-wrap items-center gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <button
+                    type="button"
                     onClick={() => {
                       setQuickAddInitialType('needs');
                       setQuickAddInitialDate(undefined);
                       setIsQuickAddOpen(true);
                     }}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200/90 dark:border-rose-900/60 hover:bg-rose-100 dark:hover:bg-rose-900/80 text-xs font-bold transition-all cursor-pointer shadow-2xs"
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#1C212A] dark:hover:bg-[#252B37] text-slate-700 dark:text-slate-200 font-semibold text-xs transition-all border border-slate-200/60 dark:border-slate-700/60 hover:border-rose-400/40 cursor-pointer group"
                   >
-                    <ArrowUpRight className="w-3.5 h-3.5 text-rose-500" />
-                    <span>{lang === 'bg' ? 'Запиши разход' : 'Record Expense'}</span>
+                    <div className="w-7 h-7 rounded-lg bg-rose-100 dark:bg-rose-950/70 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <Plus className="w-4 h-4" />
+                    </div>
+                    <div className="text-left">
+                      <div className="font-bold text-xs">{lang === 'bg' ? 'Запиши разход' : 'Record Expense'}</div>
+                      <div className="text-[10px] text-slate-400">{lang === 'bg' ? 'Нужди / Желания' : 'Needs & Wants'}</div>
+                    </div>
                   </button>
 
                   <button
+                    type="button"
                     onClick={() => {
                       setQuickAddInitialType('income');
                       setQuickAddInitialDate(undefined);
                       setIsQuickAddOpen(true);
                     }}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200/90 dark:border-emerald-900/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/80 text-xs font-bold transition-all cursor-pointer shadow-2xs"
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#1C212A] dark:hover:bg-[#252B37] text-slate-700 dark:text-slate-200 font-semibold text-xs transition-all border border-slate-200/60 dark:border-slate-700/60 hover:border-emerald-400/40 cursor-pointer group"
                   >
-                    <ArrowDownLeft className="w-3.5 h-3.5 text-emerald-500" />
-                    <span>{lang === 'bg' ? 'Добави приход' : 'Add Income'}</span>
+                    <div className="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <ArrowUpRight className="w-4 h-4" />
+                    </div>
+                    <div className="text-left">
+                      <div className="font-bold text-xs">{lang === 'bg' ? 'Добави приход' : 'Add Income'}</div>
+                      <div className="text-[10px] text-slate-400">{lang === 'bg' ? 'Заплата / Бонус' : 'Salary / Extra'}</div>
+                    </div>
                   </button>
 
                   <button
+                    type="button"
                     onClick={() => setActiveTab('vaults')}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 border border-indigo-200/90 dark:border-indigo-900/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/80 text-xs font-bold transition-all cursor-pointer shadow-2xs"
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#1C212A] dark:hover:bg-[#252B37] text-slate-700 dark:text-slate-200 font-semibold text-xs transition-all border border-slate-200/60 dark:border-slate-700/60 hover:border-indigo-400/40 cursor-pointer group"
                   >
-                    <Target className="w-3.5 h-3.5 text-indigo-500" />
-                    <span>{lang === 'bg' ? 'Цели и фондове' : 'Target Goals'}</span>
+                    <div className="w-7 h-7 rounded-lg bg-indigo-100 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <Target className="w-4 h-4" />
+                    </div>
+                    <div className="text-left">
+                      <div className="font-bold text-xs">{lang === 'bg' ? 'Зареди цел' : 'Fund Goal'}</div>
+                      <div className="text-[10px] text-slate-400">{lang === 'bg' ? 'Спестовни фондове' : 'Sinking Funds'}</div>
+                    </div>
                   </button>
 
                   <button
+                    type="button"
                     onClick={handleExportCSV}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-semibold transition-all cursor-pointer shadow-2xs"
-                    title={lang === 'bg' ? 'Свали CSV отчет' : 'Download CSV Report'}
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#1C212A] dark:hover:bg-[#252B37] text-slate-700 dark:text-slate-200 font-semibold text-xs transition-all border border-slate-200/60 dark:border-slate-700/60 hover:border-teal-400/40 cursor-pointer group"
                   >
-                    <Download className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
-                    <span>{lang === 'bg' ? 'Експорт' : 'Export'}</span>
+                    <div className="w-7 h-7 rounded-lg bg-teal-100 dark:bg-teal-950/70 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <Download className="w-4 h-4" />
+                    </div>
+                    <div className="text-left">
+                      <div className="font-bold text-xs">{lang === 'bg' ? 'Експорт на отчет' : 'Export Report'}</div>
+                      <div className="text-[10px] text-slate-400">{lang === 'bg' ? 'CSV дневник' : 'Download CSV'}</div>
+                    </div>
                   </button>
                 </div>
               </div>
 
-              {/* Main dashboard widgets */}
-              <div className="space-y-6">
-                {/* Hero Disposable Life Money Card adapted */}
-                <HeroCard
-                  summary={summary}
+              {/* Hero Disposable Life Money Card */}
+              <HeroCard
+                summary={summary}
+                currency={currency}
+                lang={lang}
+                settings={appState.settings}
+                onOpenQuickAdd={() => setIsQuickAddOpen(true)}
+                onUpdateSettings={handleUpdateSettings}
+              />
+
+              {/* Monthly Budget Tracker (Budget Limits) */}
+              <MonthlyBudgetTracker
+                appState={appState}
+                summary={summary}
+                onUpdateSettings={handleUpdateSettings}
+              />
+
+              {/* Babylon Rules Allocations Overview (Pay Yourself First) */}
+              <AllocationsOverview
+                summary={summary}
+                currency={currency}
+                lang={lang}
+                tithePercent={appState.settings.tithePercent}
+                wealthPercent={appState.settings.wealthPercent}
+                onOpenSettings={() => setIsSettingsOpen(true)}
+                onSelectTab={(tab) => setActiveTab(tab)}
+              />
+
+              {/* Dashboard Recent Transactions Ledger Snapshot */}
+              <div className="bg-white dark:bg-[#161B22] rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs overflow-hidden">
+                <TransactionLedger
+                  transactions={appState.transactions}
+                  categories={appState.categories}
                   currency={currency}
                   lang={lang}
                   settings={appState.settings}
+                  isDashboardSnapshot={true}
+                  onViewAllLedger={() => setActiveTab('ledger')}
+                  onDeleteTransaction={handleDeleteTransaction}
+                  onDeleteTransactions={handleDeleteTransactions}
+                  onBatchUpdateCategory={handleBatchUpdateCategory}
+                  onUpdateTransaction={handleUpdateTransaction}
                   onOpenQuickAdd={() => setIsQuickAddOpen(true)}
-                  onUpdateSettings={handleUpdateSettings}
-                />
-
-                {/* Monthly Budget Tracker (Budget Limits) */}
-                <MonthlyBudgetTracker
-                  appState={appState}
-                  summary={summary}
-                  onUpdateSettings={handleUpdateSettings}
-                />
-
-                {/* Babylon Rules Allocations Overview (Pay Yourself First) */}
-                <AllocationsOverview
-                  summary={summary}
-                  currency={currency}
-                  lang={lang}
-                  tithePercent={appState.settings.tithePercent}
-                  wealthPercent={appState.settings.wealthPercent}
-                  onOpenSettings={() => setIsSettingsOpen(true)}
-                  onSelectTab={(tab) => setActiveTab(tab)}
+                  onExportCSV={handleExportCSV}
+                  onExportXML={handleExportXML}
+                  onImportCSV={handleImportTransactions}
                 />
               </div>
+            </div>
+          )}
 
-              {/* Recent Transactions Snapshot */}
+          {/* =========================================================================
+              VIEW 2: Full Transaction Ledger
+              ========================================================================= */}
+          {activeTab === 'ledger' && (
+            <div className="animate-fadeIn">
               <TransactionLedger
-                transactions={appState.transactions.slice(0, 6)}
+                transactions={appState.transactions}
                 categories={appState.categories}
                 currency={currency}
                 lang={lang}
                 settings={appState.settings}
-                isDashboardSnapshot={true}
-                onViewAllLedger={() => setActiveTab('ledger')}
+                initialSearchQuery={ledgerSearchFilter}
                 onDeleteTransaction={handleDeleteTransaction}
                 onDeleteTransactions={handleDeleteTransactions}
                 onBatchUpdateCategory={handleBatchUpdateCategory}
@@ -884,78 +955,91 @@ export default function App() {
             </div>
           )}
 
-          {activeTab === 'ledger' && (
-          <div className="animate-fadeIn">
-            <TransactionLedger
-              transactions={appState.transactions}
-              categories={appState.categories}
-              currency={currency}
-              lang={lang}
-              settings={appState.settings}
-              initialSearchQuery={ledgerSearchFilter}
-              onDeleteTransaction={handleDeleteTransaction}
-              onDeleteTransactions={handleDeleteTransactions}
-              onBatchUpdateCategory={handleBatchUpdateCategory}
-              onUpdateTransaction={handleUpdateTransaction}
-              onOpenQuickAdd={() => setIsQuickAddOpen(true)}
-              onExportCSV={handleExportCSV}
-              onExportXML={handleExportXML}
-              onImportCSV={handleImportTransactions}
-            />
-          </div>
-        )}
+          {/* =========================================================================
+              VIEW 3: Spending Analytics
+              ========================================================================= */}
+          {activeTab === 'analytics' && (
+            <div className="animate-fadeIn">
+              <SpendingAnalytics appState={appState} />
+            </div>
+          )}
 
-        {activeTab === 'analytics' && (
-          <div className="animate-fadeIn">
-            <SpendingAnalytics appState={appState} />
-          </div>
-        )}
+          {/* =========================================================================
+              VIEW 4: Sinking Funds & Vaults
+              ========================================================================= */}
+          {activeTab === 'vaults' && (
+            <div className="animate-fadeIn space-y-6">
+              <SinkingFundsTracker
+                goals={appState.goals}
+                currency={currency}
+                lang={lang}
+                onAddGoal={handleAddGoal}
+                onUpdateGoal={handleUpdateGoal}
+                onDeleteGoal={handleDeleteGoal}
+                onDepositToGoal={handleDepositToGoal}
+              />
+            </div>
+          )}
 
-        {activeTab === 'vaults' && (
-          <div className="animate-fadeIn">
-            <SinkingFundsTracker
-              goals={appState.goals}
-              currency={currency}
-              lang={lang}
-              onAddGoal={handleAddGoal}
-              onUpdateGoal={handleUpdateGoal}
-              onDeleteGoal={handleDeleteGoal}
-              onDepositToGoal={handleDepositToGoal}
-            />
-          </div>
-        )}
+          {/* =========================================================================
+              VIEW 5: Bills & Recurring Debt Manager
+              ========================================================================= */}
+          {activeTab === 'bills' && (
+            <div className="animate-fadeIn">
+              <BillsAndDebtManager
+                bills={appState.bills}
+                debts={appState.debts}
+                currency={currency}
+                lang={lang}
+                autoGenerateRecurringBills={appState.settings.autoGenerateRecurringBills ?? true}
+                onToggleBillPaid={handleToggleBillPaid}
+                onToggleDebtPaid={handleToggleDebtPaid}
+                onAddBill={handleAddBill}
+                onUpdateBill={handleUpdateBill}
+                onAddDebt={handleAddDebt}
+                onDeleteBill={handleDeleteBill}
+                onDeleteDebt={handleDeleteDebt}
+                onProcessRecurringNow={handleProcessRecurringNow}
+                onToggleGlobalAutoGenerate={handleToggleGlobalAutoGenerate}
+              />
+            </div>
+          )}
+        </main>
 
-        {activeTab === 'bills' && (
-          <div className="animate-fadeIn">
-            <BillsAndDebtManager
-              bills={appState.bills}
-              debts={appState.debts}
-              currency={currency}
-              lang={lang}
-              autoGenerateRecurringBills={appState.settings.autoGenerateRecurringBills ?? true}
-              onToggleBillPaid={handleToggleBillPaid}
-              onToggleDebtPaid={handleToggleDebtPaid}
-              onAddBill={handleAddBill}
-              onUpdateBill={handleUpdateBill}
-              onAddDebt={handleAddDebt}
-              onDeleteBill={handleDeleteBill}
-              onDeleteDebt={handleDeleteDebt}
-              onProcessRecurringNow={handleProcessRecurringNow}
-              onToggleGlobalAutoGenerate={handleToggleGlobalAutoGenerate}
-            />
+        {/* Desktop Footer */}
+        <footer className="hidden md:block border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#15181E] py-6 text-center text-xs text-slate-500 dark:text-slate-400 shadow-xs mt-auto">
+          <div className="max-w-7xl mx-auto px-4 flex items-center justify-between gap-3">
+            <p className="font-medium text-slate-600 dark:text-slate-400">
+              {t('appTitle')} &copy; {new Date().getFullYear()} — {t('tagline')}
+            </p>
+            <div className="flex items-center gap-4 text-slate-400 dark:text-slate-500 font-semibold">
+              <button onClick={() => setIsInstructionsOpen(true)} className="hover:text-[#F7B352] transition-colors cursor-pointer text-[#174E5B] dark:text-emerald-400 font-bold">
+                {t('instructions')}
+              </button>
+              <span>&bull;</span>
+              <button onClick={() => setIsOnboardingOpen(true)} className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer">
+                {t('onboarding')}
+              </button>
+              <span>&bull;</span>
+              <button onClick={() => setIsSettingsOpen(true)} className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer">
+                {t('settings')}
+              </button>
+            </div>
           </div>
-        )}
-      </main>
+        </footer>
+      </div>
 
       {/* Mobile Floating Action Button (FAB) for Quick Add */}
       <button
         type="button"
         onClick={() => {
           try { navigator.vibrate?.(12); } catch (_) {}
+          setQuickAddInitialType('needs');
+          setQuickAddInitialDate(undefined);
           setIsQuickAddOpen(true);
         }}
         aria-label={t('addTransaction')}
-        className="fixed bottom-20 right-4 z-40 md:hidden flex items-center gap-2 bg-gradient-to-r from-[#174E5B] to-[#0d343d] text-white px-4 py-3 rounded-full shadow-lg shadow-[#174E5B]/30 hover:shadow-xl active:scale-95 transition-all duration-200 border border-white/20 cursor-pointer"
+        className="fixed bottom-20 right-4 z-40 md:hidden flex items-center gap-2 bg-gradient-to-r from-teal-600 to-emerald-600 text-white px-4 py-3 rounded-full shadow-lg shadow-teal-900/40 hover:shadow-xl active:scale-95 transition-all duration-200 border border-white/20 cursor-pointer"
       >
         <Plus className="w-5 h-5 stroke-[2.5]" />
         <span className="text-xs font-bold font-display tracking-wide">{lang === 'bg' ? 'Запис' : 'Add'}</span>
@@ -971,11 +1055,11 @@ export default function App() {
           }}
           className={`flex-1 py-1.5 flex flex-col items-center gap-0.5 transition-all rounded-xl cursor-pointer ${
             activeTab === 'dashboard'
-              ? 'text-[#174E5B] dark:text-emerald-400 font-bold bg-[#174E5B]/8 dark:bg-emerald-500/15'
+              ? 'text-teal-600 dark:text-teal-400 font-bold bg-teal-50 dark:bg-teal-950/40'
               : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
           }`}
         >
-          <LayoutDashboard className={`w-5 h-5 transition-transform ${activeTab === 'dashboard' ? 'scale-110 text-[#174E5B] dark:text-emerald-400' : ''}`} />
+          <LayoutDashboard className={`w-5 h-5 transition-transform ${activeTab === 'dashboard' ? 'scale-110 text-teal-600 dark:text-teal-400' : ''}`} />
           <span className="text-[10px] tracking-tight">{t('dashboard')}</span>
         </button>
 
@@ -983,15 +1067,16 @@ export default function App() {
           type="button"
           onClick={() => {
             try { navigator.vibrate?.(8); } catch (_) {}
+            setLedgerSearchFilter('');
             setActiveTab('ledger');
           }}
           className={`flex-1 py-1.5 flex flex-col items-center gap-0.5 transition-all rounded-xl cursor-pointer ${
             activeTab === 'ledger'
-              ? 'text-[#174E5B] dark:text-emerald-400 font-bold bg-[#174E5B]/8 dark:bg-emerald-500/15'
+              ? 'text-teal-600 dark:text-teal-400 font-bold bg-teal-50 dark:bg-teal-950/40'
               : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
           }`}
         >
-          <ListOrdered className={`w-5 h-5 transition-transform ${activeTab === 'ledger' ? 'scale-110 text-[#174E5B] dark:text-emerald-400' : ''}`} />
+          <ListOrdered className={`w-5 h-5 transition-transform ${activeTab === 'ledger' ? 'scale-110 text-teal-600 dark:text-teal-400' : ''}`} />
           <span className="text-[10px] tracking-tight">{t('ledger')}</span>
         </button>
 
@@ -1003,11 +1088,11 @@ export default function App() {
           }}
           className={`flex-1 py-1.5 flex flex-col items-center gap-0.5 transition-all rounded-xl cursor-pointer ${
             activeTab === 'analytics'
-              ? 'text-[#174E5B] dark:text-emerald-400 font-bold bg-[#174E5B]/8 dark:bg-emerald-500/15'
+              ? 'text-teal-600 dark:text-teal-400 font-bold bg-teal-50 dark:bg-teal-950/40'
               : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
           }`}
         >
-          <PieChart className={`w-5 h-5 transition-transform ${activeTab === 'analytics' ? 'scale-110 text-[#174E5B] dark:text-emerald-400' : ''}`} />
+          <PieChart className={`w-5 h-5 transition-transform ${activeTab === 'analytics' ? 'scale-110 text-teal-600 dark:text-teal-400' : ''}`} />
           <span className="text-[10px] tracking-tight">{t('analytics')}</span>
         </button>
 
@@ -1019,11 +1104,11 @@ export default function App() {
           }}
           className={`flex-1 py-1.5 flex flex-col items-center gap-0.5 transition-all rounded-xl cursor-pointer ${
             activeTab === 'vaults'
-              ? 'text-[#174E5B] dark:text-emerald-400 font-bold bg-[#174E5B]/8 dark:bg-emerald-500/15'
+              ? 'text-teal-600 dark:text-teal-400 font-bold bg-teal-50 dark:bg-teal-950/40'
               : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
           }`}
         >
-          <PiggyBank className={`w-5 h-5 transition-transform ${activeTab === 'vaults' ? 'scale-110 text-[#174E5B] dark:text-emerald-400' : ''}`} />
+          <PiggyBank className={`w-5 h-5 transition-transform ${activeTab === 'vaults' ? 'scale-110 text-teal-600 dark:text-teal-400' : ''}`} />
           <span className="text-[10px] tracking-tight">{t('vaults')}</span>
         </button>
 
@@ -1035,36 +1120,14 @@ export default function App() {
           }}
           className={`flex-1 py-1.5 flex flex-col items-center gap-0.5 transition-all rounded-xl cursor-pointer ${
             activeTab === 'bills'
-              ? 'text-[#174E5B] dark:text-emerald-400 font-bold bg-[#174E5B]/8 dark:bg-emerald-500/15'
+              ? 'text-teal-600 dark:text-teal-400 font-bold bg-teal-50 dark:bg-teal-950/40'
               : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
           }`}
         >
-          <Receipt className={`w-5 h-5 transition-transform ${activeTab === 'bills' ? 'scale-110 text-[#174E5B] dark:text-emerald-400' : ''}`} />
+          <Receipt className={`w-5 h-5 transition-transform ${activeTab === 'bills' ? 'scale-110 text-teal-600 dark:text-teal-400' : ''}`} />
           <span className="text-[10px] tracking-tight">{t('billsAndDebt')}</span>
         </button>
       </nav>
-
-      {/* Desktop Footer (Hidden on mobile) */}
-      <footer className="hidden md:block border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#15181E] py-6 text-center text-xs text-slate-500 dark:text-slate-400 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 flex items-center justify-between gap-3">
-          <p className="font-medium text-slate-600 dark:text-slate-400">
-            {t('appTitle')} &copy; {new Date().getFullYear()} — {t('tagline')}
-          </p>
-          <div className="flex items-center gap-4 text-slate-400 dark:text-slate-500 font-semibold">
-            <button onClick={() => setIsInstructionsOpen(true)} className="hover:text-[#F7B352] transition-colors cursor-pointer text-[#174E5B] dark:text-emerald-400 font-bold">
-              {t('instructions')}
-            </button>
-            <span>&bull;</span>
-            <button onClick={() => setIsOnboardingOpen(true)} className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer">
-              {t('onboarding')}
-            </button>
-            <span>&bull;</span>
-            <button onClick={() => setIsSettingsOpen(true)} className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer">
-              {t('settings')}
-            </button>
-          </div>
-        </div>
-      </footer>
 
       {/* Instructions Modal */}
       <InstructionsModal
@@ -1154,8 +1217,6 @@ export default function App() {
         onCancel={() => setDeleteConfirmation({ isOpen: false, type: null, id: null })}
         lang={lang}
       />
-        </div>
-      </div>
     </div>
   );
 }

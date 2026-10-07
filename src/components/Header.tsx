@@ -42,12 +42,12 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="w-full px-2 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-1.5 sm:gap-3">
         {/* Logo & Brand Name */}
         <div className="flex items-center gap-2 flex-shrink-0">
-          <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#174E5B] to-[#0d343d] text-white flex items-center justify-center font-black shadow-xs">
-            <Coins className="w-3.5 h-3.5 sm:w-5 sm:h-5 stroke-[2.5]" />
+          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-gradient-to-br from-[#1A2846] to-[#2563EB] text-white flex items-center justify-center font-black shadow-xs">
+            <Coins className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
           </div>
           <div className="hidden min-[480px]:flex flex-col leading-none">
-            <span className="font-extrabold text-xs sm:text-sm text-slate-900 dark:text-white tracking-tight font-display">Babylon</span>
-            <span className="text-[9px] text-teal-600 dark:text-emerald-400 font-bold uppercase tracking-wider">Money</span>
+            <span className="font-extrabold text-xs sm:text-sm text-[#1B2943] dark:text-white tracking-tight font-display">My Finances</span>
+            <span className="text-[9px] text-[#2563EB] dark:text-blue-400 font-bold uppercase tracking-wider">Dashboard</span>
           </div>
         </div>
 
