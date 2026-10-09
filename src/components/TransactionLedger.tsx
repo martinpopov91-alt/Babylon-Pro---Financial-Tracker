@@ -277,27 +277,27 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
   return (
     <div id="transaction-ledger" className="space-y-6">
       {/* Top Action Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-[#181B22] border border-slate-200/90 dark:border-slate-800 rounded-3xl p-4 sm:p-6 shadow-sm">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-[#161B22] border border-[#E2E8F0] dark:border-slate-800 rounded-3xl p-4 sm:p-6 shadow-xs">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white font-display flex items-center gap-2">
+            <h2 className="text-xl font-bold text-[#0F172A] dark:text-white font-display flex items-center gap-2">
               <span>{isDashboardSnapshot ? (lang === 'bg' ? 'Последни Транзакции' : 'Recent Transactions') : t('transactionHistory')}</span>
-              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20">
+              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#E2E8F0] text-[#334155] dark:bg-slate-800 dark:text-slate-200 border border-[#E2E8F0] dark:border-slate-700">
                 {filteredTransactions.length}
               </span>
             </h2>
             {isDashboardSnapshot && onViewAllLedger && (
               <button
                 onClick={onViewAllLedger}
-                className="hidden sm:flex items-center gap-1 text-xs font-bold text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 ml-2 cursor-pointer transition-colors"
+                className="hidden sm:flex items-center gap-1 text-xs font-bold text-[#334155] dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white ml-2 cursor-pointer transition-colors"
               >
                 <span>{lang === 'bg' ? 'Към Пълен Дневник →' : 'View Full Ledger →'}</span>
               </button>
             )}
           </div>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[#94A3B8]">
             <span>
-              {t('total')}: <strong className="text-slate-800 dark:text-slate-200">{formatCurrency(totalFilteredSum, currency)}</strong>
+              {t('total')}: <strong className="text-[#0F172A] dark:text-slate-200">{formatCurrency(totalFilteredSum, currency)}</strong>
             </span>
             <span className="text-slate-300 dark:text-slate-600">•</span>
             <span className="text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
@@ -320,13 +320,13 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
         {/* View Mode Toggle & Action Buttons */}
         <div className="flex flex-wrap items-center gap-2">
           {/* List vs Summary view toggle */}
-          <div className="flex items-center bg-slate-100 dark:bg-[#1A1E26] p-1 rounded-xl border border-slate-200 dark:border-slate-700">
+          <div className="flex items-center bg-[#F8FAFC] dark:bg-[#1A1E26] p-1 rounded-xl border border-[#E2E8F0] dark:border-slate-700">
             <button
               onClick={() => setViewMode('list')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === 'list'
-                  ? 'bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'bg-[#334155] text-white shadow-xs'
+                  : 'text-[#94A3B8] hover:text-[#0F172A] dark:hover:text-white'
               }`}
             >
               <List className="w-3.5 h-3.5" />
@@ -336,8 +336,8 @@ export const TransactionLedger: React.FC<TransactionLedgerProps> = ({
               onClick={() => setViewMode('summary')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === 'summary'
-                  ? 'bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'bg-[#334155] text-white shadow-xs'
+                  : 'text-[#94A3B8] hover:text-[#0F172A] dark:hover:text-white'
               }`}
             >
               <BarChart3 className="w-3.5 h-3.5" />

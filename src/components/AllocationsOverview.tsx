@@ -51,17 +51,17 @@ export const AllocationsOverview: React.FC<AllocationsOverviewProps> = ({
     <div id="allocations-overview" className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-emerald-500 dark:text-emerald-400" />
+          <h3 className="text-base sm:text-lg font-bold text-[#0F172A] dark:text-white flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-[#334155] dark:text-slate-300" />
             <span>{t('babylonHeadline')}</span>
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-[#94A3B8]">
             {t('babylonSub')}
           </p>
         </div>
         <button
           onClick={onOpenSettings}
-          className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 transition-colors cursor-pointer"
+          className="text-xs font-semibold text-[#334155] dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white transition-colors cursor-pointer"
         >
           {t('edit')} %
         </button>
@@ -70,7 +70,7 @@ export const AllocationsOverview: React.FC<AllocationsOverviewProps> = ({
       {/* Grid of 5 Allocations */}
       <div className="flex flex-col sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
         {/* 1. Tithe Card */}
-        <div className="p-3 sm:p-4 rounded-3xl bg-white dark:bg-[#181B22] border border-slate-200/90 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all shadow-sm flex sm:flex-col items-center sm:items-stretch gap-3 sm:gap-2">
+        <div className="p-3 sm:p-4 rounded-3xl bg-white dark:bg-[#161B22] border border-[#E2E8F0] dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all shadow-xs flex sm:flex-col items-center sm:items-stretch gap-3 sm:gap-2">
           <div className="flex items-center justify-between sm:w-full shrink-0">
             <span className="p-2 rounded-xl bg-pink-50 dark:bg-pink-500/10 text-pink-600 dark:text-pink-400 border border-pink-200 dark:border-pink-500/20">
               <Heart className="w-4 h-4" />

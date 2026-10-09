@@ -79,14 +79,14 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
   };
 
   return (
-    <div className="bg-white dark:bg-[#181B22] border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm">
-      <div className="p-4 sm:p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+    <div className="bg-white dark:bg-[#161B22] border border-[#E2E8F0] dark:border-slate-800 rounded-3xl overflow-hidden shadow-xs">
+      <div className="p-4 sm:p-6 border-b border-[#E2E8F0] dark:border-slate-800 flex items-center justify-between">
         <div>
-          <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
-            <Target className="w-5 h-5 text-[#F7B352]" />
+          <h3 className="text-base sm:text-lg font-bold text-[#0F172A] dark:text-white flex items-center gap-2">
+            <Target className="w-5 h-5 text-[#334155] dark:text-slate-300" />
             <span>{lang === 'bg' ? 'Бюджетни Лимити' : 'Budget Limits'}</span>
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs text-[#94A3B8] mt-1">
             {lang === 'bg' ? 'Проследявайте разходите си по категории.' : 'Track your spending against set category limits.'}
           </p>
         </div>
@@ -94,8 +94,8 @@ export const MonthlyBudgetTracker: React.FC<MonthlyBudgetTrackerProps> = ({
           onClick={() => setIsEditing(!isEditing)}
           className={`p-2 rounded-xl transition-colors cursor-pointer ${
             isEditing 
-              ? 'bg-[#F7B352]/15 text-[#174E5B] dark:text-[#F7B352] border border-[#F7B352]/30' 
-              : 'bg-slate-50 dark:bg-[#1A1E26] text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#222732] border border-slate-200 dark:border-slate-700'
+              ? 'bg-[#334155] text-white border border-[#334155]' 
+              : 'bg-[#F8FAFC] dark:bg-[#1A1E26] text-[#94A3B8] hover:text-[#334155] dark:hover:text-slate-200 hover:bg-[#E2E8F0] border border-[#E2E8F0] dark:border-slate-700'
           }`}
         >
           <Settings2 className="w-4 h-4" />

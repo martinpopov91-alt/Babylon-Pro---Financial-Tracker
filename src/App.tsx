@@ -484,21 +484,21 @@ export default function App() {
   }, [summary.totalIncome, wealthAndGoals]);
 
   return (
-    <div className="min-h-screen w-full bg-[#EFF3F8] dark:bg-[#0B0F17] flex font-sans antialiased text-slate-800 dark:text-slate-100 selection:bg-[#174E5B] selection:text-white">
+    <div className="min-h-screen w-full bg-[#F8FAFC] dark:bg-[#0B0F17] flex font-sans antialiased text-[#0F172A] dark:text-slate-100 selection:bg-[#334155] selection:text-white">
       {/* =========================================================================
           LEFT SIDEBAR: Fixed Full-Height Persistent Navigation & Interactive Activity Hub
           ========================================================================= */}
-      <aside className="hidden md:flex flex-col fixed inset-y-0 left-0 w-64 lg:w-72 bg-[#121622] dark:bg-[#0A0D14] text-slate-200 border-r border-slate-800/80 z-30 overflow-y-auto custom-scrollbar select-none p-3.5">
+      <aside className="hidden md:flex flex-col fixed inset-y-0 left-0 w-64 lg:w-72 bg-[#0F172A] text-slate-200 border-r border-[#1E293B] z-30 overflow-y-auto custom-scrollbar select-none p-3.5">
         {/* Brand Header */}
-        <div className="flex items-center gap-2.5 px-1 py-1.5 mb-3 border-b border-white/10 dark:border-slate-800/80 pb-3 shrink-0">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#174E5B] via-teal-600 to-emerald-500 flex items-center justify-center text-white shadow-lg shadow-teal-900/30 shrink-0">
-            <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
+        <div className="flex items-center gap-2.5 px-1 py-1.5 mb-3 border-b border-white/10 pb-3 shrink-0">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#334155] to-[#1E293B] border border-slate-700/60 flex items-center justify-center text-white shadow-md shrink-0">
+            <Sparkles className="w-4 h-4 text-[#94A3B8]" />
           </div>
           <div className="min-w-0">
             <h1 className="font-extrabold text-sm tracking-tight text-white flex items-center gap-1.5 font-display truncate">
               {t('appTitle')}
             </h1>
-            <p className="text-[10px] text-slate-400 font-medium truncate">
+            <p className="text-[10px] text-[#94A3B8] font-medium truncate">
               {lang === 'bg' ? 'Финансов панел & Навици' : 'Executive Wealth Dashboard'}
             </p>
           </div>
@@ -511,15 +511,15 @@ export default function App() {
             onClick={() => setActiveTab('dashboard')}
             className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
               activeTab === 'dashboard'
-                ? 'bg-gradient-to-r from-teal-600/90 to-emerald-600/90 text-white shadow-md shadow-teal-900/40 font-bold'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                ? 'bg-[#1E293B] text-white shadow-xs border border-slate-700/60 font-bold'
+                : 'text-[#94A3B8] hover:text-white hover:bg-white/5'
             }`}
           >
             <div className="flex items-center gap-2.5">
-              <LayoutDashboard className={`w-4 h-4 ${activeTab === 'dashboard' ? 'text-white' : 'text-slate-400'}`} />
+              <LayoutDashboard className={`w-4 h-4 ${activeTab === 'dashboard' ? 'text-white' : 'text-[#94A3B8]'}`} />
               <span>{t('dashboard')}</span>
             </div>
-            {activeTab === 'dashboard' && <span className="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>}
+            {activeTab === 'dashboard' && <span className="w-1.5 h-1.5 rounded-full bg-[#94A3B8]"></span>}
           </button>
 
           <button
@@ -530,12 +530,12 @@ export default function App() {
             }}
             className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
               activeTab === 'ledger'
-                ? 'bg-gradient-to-r from-teal-600/90 to-emerald-600/90 text-white shadow-md shadow-teal-900/40 font-bold'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                ? 'bg-[#1E293B] text-white shadow-xs border border-slate-700/60 font-bold'
+                : 'text-[#94A3B8] hover:text-white hover:bg-white/5'
             }`}
           >
             <div className="flex items-center gap-2.5">
-              <ListOrdered className={`w-4 h-4 ${activeTab === 'ledger' ? 'text-white' : 'text-slate-400'}`} />
+              <ListOrdered className={`w-4 h-4 ${activeTab === 'ledger' ? 'text-white' : 'text-[#94A3B8]'}`} />
               <span>{t('ledger')}</span>
             </div>
             <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-white/10 text-slate-300">
@@ -548,12 +548,12 @@ export default function App() {
             onClick={() => setActiveTab('analytics')}
             className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
               activeTab === 'analytics'
-                ? 'bg-gradient-to-r from-teal-600/90 to-emerald-600/90 text-white shadow-md shadow-teal-900/40 font-bold'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                ? 'bg-[#1E293B] text-white shadow-xs border border-slate-700/60 font-bold'
+                : 'text-[#94A3B8] hover:text-white hover:bg-white/5'
             }`}
           >
             <div className="flex items-center gap-2.5">
-              <PieChart className={`w-4 h-4 ${activeTab === 'analytics' ? 'text-white' : 'text-slate-400'}`} />
+              <PieChart className={`w-4 h-4 ${activeTab === 'analytics' ? 'text-white' : 'text-[#94A3B8]'}`} />
               <span>{t('analytics')}</span>
             </div>
           </button>
@@ -563,12 +563,12 @@ export default function App() {
             onClick={() => setActiveTab('vaults')}
             className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
               activeTab === 'vaults'
-                ? 'bg-gradient-to-r from-teal-600/90 to-emerald-600/90 text-white shadow-md shadow-teal-900/40 font-bold'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                ? 'bg-[#1E293B] text-white shadow-xs border border-slate-700/60 font-bold'
+                : 'text-[#94A3B8] hover:text-white hover:bg-white/5'
             }`}
           >
             <div className="flex items-center gap-2.5">
-              <PiggyBank className={`w-4 h-4 ${activeTab === 'vaults' ? 'text-white' : 'text-slate-400'}`} />
+              <PiggyBank className={`w-4 h-4 ${activeTab === 'vaults' ? 'text-white' : 'text-[#94A3B8]'}`} />
               <span>{t('vaults')}</span>
             </div>
             <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-white/10 text-slate-300">
@@ -581,12 +581,12 @@ export default function App() {
             onClick={() => setActiveTab('bills')}
             className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
               activeTab === 'bills'
-                ? 'bg-gradient-to-r from-teal-600/90 to-emerald-600/90 text-white shadow-md shadow-teal-900/40 font-bold'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                ? 'bg-[#1E293B] text-white shadow-xs border border-slate-700/60 font-bold'
+                : 'text-[#94A3B8] hover:text-white hover:bg-white/5'
             }`}
           >
             <div className="flex items-center gap-2.5">
-              <Receipt className={`w-4 h-4 ${activeTab === 'bills' ? 'text-white' : 'text-slate-400'}`} />
+              <Receipt className={`w-4 h-4 ${activeTab === 'bills' ? 'text-white' : 'text-[#94A3B8]'}`} />
               <span>{t('billsAndDebt')}</span>
             </div>
             <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-white/10 text-slate-300">
@@ -598,11 +598,11 @@ export default function App() {
         {/* Real Interactive Sidebar Activity Calendar with Spending vs Income Dots */}
         <div className="my-1 shrink-0">
           <div className="flex items-center justify-between mb-1.5 px-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-              <CalendarCheck className="w-3.5 h-3.5 text-teal-400" />
+            <span className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-wider flex items-center gap-1.5">
+              <CalendarCheck className="w-3.5 h-3.5 text-slate-300" />
               {lang === 'bg' ? 'Календар на активността' : 'Activity Calendar'}
             </span>
-            <div className="flex items-center gap-2 text-[9px] font-semibold text-slate-400">
+            <div className="flex items-center gap-2 text-[9px] font-semibold text-[#94A3B8]">
               <span className="flex items-center gap-1" title="Income recorded">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
                 {lang === 'bg' ? 'Приход' : 'In'}
@@ -630,10 +630,10 @@ export default function App() {
           />
         </div>
 
-        {/* Financial Pulse & Cycle Snapshot Card - Uses screen height purposefully */}
-        <div className="my-2.5 p-3 rounded-xl bg-white/[0.04] border border-white/5 space-y-2 shrink-0">
+        {/* Financial Pulse & Cycle Snapshot Card - Neutral SaaS Slate Style */}
+        <div className="my-2.5 p-3 rounded-xl bg-[#1E293B]/80 border border-slate-800 space-y-2 shrink-0">
           <div className="flex items-center justify-between text-[11px]">
-            <span className="text-slate-400 font-medium">{lang === 'bg' ? 'Свободен баланс' : 'Safe-to-Spend'}</span>
+            <span className="text-[#94A3B8] font-medium">{lang === 'bg' ? 'Свободен баланс' : 'Safe-to-Spend'}</span>
             <span className={`font-bold font-mono text-xs ${summary.remainingLifeMoney >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
               {formatCurrency(summary.remainingLifeMoney, currency)}
             </span>
@@ -641,18 +641,18 @@ export default function App() {
 
           {/* Income vs Expenses Progress */}
           <div className="space-y-1">
-            <div className="flex items-center justify-between text-[10px] text-slate-400">
+            <div className="flex items-center justify-between text-[10px] text-[#94A3B8]">
               <span>{lang === 'bg' ? 'Усвоен доход' : 'Budget Spent'}</span>
-              <span className="font-semibold text-slate-300">
+              <span className="font-semibold text-slate-200">
                 {summary.totalIncome > 0 ? Math.min(Math.round((totalExpenses / summary.totalIncome) * 100), 100) : 0}%
               </span>
             </div>
-            <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+            <div className="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all duration-500 ${
                   summary.totalIncome > 0 && (totalExpenses / summary.totalIncome) > 0.85
                     ? 'bg-rose-500'
-                    : 'bg-gradient-to-r from-teal-400 to-emerald-400'
+                    : 'bg-gradient-to-r from-[#94A3B8] to-slate-200'
                 }`}
                 style={{
                   width: `${summary.totalIncome > 0 ? Math.min(Math.round((totalExpenses / summary.totalIncome) * 100), 100) : 0}%`
@@ -662,19 +662,19 @@ export default function App() {
           </div>
 
           {/* Cycle Stats Footer */}
-          <div className="flex items-center justify-between text-[10px] text-slate-400 pt-1.5 border-t border-white/5">
+          <div className="flex items-center justify-between text-[10px] text-[#94A3B8] pt-1.5 border-t border-slate-800">
             <span>
               {lang === 'bg' ? `Остават ${summary.daysRemaining} дни` : `${summary.daysRemaining}d left in cycle`}
             </span>
-            <span className="text-teal-300 font-semibold flex items-center gap-1">
+            <span className="text-slate-200 font-semibold flex items-center gap-1">
               <span>{savingsRate}%</span>
-              <span className="text-[9px] text-slate-400">{lang === 'bg' ? 'спестени' : 'saved'}</span>
+              <span className="text-[9px] text-[#94A3B8]">{lang === 'bg' ? 'спестени' : 'saved'}</span>
             </span>
           </div>
         </div>
 
         {/* Sidebar Bottom Quick Add Transaction CTA */}
-        <div className="mt-auto pt-2.5 border-t border-white/10 dark:border-slate-800/80 shrink-0">
+        <div className="mt-auto pt-2.5 border-t border-slate-800 shrink-0">
           <button
             type="button"
             onClick={() => {
@@ -682,7 +682,7 @@ export default function App() {
               setQuickAddInitialDate(undefined);
               setIsQuickAddOpen(true);
             }}
-            className="w-full flex items-center justify-center gap-2 py-2.5 px-3.5 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold text-xs shadow-lg shadow-teal-950/40 hover:shadow-teal-900/60 active:scale-[0.98] transition-all cursor-pointer font-display"
+            className="w-full flex items-center justify-center gap-2 py-2.5 px-3.5 rounded-xl bg-[#334155] hover:bg-[#1E293B] active:scale-[0.98] border border-slate-600/50 text-white font-bold text-xs shadow-md transition-all cursor-pointer font-display"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
             <span>{lang === 'bg' ? 'Нов запис' : 'Quick Transaction'}</span>
@@ -711,17 +711,17 @@ export default function App() {
               ========================================================================= */}
           {activeTab === 'dashboard' && (
             <div className="space-y-6 animate-fadeIn">
-              {/* Top Stat Cards Grid - High-Converting Executive SaaS Design */}
+              {/* Top Stat Cards Grid - Neutral SaaS SwatchPilot Palette */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-                {/* 1. Safe-to-Spend Disposable Balance */}
-                <div className="relative overflow-hidden bg-gradient-to-br from-[#174E5B] via-[#1A5968] to-[#123E49] rounded-2xl p-5 text-white shadow-md shadow-teal-950/20 border border-teal-500/20 group hover:shadow-xl transition-all duration-300">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-teal-400/10 rounded-full blur-2xl pointer-events-none transform translate-x-8 -translate-y-8"></div>
+                {/* 1. Safe-to-Spend Disposable Balance (High Contrast Deep Anchor Card) */}
+                <div className="relative overflow-hidden bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#334155] rounded-2xl p-5 text-white shadow-sm border border-slate-700/60 group hover:shadow-md transition-all duration-300">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-slate-400/5 rounded-full blur-2xl pointer-events-none transform translate-x-8 -translate-y-8"></div>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-bold text-teal-200/90 uppercase tracking-wider font-display">
+                    <span className="text-[11px] font-bold text-[#94A3B8] uppercase tracking-wider font-display">
                       {lang === 'bg' ? 'Разполагаеми средства' : 'Safe-to-Spend Balance'}
                     </span>
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#334155] text-slate-200 border border-slate-600/50">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                       {lang === 'bg' ? 'Чист остатък' : 'Available Capital'}
                     </span>
                   </div>
@@ -730,14 +730,14 @@ export default function App() {
                       {formatCurrency(summary.remainingLifeMoney, currency)}
                     </h2>
                   </div>
-                  <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs">
-                    <span className="text-teal-200/80 text-[11px]">
+                  <div className="flex items-center justify-between pt-2 border-t border-slate-700/60 text-xs">
+                    <span className="text-[#94A3B8] text-[11px]">
                       {lang === 'bg' ? `Остават ${summary.daysRemaining} дни от периода` : `${summary.daysRemaining} days left in cycle`}
                     </span>
                     <button
                       type="button"
                       onClick={() => setActiveTab('ledger')}
-                      className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-300 hover:text-amber-200 transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1 text-[11px] font-bold text-slate-200 hover:text-white transition-colors cursor-pointer"
                     >
                       <span>{lang === 'bg' ? 'Към дневника' : 'View Ledger'}</span>
                       <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
@@ -746,23 +746,23 @@ export default function App() {
                 </div>
 
                 {/* 2. Total Inflows (Revenue/Income) */}
-                <div className="relative overflow-hidden bg-white dark:bg-[#161B22] rounded-2xl p-5 shadow-xs border border-slate-200/80 dark:border-slate-800 hover:shadow-md transition-all duration-300">
+                <div className="relative overflow-hidden bg-white dark:bg-[#161B22] rounded-2xl p-5 shadow-xs border border-[#E2E8F0] dark:border-slate-800 hover:shadow-md transition-all duration-300">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-display">
+                    <span className="text-[11px] font-bold text-[#94A3B8] uppercase tracking-wider font-display">
                       {lang === 'bg' ? 'Общи приходи' : 'Total Inflows'}
                     </span>
-                    <div className="w-8 h-8 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-xl bg-[#E2E8F0]/70 dark:bg-slate-800 text-[#334155] dark:text-slate-300 flex items-center justify-center">
                       <TrendingUp className="w-4 h-4" />
                     </div>
                   </div>
                   <div className="flex items-baseline gap-2 mb-2">
-                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-slate-900 dark:text-slate-100">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-[#0F172A] dark:text-white">
                       {formatCurrency(summary.totalIncome, currency)}
                     </h2>
                   </div>
-                  <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800/80 text-xs">
-                    <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-semibold flex items-center gap-1">
-                      <ArrowUpRight className="w-3 h-3" />
+                  <div className="flex items-center justify-between pt-2 border-t border-[#E2E8F0] dark:border-slate-800 text-xs">
+                    <span className="text-[#334155] dark:text-slate-300 text-[11px] font-semibold flex items-center gap-1">
+                      <ArrowUpRight className="w-3 h-3 text-emerald-500" />
                       {lang === 'bg' ? 'Активен период' : 'Active Cycle'}
                     </span>
                     <button
@@ -772,7 +772,7 @@ export default function App() {
                         setQuickAddInitialDate(undefined);
                         setIsQuickAddOpen(true);
                       }}
-                      className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
+                      className="text-[11px] font-bold text-[#334155] dark:text-slate-300 hover:underline cursor-pointer"
                     >
                       {lang === 'bg' ? '+ Приход' : '+ Log Income'}
                     </button>
@@ -780,22 +780,22 @@ export default function App() {
                 </div>
 
                 {/* 3. Total Outflows (Expenses & Bills) */}
-                <div className="relative overflow-hidden bg-white dark:bg-[#161B22] rounded-2xl p-5 shadow-xs border border-slate-200/80 dark:border-slate-800 hover:shadow-md transition-all duration-300">
+                <div className="relative overflow-hidden bg-white dark:bg-[#161B22] rounded-2xl p-5 shadow-xs border border-[#E2E8F0] dark:border-slate-800 hover:shadow-md transition-all duration-300">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-display">
+                    <span className="text-[11px] font-bold text-[#94A3B8] uppercase tracking-wider font-display">
                       {lang === 'bg' ? 'Общи разходи' : 'Total Outflows'}
                     </span>
-                    <div className="w-8 h-8 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-xl bg-[#E2E8F0]/70 dark:bg-slate-800 text-[#334155] dark:text-slate-300 flex items-center justify-center">
                       <ArrowDownLeft className="w-4 h-4" />
                     </div>
                   </div>
                   <div className="flex items-baseline gap-2 mb-2">
-                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-slate-900 dark:text-slate-100">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-[#0F172A] dark:text-white">
                       {formatCurrency(totalExpenses, currency)}
                     </h2>
                   </div>
-                  <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800/80 text-xs">
-                    <span className="text-slate-500 dark:text-slate-400 text-[11px]">
+                  <div className="flex items-center justify-between pt-2 border-t border-[#E2E8F0] dark:border-slate-800 text-xs">
+                    <span className="text-[#94A3B8] text-[11px]">
                       {summary.totalIncome > 0
                         ? `${Math.round((totalExpenses / summary.totalIncome) * 100)}% ${lang === 'bg' ? 'от приходите' : 'of income'}`
                         : `${lang === 'bg' ? 'Разходен поток' : 'Expense flow'}`}
@@ -807,7 +807,7 @@ export default function App() {
                         setQuickAddInitialDate(undefined);
                         setIsQuickAddOpen(true);
                       }}
-                      className="text-[11px] font-bold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer"
+                      className="text-[11px] font-bold text-[#334155] dark:text-slate-300 hover:underline cursor-pointer"
                     >
                       {lang === 'bg' ? '+ Разход' : '+ Log Expense'}
                     </button>
@@ -815,29 +815,29 @@ export default function App() {
                 </div>
 
                 {/* 4. Wealth & Sinking Accumulation */}
-                <div className="relative overflow-hidden bg-white dark:bg-[#161B22] rounded-2xl p-5 shadow-xs border border-slate-200/80 dark:border-slate-800 hover:shadow-md transition-all duration-300">
+                <div className="relative overflow-hidden bg-white dark:bg-[#161B22] rounded-2xl p-5 shadow-xs border border-[#E2E8F0] dark:border-slate-800 hover:shadow-md transition-all duration-300">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-display">
+                    <span className="text-[11px] font-bold text-[#94A3B8] uppercase tracking-wider font-display">
                       {lang === 'bg' ? 'Спестявания & Фондове' : 'Wealth & Goals Accumulation'}
                     </span>
-                    <div className="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-xl bg-[#E2E8F0]/70 dark:bg-slate-800 text-[#334155] dark:text-slate-300 flex items-center justify-center">
                       <Target className="w-4 h-4" />
                     </div>
                   </div>
                   <div className="flex items-baseline gap-2 mb-2">
-                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-slate-900 dark:text-slate-100">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-[#0F172A] dark:text-white">
                       {formatCurrency(wealthAndGoals, currency)}
                     </h2>
                   </div>
-                  <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800/80 text-xs">
-                    <span className="inline-flex items-center gap-1 text-indigo-600 dark:text-indigo-400 text-[11px] font-bold">
-                      <Coins className="w-3.5 h-3.5" />
+                  <div className="flex items-center justify-between pt-2 border-t border-[#E2E8F0] dark:border-slate-800 text-xs">
+                    <span className="inline-flex items-center gap-1 text-[#334155] dark:text-slate-300 text-[11px] font-bold">
+                      <Coins className="w-3.5 h-3.5 text-[#94A3B8]" />
                       {savingsRate}% {lang === 'bg' ? 'коефициент спестявания' : 'savings rate'}
                     </span>
                     <button
                       type="button"
                       onClick={() => setActiveTab('vaults')}
-                      className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer"
+                      className="text-[11px] font-bold text-[#334155] dark:text-slate-300 hover:underline cursor-pointer"
                     >
                       {lang === 'bg' ? 'Към цели →' : 'View Vaults →'}
                     </button>
@@ -846,13 +846,13 @@ export default function App() {
               </div>
 
               {/* Quick Financial Actions Command Hub */}
-              <div className="bg-white dark:bg-[#161B22] rounded-2xl p-4 sm:p-5 border border-slate-200/80 dark:border-slate-800 shadow-xs">
+              <div className="bg-white dark:bg-[#161B22] rounded-2xl p-4 sm:p-5 border border-[#E2E8F0] dark:border-slate-800 shadow-xs">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5 font-display">
-                    <Sparkles className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#94A3B8] flex items-center gap-1.5 font-display">
+                    <Sparkles className="w-3.5 h-3.5 text-[#334155] dark:text-slate-300" />
                     {lang === 'bg' ? 'Бързи финансови команди' : 'Quick Financial Actions'}
                   </h3>
-                  <span className="text-[11px] text-slate-400 font-medium hidden sm:inline">
+                  <span className="text-[11px] text-[#94A3B8] font-medium hidden sm:inline">
                     {lang === 'bg' ? 'Едно кликване за пълен контрол' : 'One-click transaction commands'}
                   </span>
                 </div>
@@ -864,14 +864,14 @@ export default function App() {
                       setQuickAddInitialDate(undefined);
                       setIsQuickAddOpen(true);
                     }}
-                    className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#1C212A] dark:hover:bg-[#252B37] text-slate-700 dark:text-slate-200 font-semibold text-xs transition-all border border-slate-200/60 dark:border-slate-700/60 hover:border-rose-400/40 cursor-pointer group"
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8FAFC] hover:bg-[#E2E8F0]/70 dark:bg-[#1C212A] dark:hover:bg-[#252B37] text-[#334155] dark:text-slate-200 font-semibold text-xs transition-all border border-[#E2E8F0] dark:border-slate-700/60 cursor-pointer group"
                   >
-                    <div className="w-7 h-7 rounded-lg bg-rose-100 dark:bg-rose-950/70 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="w-7 h-7 rounded-lg bg-[#E2E8F0] dark:bg-slate-800 text-[#334155] dark:text-slate-300 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                       <Plus className="w-4 h-4" />
                     </div>
                     <div className="text-left">
                       <div className="font-bold text-xs">{lang === 'bg' ? 'Запиши разход' : 'Record Expense'}</div>
-                      <div className="text-[10px] text-slate-400">{lang === 'bg' ? 'Нужди / Желания' : 'Needs & Wants'}</div>
+                      <div className="text-[10px] text-[#94A3B8]">{lang === 'bg' ? 'Нужди / Желания' : 'Needs & Wants'}</div>
                     </div>
                   </button>
 
@@ -882,42 +882,42 @@ export default function App() {
                       setQuickAddInitialDate(undefined);
                       setIsQuickAddOpen(true);
                     }}
-                    className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#1C212A] dark:hover:bg-[#252B37] text-slate-700 dark:text-slate-200 font-semibold text-xs transition-all border border-slate-200/60 dark:border-slate-700/60 hover:border-emerald-400/40 cursor-pointer group"
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8FAFC] hover:bg-[#E2E8F0]/70 dark:bg-[#1C212A] dark:hover:bg-[#252B37] text-[#334155] dark:text-slate-200 font-semibold text-xs transition-all border border-[#E2E8F0] dark:border-slate-700/60 cursor-pointer group"
                   >
-                    <div className="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="w-7 h-7 rounded-lg bg-[#E2E8F0] dark:bg-slate-800 text-[#334155] dark:text-slate-300 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                       <ArrowUpRight className="w-4 h-4" />
                     </div>
                     <div className="text-left">
                       <div className="font-bold text-xs">{lang === 'bg' ? 'Добави приход' : 'Add Income'}</div>
-                      <div className="text-[10px] text-slate-400">{lang === 'bg' ? 'Заплата / Бонус' : 'Salary / Extra'}</div>
+                      <div className="text-[10px] text-[#94A3B8]">{lang === 'bg' ? 'Заплата / Бонус' : 'Salary / Extra'}</div>
                     </div>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setActiveTab('vaults')}
-                    className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#1C212A] dark:hover:bg-[#252B37] text-slate-700 dark:text-slate-200 font-semibold text-xs transition-all border border-slate-200/60 dark:border-slate-700/60 hover:border-indigo-400/40 cursor-pointer group"
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8FAFC] hover:bg-[#E2E8F0]/70 dark:bg-[#1C212A] dark:hover:bg-[#252B37] text-[#334155] dark:text-slate-200 font-semibold text-xs transition-all border border-[#E2E8F0] dark:border-slate-700/60 cursor-pointer group"
                   >
-                    <div className="w-7 h-7 rounded-lg bg-indigo-100 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="w-7 h-7 rounded-lg bg-[#E2E8F0] dark:bg-slate-800 text-[#334155] dark:text-slate-300 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                       <Target className="w-4 h-4" />
                     </div>
                     <div className="text-left">
                       <div className="font-bold text-xs">{lang === 'bg' ? 'Зареди цел' : 'Fund Goal'}</div>
-                      <div className="text-[10px] text-slate-400">{lang === 'bg' ? 'Спестовни фондове' : 'Sinking Funds'}</div>
+                      <div className="text-[10px] text-[#94A3B8]">{lang === 'bg' ? 'Спестовни фондове' : 'Sinking Funds'}</div>
                     </div>
                   </button>
 
                   <button
                     type="button"
                     onClick={handleExportCSV}
-                    className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#1C212A] dark:hover:bg-[#252B37] text-slate-700 dark:text-slate-200 font-semibold text-xs transition-all border border-slate-200/60 dark:border-slate-700/60 hover:border-teal-400/40 cursor-pointer group"
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8FAFC] hover:bg-[#E2E8F0]/70 dark:bg-[#1C212A] dark:hover:bg-[#252B37] text-[#334155] dark:text-slate-200 font-semibold text-xs transition-all border border-[#E2E8F0] dark:border-slate-700/60 cursor-pointer group"
                   >
-                    <div className="w-7 h-7 rounded-lg bg-teal-100 dark:bg-teal-950/70 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="w-7 h-7 rounded-lg bg-[#E2E8F0] dark:bg-slate-800 text-[#334155] dark:text-slate-300 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                       <Download className="w-4 h-4" />
                     </div>
                     <div className="text-left">
                       <div className="font-bold text-xs">{lang === 'bg' ? 'Експорт на отчет' : 'Export Report'}</div>
-                      <div className="text-[10px] text-slate-400">{lang === 'bg' ? 'CSV дневник' : 'Download CSV'}</div>
+                      <div className="text-[10px] text-[#94A3B8]">{lang === 'bg' ? 'CSV дневник' : 'Download CSV'}</div>
                     </div>
                   </button>
                 </div>

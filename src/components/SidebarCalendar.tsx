@@ -115,11 +115,11 @@ export const SidebarCalendar: React.FC<SidebarCalendarProps> = ({
     : null;
 
   return (
-    <div className="bg-[#1f212f] dark:bg-[#111318] rounded-xl p-2.5 text-slate-200 border border-white/5 dark:border-slate-800 shadow-inner relative select-none">
+    <div className="bg-[#1E293B] rounded-xl p-2.5 text-slate-200 border border-slate-800 shadow-inner relative select-none">
       {/* Header: Month/Year navigation and jump today */}
-      <div className="flex items-center justify-between mb-2 pb-1.5 border-b border-white/10 dark:border-slate-800">
+      <div className="flex items-center justify-between mb-2 pb-1.5 border-b border-slate-800">
         <div className="flex items-center gap-1.5">
-          <Calendar className="w-3.5 h-3.5 text-teal-400" />
+          <Calendar className="w-3.5 h-3.5 text-slate-300" />
           <span className="text-[11px] font-bold font-display text-white tracking-wide">
             {monthNames[currentMonth]} {currentYear}
           </span>
@@ -130,7 +130,7 @@ export const SidebarCalendar: React.FC<SidebarCalendarProps> = ({
             <button
               onClick={handleJumpToToday}
               title={lang === 'bg' ? 'Към днес' : 'Jump to Today'}
-              className="p-1 rounded-md bg-white/10 hover:bg-white/20 text-teal-300 transition-colors cursor-pointer text-[10px]"
+              className="p-1 rounded-md bg-white/10 hover:bg-white/20 text-slate-300 transition-colors cursor-pointer text-[10px]"
             >
               <RotateCcw className="w-2.5 h-2.5" />
             </button>
@@ -138,14 +138,14 @@ export const SidebarCalendar: React.FC<SidebarCalendarProps> = ({
           <button
             onClick={handlePrevMonth}
             title={lang === 'bg' ? 'Предишен месец' : 'Previous Month'}
-            className="p-1 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-colors cursor-pointer"
+            className="p-1 rounded-md hover:bg-white/10 text-[#94A3B8] hover:text-white transition-colors cursor-pointer"
           >
             <ChevronLeft className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={handleNextMonth}
             title={lang === 'bg' ? 'Следващ месец' : 'Next Month'}
-            className="p-1 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-colors cursor-pointer"
+            className="p-1 rounded-md hover:bg-white/10 text-[#94A3B8] hover:text-white transition-colors cursor-pointer"
           >
             <ChevronRight className="w-3.5 h-3.5" />
           </button>
@@ -153,9 +153,9 @@ export const SidebarCalendar: React.FC<SidebarCalendarProps> = ({
       </div>
 
       {/* Weekday labels */}
-      <div className="grid grid-cols-7 gap-1 text-center text-[9px] font-semibold text-slate-400 mb-1">
+      <div className="grid grid-cols-7 gap-1 text-center text-[9px] font-semibold text-[#94A3B8] mb-1">
         {dayHeaders.map((dh, idx) => (
-          <div key={idx} className={idx === 0 || idx === 6 ? 'text-teal-400/80' : ''}>
+          <div key={idx} className={idx === 0 || idx === 6 ? 'text-slate-400' : ''}>
             {dh}
           </div>
         ))}
@@ -188,9 +188,9 @@ export const SidebarCalendar: React.FC<SidebarCalendarProps> = ({
               }
               className={`h-6.5 w-full rounded-md flex flex-col items-center justify-center relative transition-all cursor-pointer ${
                 isSelected
-                  ? 'bg-teal-500 text-white font-bold shadow-xs scale-105 z-10'
+                  ? 'bg-[#334155] text-white font-bold ring-1 ring-slate-400 shadow-xs scale-105 z-10'
                   : isToday
-                  ? 'bg-white/20 text-white font-bold ring-1 ring-teal-400/70'
+                  ? 'bg-white/20 text-white font-bold ring-1 ring-slate-400/60'
                   : 'text-slate-300 hover:bg-white/10 hover:text-white'
               }`}
             >
@@ -208,7 +208,7 @@ export const SidebarCalendar: React.FC<SidebarCalendarProps> = ({
                       title={lang === 'bg' ? 'Приход' : 'Income logged'}
                     />
                   )}
-                  {/* Red dot: High Spending (or rose dot for spending) */}
+                  {/* Red dot: High Spending */}
                   {hasSpending && (
                     <span
                       className={`w-1 h-1 rounded-full ${
@@ -225,7 +225,7 @@ export const SidebarCalendar: React.FC<SidebarCalendarProps> = ({
       </div>
 
       {/* Visual Legend */}
-      <div className="flex items-center justify-between text-[9px] text-slate-400 mt-2 pt-1.5 border-t border-white/10 dark:border-slate-800">
+      <div className="flex items-center justify-between text-[9px] text-[#94A3B8] mt-2 pt-1.5 border-t border-slate-800">
         <div className="flex items-center gap-1.5" title="Days with recorded income">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block shadow-xs" />
           <span className="text-[9px] text-slate-300">{lang === 'bg' ? 'Приход' : 'Income'}</span>
@@ -238,14 +238,14 @@ export const SidebarCalendar: React.FC<SidebarCalendarProps> = ({
 
       {/* Selected Day Popover Card */}
       {selectedDayNumber !== null && (
-        <div className="mt-2.5 p-2.5 bg-[#171923] dark:bg-[#141720] rounded-xl border border-teal-500/30 text-xs space-y-2 shadow-lg animate-fadeIn">
-          <div className="flex items-center justify-between border-b border-white/10 pb-1.5">
+        <div className="mt-2.5 p-2.5 bg-[#0F172A] rounded-xl border border-slate-700 text-xs space-y-2 shadow-lg animate-fadeIn">
+          <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
             <span className="font-bold text-white text-[11px]">
               {selectedDayNumber} {monthNames[currentMonth]} {currentYear}
             </span>
             <button
               onClick={() => setSelectedDayNumber(null)}
-              className="text-slate-400 hover:text-white p-0.5 cursor-pointer"
+              className="text-[#94A3B8] hover:text-white p-0.5 cursor-pointer"
             >
               <X className="w-3 h-3" />
             </button>
@@ -269,7 +269,7 @@ export const SidebarCalendar: React.FC<SidebarCalendarProps> = ({
               </div>
 
               {/* Transactions on this day */}
-              <div className="max-h-24 overflow-y-auto divide-y divide-white/5 pr-1 text-[10px]">
+              <div className="max-h-24 overflow-y-auto divide-y divide-slate-800 pr-1 text-[10px]">
                 {selectedDayData.txs.map(tx => (
                   <div key={tx.id} className="py-1 flex items-center justify-between text-slate-300">
                     <span className="truncate max-w-[120px] text-slate-200">{tx.note || tx.category}</span>
@@ -284,20 +284,20 @@ export const SidebarCalendar: React.FC<SidebarCalendarProps> = ({
                 <button
                   type="button"
                   onClick={() => onSelectDate(selectedDateFormatted)}
-                  className="w-full mt-1 py-1 rounded bg-teal-500/20 hover:bg-teal-500/30 text-teal-300 text-[10px] font-semibold transition-colors cursor-pointer text-center"
+                  className="w-full mt-1 py-1 rounded bg-[#334155] hover:bg-[#334155]/80 text-white text-[10px] font-semibold transition-colors cursor-pointer text-center"
                 >
                   {lang === 'bg' ? 'Филтрирай в Дневник →' : 'Filter in Ledger →'}
                 </button>
               )}
             </div>
           ) : (
-            <div className="py-1 text-center text-slate-400 text-[10px]">
+            <div className="py-1 text-center text-[#94A3B8] text-[10px]">
               <p>{lang === 'bg' ? 'Няма транзакции за този ден.' : 'No transactions on this date.'}</p>
               {onOpenQuickAddWithDate && selectedDateFormatted && (
                 <button
                   type="button"
                   onClick={() => onOpenQuickAddWithDate(selectedDateFormatted)}
-                  className="mt-1.5 px-2 py-0.5 rounded bg-teal-500/20 hover:bg-teal-500/30 text-teal-300 text-[10px] font-medium transition-colors cursor-pointer"
+                  className="mt-1.5 px-2 py-0.5 rounded bg-[#334155] hover:bg-[#334155]/80 text-white text-[10px] font-medium transition-colors cursor-pointer"
                 >
                   + {lang === 'bg' ? 'Добави запис' : 'Log transaction'}
                 </button>

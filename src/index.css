@@ -3,31 +3,11 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-zinc-950: #1A1C19;
-  --color-zinc-900: #242722;
-  --color-zinc-850: #2A2E27;
-  --color-zinc-800: #31362E;
-  --color-zinc-750: #383E34;
-  --color-zinc-700: #3F443B;
-  --color-zinc-650: #4E5549;
-  --color-zinc-600: #5F6659;
-  --color-zinc-500: #818B7B;
-  --color-zinc-400: #A6AF9F;
-  --color-zinc-300: #CBD3C6;
-  --color-zinc-200: #E5ECE0;
-  --color-zinc-100: #F5F8F2;
-  --color-zinc-50: #FFFFFF;
-
-  --color-gold-50: #FAF6E8;
-  --color-gold-100: #F5ECCB;
-  --color-gold-200: #EAD897;
-  --color-gold-300: #DFC463;
-  --color-gold-400: #D4AF37;
-  --color-gold-500: #D4AF37;
-  --color-gold-600: #C29F2B;
-  --color-gold-700: #A3841F;
-  --color-gold-800: #7A6317;
-  --color-gold-900: #52420F;
+  --color-canvas: #F8FAFC;
+  --color-subtle: #E2E8F0;
+  --color-muted: #94A3B8;
+  --color-slate-dark: #334155;
+  --color-midnight: #0F172A;
 }
 
 @layer base {
@@ -46,6 +26,7 @@
     overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
+    background-color: #F8FAFC;
   }
 
   body {
@@ -53,13 +34,25 @@
     overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
+    background-color: #F8FAFC;
+    color: #0F172A;
+  }
+
+  :root.dark body {
+    background-color: #0F172A;
+    color: #F8FAFC;
   }
 }
 
-/* Light mode enhanced card shadows and borders for crisp depth */
+/* Light mode enhanced card shadows and crisp hairline borders */
 :root:not(.dark) .shadow-xl,
 :root:not(.dark) .shadow-2xl {
   box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.02);
+}
+
+:root:not(.dark) .shadow-xs,
+:root:not(.dark) .shadow-sm {
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
 }
 
 :root:not(.dark) .shadow-md {
@@ -93,10 +86,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-zinc-700);
+  background: #334155;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-zinc-600);
+  background: #94A3B8;
 }

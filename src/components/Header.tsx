@@ -38,16 +38,33 @@ export const Header: React.FC<HeaderProps> = ({
   const currencies: Currency[] = ['BGN', 'EUR', 'USD', 'GBP'];
 
   return (
-    <header id="app-header" className="sticky top-0 z-40 w-full bg-white/85 dark:bg-[#15181E]/90 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800 text-slate-800 dark:text-slate-100 transition-colors duration-200 shadow-2xs">
+    <header id="app-header" className="sticky top-0 z-40 w-full bg-[#F8FAFC]/90 dark:bg-[#0F172A]/90 backdrop-blur-xl border-b border-[#E2E8F0] dark:border-slate-800 text-[#0F172A] dark:text-slate-100 transition-colors duration-200 shadow-2xs">
       <div className="w-full px-2 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-1.5 sm:gap-3">
-        {/* Desktop Search Bar */}
-        <div className="hidden lg:block flex-1 max-w-xs relative">
-          <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-          <input 
-            type="text" 
-            placeholder={lang === 'bg' ? 'Търсене...' : 'Search records...'} 
-            className="w-full pl-9 pr-4 py-1.5 bg-slate-50/80 dark:bg-[#1A1E26] hover:bg-slate-50 dark:hover:bg-[#20252F] focus:bg-white dark:focus:bg-[#20252F] border border-slate-200 dark:border-slate-700/80 rounded-xl text-xs sm:text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#174E5B]/20 dark:focus:ring-emerald-500/20 focus:border-[#174E5B] dark:focus:border-emerald-500 transition-all shadow-2xs"
-          />
+        {/* Desktop Search Bar & SwatchPilot Palette Indicator */}
+        <div className="hidden lg:flex items-center gap-3 flex-1 max-w-md">
+          <div className="flex-1 max-w-xs relative">
+            <Search className="w-4 h-4 text-[#94A3B8] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input 
+              type="text" 
+              placeholder={lang === 'bg' ? 'Търсене...' : 'Search records...'} 
+              className="w-full pl-9 pr-4 py-1.5 bg-white dark:bg-[#1E293B] hover:bg-slate-50 dark:hover:bg-[#252B37] focus:bg-white dark:focus:bg-[#1E293B] border border-[#E2E8F0] dark:border-slate-700/80 rounded-xl text-xs sm:text-sm text-[#0F172A] dark:text-slate-100 placeholder-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#334155]/20 dark:focus:ring-slate-500/20 focus:border-[#334155] dark:focus:border-slate-500 transition-all shadow-2xs"
+            />
+          </div>
+
+          {/* SwatchPilot Active Palette Indicator */}
+          <div 
+            className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-slate-700/80 text-[11px] font-medium text-[#334155] dark:text-slate-300 shadow-2xs select-none"
+            title="SwatchPilot Neutral SaaS Palette (#F8FAFC, #E2E8F0, #94A3B8, #334155, #0F172A)"
+          >
+            <span className="text-[10px] font-bold text-[#94A3B8]">Palette:</span>
+            <div className="flex items-center -space-x-1">
+              <span className="w-3 h-3 rounded-full bg-[#F8FAFC] border border-slate-300 shadow-2xs" title="#F8FAFC Canvas" />
+              <span className="w-3 h-3 rounded-full bg-[#E2E8F0] border border-slate-300 shadow-2xs" title="#E2E8F0 Border/Subtle" />
+              <span className="w-3 h-3 rounded-full bg-[#94A3B8] shadow-2xs" title="#94A3B8 Muted" />
+              <span className="w-3 h-3 rounded-full bg-[#334155] shadow-2xs" title="#334155 Slate Navy" />
+              <span className="w-3 h-3 rounded-full bg-[#0F172A] shadow-2xs" title="#0F172A Midnight" />
+            </div>
+          </div>
         </div>
 
         {/* Pay Period Interactive Selector */}
@@ -67,41 +84,41 @@ export const Header: React.FC<HeaderProps> = ({
             id="currency-selector"
             value={settings.currency}
             onChange={(e) => onUpdateSettings({ currency: e.target.value as Currency })}
-            className="bg-slate-50 dark:bg-[#1A1E26] hover:bg-slate-100 dark:hover:bg-[#20252F] text-slate-800 dark:text-slate-200 text-[11px] sm:text-xs font-semibold px-1.5 sm:px-2.5 py-1 sm:py-1.5 rounded-xl border border-slate-200 dark:border-slate-700/80 focus:outline-none focus:ring-2 focus:ring-[#174E5B]/20 dark:focus:ring-emerald-500/20 focus:border-[#174E5B] dark:focus:border-emerald-500 cursor-pointer transition-colors shadow-2xs"
+            className="bg-white dark:bg-[#1E293B] hover:bg-slate-50 dark:hover:bg-[#252B37] text-[#334155] dark:text-slate-200 text-[11px] sm:text-xs font-semibold px-1.5 sm:px-2.5 py-1 sm:py-1.5 rounded-xl border border-[#E2E8F0] dark:border-slate-700/80 focus:outline-none focus:ring-2 focus:ring-[#334155]/20 dark:focus:ring-slate-500/20 focus:border-[#334155] dark:focus:border-slate-500 cursor-pointer transition-colors shadow-2xs"
           >
             {currencies.map((c) => (
-              <option key={c} value={c} className="dark:bg-[#1A1E26] dark:text-slate-200">
+              <option key={c} value={c} className="dark:bg-[#1E293B] dark:text-slate-200">
                 {c}
               </option>
             ))}
           </select>
 
           {/* Grouped Toggles: Language & Theme Pill to prevent mobile overflow */}
-          <div className="inline-flex items-center rounded-xl bg-slate-50 dark:bg-[#1A1E26] border border-slate-200 dark:border-slate-700/80 p-0.5 shadow-2xs">
+          <div className="inline-flex items-center rounded-xl bg-white dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-slate-700/80 p-0.5 shadow-2xs">
             {/* Language Toggle */}
             <button
               id="language-toggle-btn"
               onClick={() => onUpdateSettings({ language: lang === 'en' ? 'bg' : 'en' })}
-              className="flex items-center gap-1 px-1.5 py-1 rounded-lg hover:bg-white dark:hover:bg-[#252B37] text-[11px] font-bold text-slate-700 dark:text-slate-200 transition-all cursor-pointer"
+              className="flex items-center gap-1 px-1.5 py-1 rounded-lg hover:bg-slate-50 dark:hover:bg-[#252B37] text-[11px] font-bold text-[#334155] dark:text-slate-200 transition-all cursor-pointer"
               title="Toggle Language (EN / BG)"
             >
-              <Globe className="w-3.5 h-3.5 text-[#174E5B] dark:text-emerald-400" />
+              <Globe className="w-3.5 h-3.5 text-[#334155] dark:text-slate-300" />
               <span className="uppercase text-[10px] sm:text-[11px] font-bold">{lang}</span>
             </button>
 
-            <div className="w-[1px] h-3.5 bg-slate-200 dark:bg-slate-700 mx-0.5" />
+            <div className="w-[1px] h-3.5 bg-[#E2E8F0] dark:bg-slate-700 mx-0.5" />
 
             {/* Theme Toggle */}
             <button
               id="theme-toggle-btn"
               onClick={() => onUpdateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' })}
-              className="p-1 sm:p-1.5 rounded-lg hover:bg-white dark:hover:bg-[#252B37] text-slate-500 dark:text-slate-400 hover:text-[#174E5B] dark:hover:text-amber-300 transition-all cursor-pointer"
+              className="p-1 sm:p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-[#252B37] text-[#94A3B8] hover:text-[#334155] dark:hover:text-amber-300 transition-all cursor-pointer"
               title="Toggle Theme"
             >
               {settings.theme === 'dark' ? (
                 <Sun className="w-3.5 h-3.5 text-amber-300" />
               ) : (
-                <Moon className="w-3.5 h-3.5 text-[#174E5B]" />
+                <Moon className="w-3.5 h-3.5 text-[#334155]" />
               )}
             </button>
           </div>
@@ -111,7 +128,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               id="open-shortcuts-btn"
               onClick={onOpenShortcuts}
-              className="p-2 rounded-xl bg-slate-50 dark:bg-[#1A1E26] hover:bg-slate-100 dark:hover:bg-[#20252F] text-slate-500 dark:text-slate-400 hover:text-[#174E5B] dark:hover:text-slate-200 border border-slate-200 dark:border-slate-700/80 shadow-2xs transition-colors cursor-pointer hidden md:flex items-center gap-1.5"
+              className="p-2 rounded-xl bg-white dark:bg-[#1E293B] hover:bg-slate-50 dark:hover:bg-[#252B37] text-[#94A3B8] hover:text-[#334155] dark:hover:text-slate-200 border border-[#E2E8F0] dark:border-slate-700/80 shadow-2xs transition-colors cursor-pointer hidden md:flex items-center gap-1.5"
               title={`${t('keyboardShortcuts')} (?)`}
             >
               <Keyboard className="w-4 h-4" />
